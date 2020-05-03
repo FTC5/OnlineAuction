@@ -65,6 +65,16 @@
     <Compile Include="Moderation.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="Repository\AuthenticationRepository.cs" />
+    <Compile Include="Repository\BetRepository.cs" />
+    <Compile Include="Repository\CategoryReposytory.cs" />
+    <Compile Include="Repository\DeliveryAndPaymentRepository.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
+    <Compile Include="Repository\LotReposytory.cs" />
+    <Compile Include="Repository\ManagerRepository.cs" />
+    <Compile Include="Repository\ModerationRepository.cs" />
+    <Compile Include="Repository\ProductReposytory.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
