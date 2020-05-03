@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL
 {
-    public class Authentication
+    public class Bet
     {
     }
 }

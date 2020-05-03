@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL
 {
-    class User
+    public class User
     {
     }
 }
