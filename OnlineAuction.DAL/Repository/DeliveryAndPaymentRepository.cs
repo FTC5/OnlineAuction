@@ -35,6 +35,11 @@ namespace OnlineAuction.DAL.Repository
             return db.DeliveryAndPayment.Find(id);
         }
 
+        public IQueryable<DeliveryAndPayment> GetAll()
+        {
+            return db.DeliveryAndPayment;
+        }
+
         public void Update(DeliveryAndPayment item)
         {
             db.Entry(item).State = EntityState.Modified;

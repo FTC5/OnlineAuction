@@ -13,8 +13,6 @@ namespace OnlineAuction.DAL
     {
         [Key]
         public int Id { get; set; }
-        //[ForeignKey("Product")]
-        //public int ProductId { get; set; }
         [Column("Link", TypeName = "ntext")]
         [MaxLength(200)]
         [Required]

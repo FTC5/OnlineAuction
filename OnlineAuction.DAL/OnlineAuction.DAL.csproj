@@ -59,8 +59,6 @@
     <Compile Include="Context\OnlineAuctionContext.cs" />
     <Compile Include="DeliveryAndPayment.cs" />
     <Compile Include="Image.cs" />
-    <Compile Include="Interfaces\IBetRepository.cs" />
-    <Compile Include="Interfaces\IDeliveryAndPaymentRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Lot.cs" />

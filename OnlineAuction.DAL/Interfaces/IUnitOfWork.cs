@@ -10,7 +10,7 @@ namespace OnlineAuction.DAL.Interfaces
     {
 
         IRepository<Authentication> Authentication { get ; }
-        IBetRepository Bet { get; }
+        IRepository<Bet> Bet { get; }
         IRepository<Category> Category { get; }
         IRepository<DeliveryAndPayment> DeliveryAndPayment { get; }
         IRepository<Image> Image { get; }

@@ -35,6 +35,11 @@ namespace OnlineAuction.DAL.Repository
             return db.Authentication.Find(id);
         }
 
+        public IQueryable<Authentication> GetAll()
+        {
+            return db.Authentication;
+        }
+
         public void Update(Authentication item)
         {
             db.Entry(item).State = EntityState.Modified;

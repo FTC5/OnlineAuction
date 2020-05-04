@@ -17,7 +17,7 @@ namespace OnlineAuction.DAL.UnitOfWork
         DeliveryAndPaymentRepository deliveryAndPayment;
         ImageRepository image;
         LotReposytory lot;
-        ManagerRepository manager;
+        AdvancedUserRepository advancedUser;
         ModerationRepository moderation;
         ProductReposytory product;
         UserRepository user;
@@ -40,7 +40,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IBetRepository BetRepository
+        public IRepository<Bet> BetRepository
         {
             get
             {
@@ -100,15 +100,15 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IRepository<Manager> Manager 
+        public IRepository<AdvancedUser> AdvancedUser
         {
             get
             {
-                if (manager == null)
+                if (advancedUser == null)
                 {
-                    manager = new ManagerRepository (db);
+                    advancedUser = new AdvancedUserRepository(db);
     			}
-                return manager;
+                return advancedUser;
             }
         }
 
@@ -148,7 +148,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IBetRepository Bet 
+        public IRepository<Bet> Bet 
         {
             get
             {

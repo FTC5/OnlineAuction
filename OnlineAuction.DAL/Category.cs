@@ -17,8 +17,6 @@ namespace OnlineAuction.DAL
         [Column("Name", TypeName = "ntext")]
         [MaxLength(50)]
         public string Name { get; set; }
-        [ForeignKey("ParentCategory")]
-        public int ParentCategoryId { get; set; }
         public virtual Category ParentCategory { get; set; }
     }
 }

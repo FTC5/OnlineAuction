@@ -35,6 +35,11 @@ namespace OnlineAuction.DAL.Repository
             return db.Image.Find(id);
         }
 
+        public IQueryable<Image> GetAll()
+        {
+            return db.Image;
+        }
+
         public void Update(Image item)
         {
             db.Entry(item).State = EntityState.Modified;

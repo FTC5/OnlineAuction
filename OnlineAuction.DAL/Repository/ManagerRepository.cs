@@ -35,6 +35,11 @@ namespace OnlineAuction.DAL.Repository
             return db.AdvancedUser.Find(id);
         }
 
+        public IQueryable<AdvancedUser> GetAll()
+        {
+            return db.AdvancedUser;
+        }
+
         public void Update(AdvancedUser item)
         {
             db.Entry(item).State = EntityState.Modified;

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineAuction.DAL.Interfaces
+namespace OnlineAuction.BLL.DTO
 {
-    public interface IBetRepository : IRepository<Bet>
+    public class AdvancedUserDTO : PersonDTO
     {
-        IQueryable<Bet> GetAll();
+        public bool Admin { get; set; }
     }
 }

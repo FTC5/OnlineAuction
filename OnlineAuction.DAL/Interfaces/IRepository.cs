@@ -10,6 +10,7 @@ namespace OnlineAuction.DAL.Interfaces
     {
         T Get(int id);
         //IQueryable<T> Find(Func<T, Boolean> perdicate);
+        IQueryable<T> GetAll();
         void Create(T item);
         void Update(T item); 
         void Delete(int id);

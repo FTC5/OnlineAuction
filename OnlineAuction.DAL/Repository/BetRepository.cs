@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    public class BetRepository : IRepository<Bet>, IBetRepository
+    public class BetRepository : IRepository<Bet>
     {
         private OnlineAuctionContext db;
 
