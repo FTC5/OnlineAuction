@@ -37,11 +37,12 @@ namespace OnlineAuction.DAL.Context
             context.Authentication.Add(authenticationManager);
             var user1 = new User() { FirstName = firstNames[0], LastName = lastNames[0], DateOfBirth = "-", PhoneNumber = 0964573341, Authentication = authenticationUser1 };
             var user2 = new User() { FirstName = firstNames[1], LastName = lastNames[1], DateOfBirth = "-", PhoneNumber = 0964573342, Authentication = authenticationUser2 };
-            var admin = new Admin() { FirstName = firstNames[2], LastName = lastNames[2], DateOfBirth = "-", PhoneNumber = 0964573343, Authentication = authenticationAdmin };
-            var manager = new Manager() { FirstName = firstNames[3], LastName = lastNames[3], DateOfBirth = "-", PhoneNumber = 0964573344, Authentication = authenticationManager };
+            var admin = new AdvancedUser() { FirstName = firstNames[2], LastName = lastNames[2], DateOfBirth = "-", PhoneNumber = 0964573343, Authentication = authenticationAdmin,Admin=true};
+            var manager = new AdvancedUser() { FirstName = firstNames[3], LastName = lastNames[3], DateOfBirth = "-", PhoneNumber = 0964573344, Authentication = authenticationManager };
             context.User.Add(user1);
             context.User.Add(user2);
-            context.Admin.Add(admin);
+            context.AdvancedUser.Add(admin);
+            context.AdvancedUser.Add(manager);
             var image = new Image() { Link = "https://media.istockphoto.com/photos/fisherman-caught-a-boot-on-spoonbait-picture-id153986903" };
             var del = new DeliveryAndPayment { CostOfdelivery = "0", PurchaseReturns = "", SendingAbroad = "" };
             var product = new Product() { Category = cat, DeliveryAndPayment = del, Location = "XD", Description = "-", Price = 100, Name = "Ботинок На Ложкибейт" };
@@ -56,8 +57,6 @@ namespace OnlineAuction.DAL.Context
             context.DeliveryAndPayment.Add(del);
             context.Lot.Add(lot);
             context.Moderation.Add(moderation);
-            //manager.Moderation.Add(moderation);
-            context.Manager.Add(manager);
             context.SaveChanges(); 
         }
     }

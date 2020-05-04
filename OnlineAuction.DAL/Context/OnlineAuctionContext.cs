@@ -18,11 +18,10 @@ namespace OnlineAuction.DAL.Context
         public virtual DbSet<DeliveryAndPayment> DeliveryAndPayment { get; set; }
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<Lot> Lot { get; set; }
-        public virtual DbSet<Manager> Manager { get; set; }
+        public virtual DbSet<AdvancedUser> AdvancedUser { get; set; }
         public virtual DbSet<Moderation> Moderation { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Admin> Admin { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

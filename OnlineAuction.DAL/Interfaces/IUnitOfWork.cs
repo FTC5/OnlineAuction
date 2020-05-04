@@ -15,7 +15,7 @@ namespace OnlineAuction.DAL.Interfaces
         IRepository<DeliveryAndPayment> DeliveryAndPayment { get; }
         IRepository<Image> Image { get; }
         IRepository<Lot> Lot { get; }
-        IRepository<Manager> Manager { get; }
+        IRepository<AdvancedUser> AdvancedUser { get; }
         IRepository<Moderation> Moderation { get; }
         IRepository<Product> Product { get; }
         IRepository<User> User { get; }

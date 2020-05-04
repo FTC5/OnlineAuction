@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL
 {
-    [Table("Manager")]
-    public class Manager: Person
+    [Table("AdvancedUser")]
+    public class AdvancedUser : Person
     {
-       
+        [Column("Admin", TypeName = "bit")]
+        public bool Admin { get; set; } = false;
     }
 }

@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.cs" />
     <Compile Include="Context\DropCreateDBOnModelChanged.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Authentication.cs" />
@@ -66,7 +65,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Lot.cs" />
     <Compile Include="Moderation.cs" />
-    <Compile Include="Manager.cs" />
+    <Compile Include="AdvancedUser.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Repository\AuthenticationRepository.cs" />
     <Compile Include="Repository\BetRepository.cs" />

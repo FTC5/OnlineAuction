@@ -9,33 +9,33 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class ManagerRepository : IRepository<Manager>
+    class AdvancedUserRepository : IRepository<AdvancedUser>
     {
         private OnlineAuctionContext db;
 
-        public ManagerRepository(OnlineAuctionContext db)
+        public AdvancedUserRepository(OnlineAuctionContext db)
         {
             this.db = db;
         }
 
-        public void Create(Manager item)
+        public void Create(AdvancedUser item)
         {
-            this.db.Manager.Add(item);
+            this.db.AdvancedUser.Add(item);
         }
 
         public void Delete(int id)
         {
-            Manager manager = db.Manager.Find(id);
+            AdvancedUser manager = db.AdvancedUser.Find(id);
             if (manager != null)
-                db.Manager.Remove(manager);
+                db.AdvancedUser.Remove(manager);
         }
 
-        public Manager Get(int id)
+        public AdvancedUser Get(int id)
         {
-            return db.Manager.Find(id);
+            return db.AdvancedUser.Find(id);
         }
 
-        public void Update(Manager item)
+        public void Update(AdvancedUser item)
         {
             db.Entry(item).State = EntityState.Modified;
         }
