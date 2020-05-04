@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.960
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.DAL", "OnlineAuction.DAL\OnlineAuction.DAL.csproj", "{7AB3C335-1373-4FE5-9826-A72A0821BA6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBDBuid", "TestBDBuid\TestBDBuid.csproj", "{690D23BF-FEBF-455C-A015-91AE5095262B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690D23BF-FEBF-455C-A015-91AE5095262B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690D23BF-FEBF-455C-A015-91AE5095262B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690D23BF-FEBF-455C-A015-91AE5095262B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690D23BF-FEBF-455C-A015-91AE5095262B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

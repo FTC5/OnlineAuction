@@ -35,11 +35,6 @@ namespace OnlineAuction.DAL.Repository
             return db.Product.Find(id);
         }
 
-        public IQueryable<Product> GetAll()
-        {
-            return db.Product;
-        }
-
         public void Update(Product item)
         {
             db.Entry(item).State = EntityState.Modified;

@@ -2,6 +2,7 @@
 using OnlineAuction.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,22 +20,24 @@ namespace OnlineAuction.DAL.Repository
 
         public void Create(Authentication item)
         {
-            throw new NotImplementedException();
+            this.db.Authentication.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Authentication aut = db.Authentication.Find(id);
+            if (aut != null)
+                db.Authentication.Remove(aut);
         }
 
         public Authentication Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Authentication.Find(id);
         }
 
         public void Update(Authentication item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
     }
 }

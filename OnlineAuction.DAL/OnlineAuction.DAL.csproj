@@ -51,8 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
+    <Compile Include="Context\DropCreateDBOnModelChanged.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Authentication.cs" />
-    <Compile Include="Bets.cs" />
+    <Compile Include="Bet.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Context\OnlineAuctionContext.cs" />
     <Compile Include="DeliveryAndPayment.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Repository\ModerationRepository.cs" />
     <Compile Include="Repository\ProductReposytory.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

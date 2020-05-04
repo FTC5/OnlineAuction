@@ -2,6 +2,7 @@
 using OnlineAuction.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,28 +20,29 @@ namespace OnlineAuction.DAL.Repository
 
         public void Create(Bet item)
         {
-            throw new NotImplementedException();
+            this.db.Bet.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Bet bet = db.Bet.Find(id);
+            if (bet != null)
+                db.Bet.Remove(bet);
         }
 
         public Bet Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Bet.Find(id);
         }
 
         public IQueryable<Bet> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Bet;
         }
 
         public void Update(Bet item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
-        private bool disposed = false;
     }
 }

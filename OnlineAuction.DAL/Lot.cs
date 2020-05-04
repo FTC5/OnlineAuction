@@ -17,23 +17,19 @@ namespace OnlineAuction.DAL
             get { return bets ?? (bets = new List<Bet>()); }
             set { bets = value; }
         }
-        private ICollection<Image> image;
-        public virtual ICollection<Image> Image
-        {
-            get { return image ?? (image = new List<Image>()); }
-            set { image = value; }
-        }
-        [Key]
+        [Key,ForeignKey("Product")]
         public int Id { get; set; }
         public int MinimumStroke { get; set; } = 1;
         public int BetsCount { get; set; } = 0;
-        [ForeignKey("Key")]
+        [ForeignKey("User")]
         public int UserId { get; set; }
         [Column("ModerationResult", TypeName = "bit")]
         public bool ModerationResult { get; set; } = false;
         [Required]
         public int TermDay { get; set; }
         public virtual User User { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Moderation Moderation { get; set; }
 
     }
 }

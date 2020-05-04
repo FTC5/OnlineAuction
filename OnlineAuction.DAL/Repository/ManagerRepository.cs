@@ -2,6 +2,7 @@
 using OnlineAuction.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,22 +20,24 @@ namespace OnlineAuction.DAL.Repository
 
         public void Create(Manager item)
         {
-            throw new NotImplementedException();
+            this.db.Manager.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Manager manager = db.Manager.Find(id);
+            if (manager != null)
+                db.Manager.Remove(manager);
         }
 
         public Manager Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Manager.Find(id);
         }
 
         public void Update(Manager item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
     }
 }

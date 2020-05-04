@@ -11,6 +11,12 @@ namespace OnlineAuction.DAL
     [Table("Product")]
     public class Product
     {
+        private ICollection<Image> image;
+        public virtual ICollection<Image> Images
+        {
+            get { return image ?? (image = new List<Image>()); }
+            set { image = value; }
+        }
         [Key]
         public int Id { get; set; }
         [Column("Name", TypeName = "ntext")]
@@ -30,6 +36,8 @@ namespace OnlineAuction.DAL
         [ForeignKey("Category")]
         [Required]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual DeliveryAndPayment DeliveryAndPayment { get; set; }
+        public virtual Lot Lot { get; set; }
     }
 }

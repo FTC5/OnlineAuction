@@ -8,15 +8,17 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL
 {
-    [Table("DeliveryAndPayment")]
+    [Table("Category")]
     public class Category
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required]
+        [Column("Name", TypeName = "ntext")]
+        [MaxLength(50)]
         public string Name { get; set; }
         [ForeignKey("ParentCategory")]
-        public string ParentCategoryId { get; set; }
+        public int ParentCategoryId { get; set; }
         public virtual Category ParentCategory { get; set; }
     }
 }

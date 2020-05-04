@@ -13,10 +13,10 @@ namespace OnlineAuction.DAL
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("Product")]
-        public int ProductId { get; set; }
+        //[ForeignKey("Product")]
+        //public int ProductId { get; set; }
         [Column("Link", TypeName = "ntext")]
-        [MaxLength(20)]
+        [MaxLength(200)]
         [Required]
         public string Link { get; set; }
         public virtual Product Product { get; set; }

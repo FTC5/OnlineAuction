@@ -35,11 +35,6 @@ namespace OnlineAuction.DAL.Repository
             return db.Moderation.Find(id);
         }
 
-        public IQueryable<Moderation> GetAll()
-        {
-            return db.Moderation;
-        }
-
         public void Update(Moderation item)
         {
             db.Entry(item).State = EntityState.Modified;

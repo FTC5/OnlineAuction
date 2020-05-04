@@ -14,11 +14,11 @@ namespace OnlineAuction.DAL
         [Key,ForeignKey("Lot")]
         public int Id { get; set; }
         [Column("Comment", TypeName = "ntext")]
-        [MaxLength(50)]
-        public string Comment { get; set; }
+        [MaxLength(250)]
+        public string Comment { get; set; } = "";
         [Column("ModerationResult", TypeName = "bit")]
         [Required]
         public bool ModerationResult { get; set; } = false;
-        Lot Lot { get; set; }
+        public Lot Lot { get; set; }
     }
 }
