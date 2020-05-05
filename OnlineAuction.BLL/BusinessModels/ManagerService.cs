@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class ManagerService:Service
+    class ManagerService:Service, IManagerService
     {
         public ManagerService(IUnitOfWork db) : base(db)
         {

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class AuthenticationService : Service
+    class AuthenticationService : Service, IAuthenticationService
     {
         public AuthenticationService(IUnitOfWork db) : base(db)
         {

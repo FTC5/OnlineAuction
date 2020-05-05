@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class CleanService:Service
+    class CleanService:Service, ICleanService
     {
         public CleanService(IUnitOfWork db) : base(db)
         {

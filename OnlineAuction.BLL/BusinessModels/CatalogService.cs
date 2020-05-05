@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    public class CatalogService : Service
+    public class CatalogService : Service, ICatalogService
     {
         public CatalogService(IUnitOfWork db) : base(db)
         {

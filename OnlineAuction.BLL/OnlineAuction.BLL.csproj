@@ -74,6 +74,12 @@
     <Compile Include="Infrastructure\AutoMapping.cs" />
     <Compile Include="Infrastructure\ValidationException .cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
+    <Compile Include="Interfaces\IAuthenticationService.cs" />
+    <Compile Include="Interfaces\ICatalogService.cs" />
+    <Compile Include="Interfaces\ICleanService.cs" />
+    <Compile Include="Interfaces\IManagerService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
