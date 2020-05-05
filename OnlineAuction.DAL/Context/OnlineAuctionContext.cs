@@ -6,7 +6,7 @@ namespace OnlineAuction.DAL.Context
     {
         static OnlineAuctionContext()
         {
-            Database.SetInitializer<OnlineAuctionContext>(null);
+            Database.SetInitializer<OnlineAuctionContext>(new DropCreateDBOnModelChanged());
         }
         public OnlineAuctionContext(string connectionString = "OnlineAuctionDB") : base(connectionString)
         {

@@ -9,13 +9,13 @@ namespace OnlineAuction.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
 
-        IRepository<Authentication> Authentication { get ; }
+        IAuthenticationRepository Authentication { get ; }
         IRepository<Bet> Bet { get; }
-        IRepository<Category> Category { get; }
+        ICategoryRepository Category { get; }
         IRepository<DeliveryAndPayment> DeliveryAndPayment { get; }
         IRepository<Image> Image { get; }
-        IRepository<Lot> Lot { get; }
-        IRepository<AdvancedUser> AdvancedUser { get; }
+        ILotRepository Lot { get; }
+        IAdvancedUserRepository AdvancedUser { get; }
         IRepository<Moderation> Moderation { get; }
         IRepository<Product> Product { get; }
         IRepository<User> User { get; }

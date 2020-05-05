@@ -28,7 +28,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             this.db = new OnlineAuctionContext(connectionString);
         }
 
-        public IRepository<Authentication> Authentication
+        public IAuthenticationRepository Authentication
         {
             get
             {
@@ -52,7 +52,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IRepository<Category> Category
+        public ICategoryRepository Category
         {
             get
             {
@@ -88,7 +88,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IRepository<Lot> Lot 
+        public ILotRepository Lot 
         {
             get
             {
@@ -100,7 +100,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public IRepository<AdvancedUser> AdvancedUser
+        public IAdvancedUserRepository AdvancedUser
         {
             get
             {

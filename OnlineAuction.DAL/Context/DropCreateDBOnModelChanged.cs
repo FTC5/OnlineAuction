@@ -46,7 +46,7 @@ namespace OnlineAuction.DAL.Context
             var image = new Image() { Link = "https://media.istockphoto.com/photos/fisherman-caught-a-boot-on-spoonbait-picture-id153986903" };
             var del = new DeliveryAndPayment { CostOfdelivery = "0", PurchaseReturns = "-", SendingAbroad = "-",DeliveryMethod="-" };
             var product = new Product() { Category = cat, DeliveryAndPayment = del, Location = "XD", Description = "-", Price = 100, Name = "Ботинок На Ложкибейт" };
-            var lot = new Lot() { MinimumStroke = 100, Product = product, TermDay = 6, User = user1 };
+            var lot = new Lot() { MinimumStroke = 100, Product = product, TermDay = 6,StartDate=DateTime.Now.Date, User = user1,CurrentPrice=product.Price };
             var moderation = new Moderation() { Lot = lot };
             lot.Moderation = moderation;
             product.Lot = lot;

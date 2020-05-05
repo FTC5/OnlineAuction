@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class CategoryReposytory : IRepository<Category>
+    class CategoryReposytory : IRepository<Category>,ICategoryRepository
     {
         private OnlineAuctionContext db;
 
@@ -28,6 +28,11 @@ namespace OnlineAuction.DAL.Repository
             Category category = db.Category.Find(id);
             if (category != null)
                 db.Category.Remove(category);
+        }
+
+        public IEnumerable<Category> Find(Func<Category, bool> perdicate)
+        {
+            return db.Category.Where(perdicate).ToList();
         }
 
         public Category Get(int id)

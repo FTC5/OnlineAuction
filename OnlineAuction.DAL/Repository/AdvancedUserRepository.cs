@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class AdvancedUserRepository : IRepository<AdvancedUser>
+    class AdvancedUserRepository : IRepository<AdvancedUser>,IAdvancedUserRepository
     {
         private OnlineAuctionContext db;
 
@@ -28,6 +28,11 @@ namespace OnlineAuction.DAL.Repository
             AdvancedUser manager = db.AdvancedUser.Find(id);
             if (manager != null)
                 db.AdvancedUser.Remove(manager);
+        }
+
+        public IEnumerable<AdvancedUser> Find(Func<AdvancedUser, bool> perdicate)
+        {
+            return db.AdvancedUser.Where(perdicate).ToList();
         }
 
         public AdvancedUser Get(int id)

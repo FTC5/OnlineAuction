@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class LotReposytory : IRepository<Lot>
+    class LotReposytory : IRepository<Lot>, ILotRepository
     {
         private OnlineAuctionContext db;
 
@@ -28,6 +28,11 @@ namespace OnlineAuction.DAL.Repository
             Lot lot = db.Lot.Find(id);
             if (lot != null)
                 db.Lot.Remove(lot);
+        }
+
+        public IEnumerable<Lot> Find(Func<Lot, bool> perdicate)
+        {
+            return db.Lot.Where(perdicate).ToList();
         }
 
         public Lot Get(int id)

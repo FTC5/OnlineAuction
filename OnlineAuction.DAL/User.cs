@@ -28,5 +28,6 @@ namespace OnlineAuction.DAL
             get { return bets ?? (bets = new List<Bet>()); }
             set { bets = value; }
         }
+        public int Balance { get; set; } = 0;
     }
 }

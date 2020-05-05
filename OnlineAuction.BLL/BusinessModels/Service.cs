@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,15 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class Service
+    public class Service
     {
-        private IUnitOfWork db;
-        private IMapper mapper;
+        protected IUnitOfWork db;
+        protected readonly IMapper mapper;
 
-        public Service(IUnitOfWork db, IMapper mapper)
+        public Service(IUnitOfWork db)
         {
             this.db = db;
-            this.mapper = mapper;
+            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-
-        public IUnitOfWork Db { get => db;}
-        public IMapper Mapper { get => mapper;}
     }
 }

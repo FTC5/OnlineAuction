@@ -53,8 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessModels\AdminService.cs" />
+    <Compile Include="BusinessModels\AuthenticationService.cs" />
     <Compile Include="BusinessModels\CatalogService.cs" />
+    <Compile Include="BusinessModels\CleanService.cs" />
+    <Compile Include="BusinessModels\ManagerService.cs" />
     <Compile Include="BusinessModels\Service.cs" />
+    <Compile Include="BusinessModels\UserService.cs" />
     <Compile Include="DTO\AuthenticationDTO.cs" />
     <Compile Include="DTO\BetDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />

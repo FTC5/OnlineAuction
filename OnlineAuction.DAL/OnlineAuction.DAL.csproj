@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DropCreateDBOnModelChanged.cs" />
+    <Compile Include="Interfaces\IAdvancedUserRepository.cs" />
+    <Compile Include="Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Interfaces\ILotRepository.cs" />
+    <Compile Include="Interfaces\IAuthenticationRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Authentication.cs" />
     <Compile Include="Bet.cs" />
@@ -71,7 +75,7 @@
     <Compile Include="Repository\DeliveryAndPaymentRepository.cs" />
     <Compile Include="Repository\ImageRepository.cs" />
     <Compile Include="Repository\LotReposytory.cs" />
-    <Compile Include="Repository\ManagerRepository.cs" />
+    <Compile Include="Repository\AdvancedUserRepository.cs" />
     <Compile Include="Repository\ModerationRepository.cs" />
     <Compile Include="Repository\ProductReposytory.cs" />
     <Compile Include="Repository\UserRepository.cs" />

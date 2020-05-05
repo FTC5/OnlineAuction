@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class AuthenticationRepository : IRepository<Authentication>
+    class AuthenticationRepository : IRepository<Authentication>,IAuthenticationRepository
     {
         private OnlineAuctionContext db;
 
@@ -28,6 +28,11 @@ namespace OnlineAuction.DAL.Repository
             Authentication aut = db.Authentication.Find(id);
             if (aut != null)
                 db.Authentication.Remove(aut);
+        }
+
+        public IEnumerable<Authentication> Find(Func<Authentication, bool> perdicate)
+        {
+            return db.Authentication.Where(perdicate).ToList();
         }
 
         public Authentication Get(int id)

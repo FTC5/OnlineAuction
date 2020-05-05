@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.DTO
 {
-    public class UserDTO
+    public class UserDTO:PersonDTO
     {
         private ICollection<LotDTO> userLots;
         public virtual ICollection<LotDTO> UserLots
@@ -26,5 +26,6 @@ namespace OnlineAuction.BLL.DTO
             get { return bets ; }
             set { bets = value; }
         }
+        public int Balance { get; set; } = 0;
     }
 }
