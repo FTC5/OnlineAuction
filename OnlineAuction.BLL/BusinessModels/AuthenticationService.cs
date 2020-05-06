@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineAuction.BLL.BusinessModels.Interfaces;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL.Interfaces;
 
@@ -19,10 +20,9 @@ namespace OnlineAuction.BLL.BusinessModels
             string login = authentication.Login;
             string pasword= authentication.Password;
             var aut = db.Authentication.Find(a => (a.Login == login && a.Password == pasword)).ToList();
-            if (aut == null || aut.Count==0)
-            {
+            if (aut == null)
+                throw new AuthenticationException("Interapt password or login","");
 
-            }
             return aut.First().Id;
         }
         public int isAdvancedUserDTO(int userId)

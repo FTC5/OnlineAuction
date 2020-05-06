@@ -72,7 +72,12 @@
     <Compile Include="DTO\PersonDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Infrastructure\OperationException.cs" />
     <Compile Include="Infrastructure\AutoMapping.cs" />
+    <Compile Include="Infrastructure\CategoryNotFoundExaption.cs" />
+    <Compile Include="Infrastructure\AuthenticationException..cs" />
+    <Compile Include="Infrastructure\UserNotFoundExaption.cs" />
+    <Compile Include="Infrastructure\LotNotFoundExaption.cs" />
     <Compile Include="Infrastructure\ValidationException .cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />

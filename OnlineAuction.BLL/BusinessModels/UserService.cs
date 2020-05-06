@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
@@ -20,7 +21,12 @@ namespace OnlineAuction.BLL.BusinessModels
         {
             var user = db.User.Get(UserID);
             var lot = db.Lot.Get(LotID);
-            
+
+            if (lot == null)
+                throw new LotNotFoundExaption("Lot not found", ""); 
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
+
             if (user.Subscriptions.Contains(lot))
             {
                 return;
@@ -32,6 +38,8 @@ namespace OnlineAuction.BLL.BusinessModels
         public IEnumerable<LotDTO> GetSubscription(int UserId)
         {
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             return mapper.Map<IEnumerable<LotDTO>>(user.Subscriptions);
         }
         public void DeleteSubscription(int UserId,int LotId)
@@ -46,17 +54,20 @@ namespace OnlineAuction.BLL.BusinessModels
         public IEnumerable<LotDTO> GetUserLot(int UserId)
         {
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             return mapper.Map<IEnumerable<LotDTO>>(user.UserLots);
         }
         public void EditLot(int UserId,LotDTO changed)
         {
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Subscriptions);
             LotDTO lot = lotDTOs.Find(i => (i.Id == changed.Id && i.UserId==changed.Id));
             if (lot == null)
-            {
-                return;
-            }else if (lot.ModerationResult == true)
+                throw new LotNotFoundExaption("Lot not found", "");
+            if (lot.ModerationResult == true)
             {
                 return;
             }
@@ -80,7 +91,8 @@ namespace OnlineAuction.BLL.BusinessModels
 
             }
             var user= db.User.Get(UserId);
-           
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             var eLot = mapper.Map<Lot>(lot);
             eLot.User = user;
             user.UserLots.Add(eLot);
@@ -101,11 +113,15 @@ namespace OnlineAuction.BLL.BusinessModels
         {
             var lot = db.Lot.Get(LotID);
             var user = lot.User;
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             return mapper.Map<UserDTO>(user);
         }
         public void AddBalance(int UserId, int count)
         {
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             user.Balance += count;
             db.User.Update(user);
             db.Save();
@@ -113,8 +129,13 @@ namespace OnlineAuction.BLL.BusinessModels
         public void AddBet(int LotId,int UserId)
         {
             var lot = db.Lot.Get(LotId);
+            if (lot == null)
+                throw new LotNotFoundExaption("Lots by Category not Found", "");
+
             int newPrice = lot.CurrentPrice + lot.MinimumStroke;
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             if (user.Balance < newPrice)
             {
                 return;
@@ -143,6 +164,9 @@ namespace OnlineAuction.BLL.BusinessModels
                 return;
             }
             var authentication = db.Authentication.Get(UserId);
+            if (authentication == null)
+                throw new UserNotFoundExaption("User does not exist", "");
+
             authentication.Login = newLogin;
             db.Authentication.Update(authentication);
             db.Save();
@@ -154,6 +178,9 @@ namespace OnlineAuction.BLL.BusinessModels
                 return;
             }
             var authentication = db.Authentication.Get(UserId);
+            if (authentication == null)
+                throw new UserNotFoundExaption("User does not exist", "");
+
             authentication.Password = newPassword;
             db.Authentication.Update(authentication);
             db.Save();

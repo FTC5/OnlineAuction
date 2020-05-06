@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 using System;
@@ -26,10 +27,12 @@ namespace OnlineAuction.BLL.BusinessModels
         public void DeleteCategory(int CategoryId)
         {
             var category = db.Category.Get(CategoryId);
+            if (category == null)
+                throw new CategoryNotFoundExaption("Category not found", "");
+
             if (category.ParentCategory == null)
-            {
-                return;
-            }
+                throw new OperationException("Operation Failed : Cant delete Main category", "");
+
             var lots = db.Lot.Find(i =>
               {
                   if (i.Product.CategoryId == CategoryId)
@@ -39,9 +42,7 @@ namespace OnlineAuction.BLL.BusinessModels
                   return false;
               });
             if (lots != null)
-            {
-                return;
-            }
+                throw new OperationException("Operation Failed : Lots with this category exists", "");
             var categorys = db.Category.Find(c =>
               {
                   if (c.ParentCategory.Id == CategoryId)
@@ -51,9 +52,8 @@ namespace OnlineAuction.BLL.BusinessModels
                   return false;
               });
             if (category != null)
-            {
-                return;
-            }
+                throw new OperationException("Operation Failed : Category is parent for other", "");
+
             db.Category.Delete(CategoryId);
             db.Save();
 
@@ -61,9 +61,8 @@ namespace OnlineAuction.BLL.BusinessModels
         public void AddCategory(CategoryDTO category)
         {
             if (String.IsNullOrEmpty(category.Name))
-            {
-                return;
-            }
+                throw new ValidationException("Empty name","");
+
             var categories = db.Category.Find(c =>
               {
                   if(c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategoryId)
@@ -73,9 +72,8 @@ namespace OnlineAuction.BLL.BusinessModels
                   return false;
               });
             if (categories != null)
-            {
-                return;
-            }
+                throw new OperationException("Operation Failed : Category already exists", "");
+
             var cat = mapper.Map<Category>(category);
             cat.ParentCategory = db.Category.Get(category.ParentCategoryId);
             db.Category.Create(cat);
@@ -89,14 +87,12 @@ namespace OnlineAuction.BLL.BusinessModels
         public void DeleteManeger(int id)
         {
             var maneger = db.AdvancedUser.Get(id);
-            if (maneger == null || maneger.Admin==true)
-            {
-                return;
-            }
-            else
-            {
-                db.AdvancedUser.Delete(id);
-            }
+            if(maneger==null)
+                throw new UserNotFoundExaption("User does not exist", "");
+            if (maneger.Admin==true)
+                throw new OperationException("Operation Failed : Is not manager Id", "");
+
+            db.AdvancedUser.Delete(id);
             db.Save();
         }
         public void AddManeger(AdvancedUserDTO advuser)
@@ -104,23 +100,18 @@ namespace OnlineAuction.BLL.BusinessModels
             advuser.Admin = false;
             
             if (advuser.Authentication == null)
-            {
-                return;
-            }else if(String.IsNullOrWhiteSpace(advuser.Authentication.Login) || 
+                throw new OperationException("Operation Failed : Empty authentication", "");
+            if(String.IsNullOrWhiteSpace(advuser.Authentication.Login) || 
                 String.IsNullOrWhiteSpace(advuser.Authentication.Password))
-            {
-                return;
-            }
-            else if(advuser.Authentication.Password.Length<8)
-            {
-                return;
-            }
+                throw new ValidationException("Empty login or password", "");
+            if(advuser.Authentication.Password.Length<8)
+                throw new ValidationException("Small password", "");
+
             string login = advuser.Authentication.Login;
             var aut = db.Authentication.Find(a => a.Login == login);
             if (aut != null)
-            {
-                return;
-            }
+                throw new OperationException("Operation Failed : Login already exists", "");
+
             var authentication = mapper.Map<Authentication>(advuser.Authentication);
             db.Authentication.Create(authentication);
             db.AdvancedUser.Create(mapper.Map<AdvancedUser>(advuser));

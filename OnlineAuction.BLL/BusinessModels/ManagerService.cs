@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 using System;
@@ -32,6 +33,9 @@ namespace OnlineAuction.BLL.BusinessModels
         public void SetModeration(ModerationDTO moderation)
         {
             var lot = db.Lot.Get(moderation.Id);
+            if (lot == null)
+                throw new LotNotFoundExaption("Lot not Found", "");
+
             if (lot == null)
             {
 
@@ -103,6 +107,10 @@ namespace OnlineAuction.BLL.BusinessModels
                 foreach (var item in lot.Bets)
                 {
                     var user = db.User.Get(item.Id);
+                    if (user == null)
+                    {
+                        db.Bet.Delete(item.Id);
+                    }
                     user.Subscriptions.Remove(lot);
                     db.User.Update(user);
                     if (item.Price == lot.CurrentPrice)
@@ -126,6 +134,10 @@ namespace OnlineAuction.BLL.BusinessModels
         public void ContinueLot(int LotId)
         {
             var lot = db.Lot.Get(LotId);
+
+            if (lot == null)
+                throw new LotNotFoundExaption("Lot not Found", "");
+
             if (lot == null)
             {
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using OnlineAuction.BLL.BusinessModels.Interfaces;
 using OnlineAuction.BLL.DTO;
+using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
@@ -16,27 +17,39 @@ namespace OnlineAuction.BLL.BusinessModels
         public CatalogService(IUnitOfWork db) : base(db)
         {
         }
-        public IEnumerable<LotDTO> GetLots()
+        public IEnumerable<LotDTO> GetLots() 
         {
             var lots = db.Lot.Find(l=>(l.ModerationResult==true && l.Sels==false));
+            if (lots == null)
+                throw new LotNotFoundExaption("Empty catalog","");
+
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>> (lots);
             return lotsDTO;
         }
         public IEnumerable<LotDTO> FindByNameLot(String text)
         {
             var lots = db.Lot.Find(i=>(i.Product.Name.Contains(text) && i.ModerationResult==true && i.Sels == false));
+            if (lots == null)
+                throw new LotNotFoundExaption("Lot with name not Found", "");
+
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>>(lots);
             return lotsDTO;
         }
-        public IEnumerable<LotDTO> FindByAutor(String nick)
+        public IEnumerable<LotDTO> FindByAutor(string nick)
         {
             var lots = db.Lot.Find(i => (i.User.LastName.Contains(nick) && i.ModerationResult == true && i.Sels == false));
+            if (lots == null)
+                throw new LotNotFoundExaption("Lot with autor not Found", "");
+
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>>(lots);
             return lotsDTO;
         }
         public LotDTO GetLot(int id)
         {
             var lot = db.Lot.Get(id);
+            if (lot == null)
+                throw new LotNotFoundExaption("Lot not Found", "");
+
             var lotDTO = mapper.Map<LotDTO>(lot);
             return lotDTO;
         }
@@ -75,6 +88,9 @@ namespace OnlineAuction.BLL.BusinessModels
                     return false;
 
                 });
+            if (lots == null)
+                throw new LotNotFoundExaption("Lots by Category not Found", "");
+
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>>(lots);
             return lotsDTO;
         }

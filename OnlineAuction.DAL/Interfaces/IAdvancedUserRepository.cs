@@ -8,6 +8,6 @@ namespace OnlineAuction.DAL.Interfaces
 {
     public interface IAdvancedUserRepository : IRepository<AdvancedUser>
     {
-        IEnumerable<AdvancedUser> Find(Func<AdvancedUser, Boolean> perdicate);
+        IQueryable<AdvancedUser> Find(Func<AdvancedUser, Boolean> perdicate);
     }
 }

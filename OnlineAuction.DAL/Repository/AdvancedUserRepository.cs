@@ -30,9 +30,9 @@ namespace OnlineAuction.DAL.Repository
                 db.AdvancedUser.Remove(manager);
         }
 
-        public IEnumerable<AdvancedUser> Find(Func<AdvancedUser, bool> perdicate)
+        public IQueryable<AdvancedUser> Find(Func<AdvancedUser, bool> perdicate)
         {
-            return db.AdvancedUser.Where(perdicate).ToList();
+            return db.AdvancedUser.Where(perdicate).AsQueryable();
         }
 
         public AdvancedUser Get(int id)
