@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineAuction.BLL.DTO
+namespace WebApplication1.Models
 {
-    public class PersonDTO
+    public class PersonModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DateOfBirth { get; set; }
         public int PhoneNumber { get; set; }
-        public virtual AuthenticationDTO Authentication { get; set; }
+        public virtual AuthenticationModel Authentication { get; set; }
     }
 }

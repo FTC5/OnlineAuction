@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineAuction.BLL.DTO
+namespace WebApplication1.Models
 {
-    public class CategoryDTO
+    public class CategoryModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int ParentCategoryId { get; set; }
-        public virtual CategoryDTO ParentCategory { get; set; }
+        public virtual CategoryModel ParentCategory { get; set; }
     }
 }

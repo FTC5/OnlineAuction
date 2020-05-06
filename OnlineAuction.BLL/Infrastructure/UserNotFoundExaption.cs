@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.Infrastructure
 {
-    class UserNotFoundExaption : Exception
+    public class UserNotFoundExaption : Exception
     {
         public string Property { get; protected set; }
         public UserNotFoundExaption(string message, string prop) : base(message)

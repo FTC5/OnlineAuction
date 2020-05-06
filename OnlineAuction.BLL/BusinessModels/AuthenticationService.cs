@@ -20,7 +20,7 @@ namespace OnlineAuction.BLL.BusinessModels
             string login = authentication.Login;
             string pasword= authentication.Password;
             var aut = db.Authentication.Find(a => (a.Login == login && a.Password == pasword)).ToList();
-            if (aut == null)
+            if (aut.Count==0)
                 throw new AuthenticationException("Interapt password or login","");
 
             return aut.First().Id;

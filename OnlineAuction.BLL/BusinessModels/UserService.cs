@@ -45,6 +45,8 @@ namespace OnlineAuction.BLL.BusinessModels
         public void DeleteSubscription(int UserId,int LotId)
         {
             var user = db.User.Get(UserId);
+            if (user == null)
+                throw new UserNotFoundExaption("User not found", "");
             List<LotDTO> lotDTOs= mapper.Map<List<LotDTO>>(user.Subscriptions);
             LotDTO lot=lotDTOs.Find(i => i.Id == LotId);
             user.Subscriptions.Remove(mapper.Map<Lot>(lot));

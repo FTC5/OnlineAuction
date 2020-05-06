@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineAuction.BLL.DTO
+namespace WebApplication1.Models
 {
-    public class ModerationDTO
+    public class ModerationModel
     {
         public int Id { get; set; }
         public string Comment { get; set; } = "";
         public bool ModerationResult { get; set; } = false;
-        public virtual LotDTO Lot { get; set; }
+        public virtual LotModel Lot { get; set; }
     }
 }

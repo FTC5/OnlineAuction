@@ -41,7 +41,7 @@ namespace OnlineAuction.BLL.BusinessModels
                   }
                   return false;
               });
-            if (lots != null)
+            if (lots.Count() > 0)
                 throw new OperationException("Operation Failed : Lots with this category exists", "");
             var categorys = db.Category.Find(c =>
               {
@@ -51,7 +51,7 @@ namespace OnlineAuction.BLL.BusinessModels
                   }
                   return false;
               });
-            if (category != null)
+            if (categorys.Count()>0)
                 throw new OperationException("Operation Failed : Category is parent for other", "");
 
             db.Category.Delete(CategoryId);
@@ -71,7 +71,7 @@ namespace OnlineAuction.BLL.BusinessModels
                   }
                   return false;
               });
-            if (categories != null)
+            if (categories.Count()>0)
                 throw new OperationException("Operation Failed : Category already exists", "");
 
             var cat = mapper.Map<Category>(category);
@@ -109,7 +109,7 @@ namespace OnlineAuction.BLL.BusinessModels
 
             string login = advuser.Authentication.Login;
             var aut = db.Authentication.Find(a => a.Login == login);
-            if (aut != null)
+            if (aut.Count()==0)
                 throw new OperationException("Operation Failed : Login already exists", "");
 
             var authentication = mapper.Map<Authentication>(advuser.Authentication);
