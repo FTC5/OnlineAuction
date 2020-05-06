@@ -16,9 +16,9 @@ namespace OnlineAuction.BLL.BusinessModels
 
         public void CleanOld()
         {
-            int week = 7;
+            int twoWeek = 14;
             DateTime date = DateTime.Now.Date;
-            date.AddDays(week);
+            date.AddDays(twoWeek);
             DateTime datebuff;
             var lots = db.Lot.Find(l =>
             {

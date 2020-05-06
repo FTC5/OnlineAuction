@@ -20,6 +20,11 @@ namespace OnlineAuction.BLL.BusinessModels
         {
             var user = db.User.Get(UserID);
             var lot = db.Lot.Get(LotID);
+            
+            if (user.Subscriptions.Contains(lot))
+            {
+                return;
+            }
             user.Subscriptions.Add(lot);
             db.User.Update(user);
             db.Save();
@@ -74,16 +79,22 @@ namespace OnlineAuction.BLL.BusinessModels
             {
 
             }
-            ModerationDTO dTO = new ModerationDTO();
-            dTO.Lot = lot;
-            lot.Moderation = dTO;
+            var user= db.User.Get(UserId);
+           
             var eLot = mapper.Map<Lot>(lot);
-            eLot.User = db.User.Get(UserId);
+            eLot.User = user;
+            user.UserLots.Add(eLot);
             eLot.TermDay = 6;
             eLot.StartDate = DateTime.Now.Date;
-            var moder= mapper.Map<Moderation>(dTO);
+
+            //ModerationDTO dTO = new ModerationDTO();
+            //dTO.Lot = lot;
+            //lot.Moderation = dTO;
+            //var moder = mapper.Map<Moderation>(dTO);
+
             db.Lot.Create(eLot);
-            db.Moderation.Create(moder);
+            db.User.Update(user);
+            //db.Moderation.Create(moder);
             db.Save();
         }
         public UserDTO GetLotAutorInfo(int LotID)
@@ -116,10 +127,13 @@ namespace OnlineAuction.BLL.BusinessModels
             var bet = mapper.Map<Bet>(betDTO);
             bet.Lot = lot;
             bet.User = user;
+            //user.Bets.Add(bet);
             lot.Bets.Add(bet);
             db.Bet.Create(bet);
             db.Lot.Update(lot);
+            db.User.Update(user);
             db.Save();
+            AddLotTOSubscription(LotId, UserId);
         }
         public void ChangeLogin(int UserId,string newLogin)
         {

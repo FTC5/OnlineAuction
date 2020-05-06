@@ -18,19 +18,19 @@ namespace OnlineAuction.BLL.BusinessModels
         }
         public IEnumerable<LotDTO> GetLots()
         {
-            var lots = db.Lot.Find(l=>l.ModerationResult);
+            var lots = db.Lot.Find(l=>(l.ModerationResult==true && l.Sels==false));
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>> (lots);
             return lotsDTO;
         }
         public IEnumerable<LotDTO> FindByNameLot(String text)
         {
-            var lots = db.Lot.Find(i=>(i.Product.Name.Contains(text) && i.ModerationResult==true));
+            var lots = db.Lot.Find(i=>(i.Product.Name.Contains(text) && i.ModerationResult==true && i.Sels == false));
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>>(lots);
             return lotsDTO;
         }
         public IEnumerable<LotDTO> FindByAutor(String nick)
         {
-            var lots = db.Lot.Find(i => (i.User.LastName.Contains(nick) && i.ModerationResult == true));
+            var lots = db.Lot.Find(i => (i.User.LastName.Contains(nick) && i.ModerationResult == true && i.Sels == false));
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>>(lots);
             return lotsDTO;
         }
@@ -63,9 +63,9 @@ namespace OnlineAuction.BLL.BusinessModels
                     else
                     {
                         int id = i.Product.Category.ParentCategory.Id;
-                        while (i.Product.Category.ParentCategory != null) //Product.category is bad. Good is Lot.Category
+                        while (i.Product.Category.ParentCategory != null)
                         {
-                            if (id == CategoryId)
+                            if (id == CategoryId && i.ModerationResult == true && i.Sels == false)
                             {
                                 return true;
                             }

@@ -26,7 +26,8 @@ namespace OnlineAuction.DAL
         public int UserId { get; set; }
         [Column("ModerationResult", TypeName = "bit")]
         public bool ModerationResult { get; set; } = false;
-        public bool Change { get; set; } = true; 
+        public bool Change { get; set; } = true;
+        public bool Sels { get; set; } = false;
         [Required]
         [Column("StartDate", TypeName = "date")]
         public DateTime StartDate { get; set; }

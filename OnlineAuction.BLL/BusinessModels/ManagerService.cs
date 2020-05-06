@@ -48,8 +48,8 @@ namespace OnlineAuction.BLL.BusinessModels
             else
             {
                 lot.ModerationResult = true;
+                lot.Change = true;
             }
-            lot.Change = false;
             var moder= mapper.Map<Moderation>(moderation);
             if (lot.Moderation == null)
             {
@@ -71,7 +71,7 @@ namespace OnlineAuction.BLL.BusinessModels
             var lots = db.Lot.Find(l =>
             {
                 datebuff = l.StartDate.AddDays(l.TermDay).Date;
-                if (datebuff > date)
+                if (datebuff > date && l.Sels==false)
                 {
                     return true;
                 }
@@ -90,8 +90,38 @@ namespace OnlineAuction.BLL.BusinessModels
             {
 
             }
-            db.Lot.Delete(LotId);
-            db.Save();
+            if (lot.BetsCount == 0)
+            {
+                db.Lot.Delete(LotId);
+                db.Save();
+            }
+            else
+            {
+                lot.Sels = true;
+                lot.Change = true;
+                lot.ModerationResult = true;
+                foreach (var item in lot.Bets)
+                {
+                    var user = db.User.Get(item.Id);
+                    user.Subscriptions.Remove(lot);
+                    db.User.Update(user);
+                    if (item.Price == lot.CurrentPrice)
+                    {
+                        continue;
+                    }
+                    db.Bet.Delete(item.Id);
+                }
+                var sellUser = db.User.Get(lot.UserId);
+                sellUser.UserLots.Remove(lot);
+                sellUser.Sels.Add(lot);
+                db.User.Update(sellUser);
+                var boughtUser = db.User.Get(lot.Bets.First().UserId);
+                boughtUser.Bought.Add(lot);
+                db.User.Update(boughtUser);
+                db.Save();
+            }
+
+            
         }
         public void ContinueLot(int LotId)
         {

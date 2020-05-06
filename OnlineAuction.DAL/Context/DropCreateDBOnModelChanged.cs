@@ -39,15 +39,12 @@ namespace OnlineAuction.DAL.Context
             var user2 = new User() { FirstName = firstNames[1], LastName = lastNames[1], DateOfBirth = "-", PhoneNumber = 0964573342, Authentication = authenticationUser2 };
             var admin = new AdvancedUser() { FirstName = firstNames[2], LastName = lastNames[2], DateOfBirth = "-", PhoneNumber = 0964573343, Authentication = authenticationAdmin,Admin=true};
             var manager = new AdvancedUser() { FirstName = firstNames[3], LastName = lastNames[3], DateOfBirth = "-", PhoneNumber = 0964573344, Authentication = authenticationManager };
-            context.User.Add(user1);
-            context.User.Add(user2);
-            context.AdvancedUser.Add(admin);
-            context.AdvancedUser.Add(manager);
             var image = new Image() { Link = "https://media.istockphoto.com/photos/fisherman-caught-a-boot-on-spoonbait-picture-id153986903" };
             var del = new DeliveryAndPayment { CostOfdelivery = "0", PurchaseReturns = "-", SendingAbroad = "-",DeliveryMethod="-" };
             var product = new Product() { Category = cat, DeliveryAndPayment = del, Location = "XD", Description = "-", Price = 100, Name = "Ботинок На Ложкибейт" };
             var lot = new Lot() { MinimumStroke = 100, Product = product, TermDay = 6,StartDate=DateTime.Now.Date, User = user1,CurrentPrice=product.Price };
             var moderation = new Moderation() { Lot = lot };
+            user1.UserLots.Add(lot);
             lot.Moderation = moderation;
             product.Lot = lot;
             del.Product = product;
@@ -57,6 +54,10 @@ namespace OnlineAuction.DAL.Context
             context.DeliveryAndPayment.Add(del);
             context.Lot.Add(lot);
             context.Moderation.Add(moderation);
+            context.User.Add(user1);
+            context.User.Add(user2);
+            context.AdvancedUser.Add(admin);
+            context.AdvancedUser.Add(manager);
             context.SaveChanges(); 
         }
     }

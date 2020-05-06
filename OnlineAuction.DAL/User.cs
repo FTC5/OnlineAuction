@@ -22,12 +22,25 @@ namespace OnlineAuction.DAL
             get { return subscriptions ?? (subscriptions = new List<Lot>()); }
             set { subscriptions = value; }
         }
-        private ICollection<Bet> bets;
-        public virtual ICollection<Bet> Bets
+        private ICollection<Lot> sels;
+        public virtual ICollection<Lot> Sels
         {
-            get { return bets ?? (bets = new List<Bet>()); }
-            set { bets = value; }
+            get { return sels ?? (sels = new List<Lot>()); }
+            set { sels = value; }
         }
+        private ICollection<Lot> bought;
+        public virtual ICollection<Lot> Bought
+        {
+            get { return bought ?? (bought = new List<Lot>()); }
+            set { bought = value; }
+        }
+        //private ICollection<Bet> bets;
+        //public virtual ICollection<Bet> Bets
+        //{
+        //    get { return bets ?? (bets = new List<Bet>()); }
+        //    set { bets = value; }
+        //}
+
         public int Balance { get; set; } = 0;
     }
 }
