@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cactus - catalog</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/catalog.css">
+</head>
+
+<body>
+
+    <nav class="navbar text-center">
+        <div class="navbar_content">
+            <a href="index.html" class="navbar_logo">
+                <img src="../pic/logo/logo.png" alt="logo">
+            </a>
+            <div class="navbar_menu">
+
+                <div class="nav_item_bid">
+                    <div class="bid_active">
+                        
+                    </div>
+                    <a class="nav-link text-dark" href="activeLot.html">
+                        <img src="../pic/nav/bid.png" alt="bid">
+                    </a>
+                </div>
+
+                <div class="nav_item_user">
+                    <a class="nav-link text-dark" href="user.html"><img src="../pic/nav/user.png"
+                            alt="user"><span class="ml-2"><strong>Артем</strong></span></a>
+                </div>
+
+                <div class="nav_item_menu">
+                    <a class="" asp-area="" asp-page="/burger_menu"><img src="../pic/nav/menu.png" alt="menu"></a>
+                    <!--<div class="" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <header>
+        
+        <div class="catalog_categories">
+            <h2 class="catalog_categories_title title">
+                Категорії
+            </h2>
+            <div class="catalog_categories_name">
+                <a class="collection catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture" src="../pic/categor/collect.png">
+                    </div>
+                    <div class="categories_name">
+                        Колекціонування
+                    </div>
+                </a>
+                <a class="art catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture " src="../pic/categor/art.png">
+                    </div>
+                    <div class="categories_name">
+                        Мистецтво і Антикваріат
+                    </div>
+                </a>
+                <a class="book catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture " src="../pic/categor/book.png">
+                    </div>
+                    <div class="categories_name">
+                        Книги, Букіністика
+                    </div>
+                </a>
+                <a class="fashion catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture " src="../pic/categor/fashion.png">
+                    </div>
+                    <div class="categories_name">
+                        Мода та краса
+                    </div>
+                </a>
+                <a class="phone catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture" src="../pic/categor/phone.png">
+                    </div>
+                    <div class="categories_name">
+                        Телефони і Аксесуари
+                    </div>
+                </a>
+                <a class="elect catalog_categories_group" asp-page="/catalog">
+                    <div class="categories_picture_center">
+                        <img class="categories_picture" src="../pic/categor/elect.png">
+                    </div>
+                    <div class="categories_name">
+                        Електроніка та техніка
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="catalog_list">
+            <div class="catalog_list_top">
+                <h2 class="title">
+                    Каталог
+                </h2>
+                <form action="" class="search">
+                    <input class="search_input" type="text" placeholder="Пошук">
+                </form>
+                <div class="sort_list">
+                    <img src="../pic/catalog/sortList.png" alt="sort_list">
+                </div>
+                <div class="add_lot">
+                    <img src="../pic/catalog/addLot.png" alt="add_lot">
+                </div>
+            </div>
+
+            <div class="catalog_categories_list">
+                <div class="featured_products_list">
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+
+    <footer class=" footerd d-flex flex-column align-items-center justify-content-around">
+        <img src="../pic/logo/logo.png">
+        <span>Авторські права © 2020 Cactus, Inc.</span>
+
+    </footer>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/site.js" asp-append-version="true"></script>
+
+</body>
+
+</html>

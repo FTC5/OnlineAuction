@@ -1,0 +1,105 @@
+header {
+    width: 74vw;
+    min-height: 80vh;    
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.catalog_categories_group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+
+.categories_name {
+    margin-left: 20px;
+    display: flex;
+}
+
+.categories_picture_center {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.categories_picture {
+    margin: 0 auto;
+}
+
+.catalog_list {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.catalog_list_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+
+.featured_products_list {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    padding-top: 40px;
+}
+
+.search_input {
+    border: 0;
+    background: lightgray;
+    padding: 10px 15px;
+    background-image: url("../pic/catalog/search.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.user {
+    width: 25%;
+    padding-top: 10%;
+}
+
+.active_lot {
+    display: flex;
+    flex-direction: row;
+}
+
+.active_lot_text {
+    padding-right: 15px;
+}
+
+.lose_lot {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.lose_lot_text {
+    padding-right: 15px;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: row;
+}
+
+.user_info_text {
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    justify-content: space-evenly;
+}
+

@@ -1,0 +1,74 @@
+header {
+    width: 74vw;
+    min-height: 80vh;    
+    padding-top: 200px;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.photo_lot {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+}
+
+.photo_lot_small {
+    display: flex;
+    flex-direction: column;
+}
+
+.photo_small_product {
+    width: 72px;
+    height: 72px;
+}
+
+.lot_info {
+    width: 75%;
+    padding-left: 3%;
+}
+
+.lot_info_title {
+    padding-bottom: 25px;
+}
+
+.lot_info_data {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 25px;
+}
+
+.lot_info_data_row {
+    display: flex;
+    flex-direction: row;
+    padding-right: 30px;
+    align-items: center;
+}
+
+.lot_info_data_text {
+    padding-left: 10px;
+}
+
+.lot_info_data_price {
+    background: lightcoral;
+    color: #f2f2f2;
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+
+.lot_description {
+    width: 74vw;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding:  50px 0 100px;
+    margin: 0 auto;
+}
+
+.lot_description_title {
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+
+
+

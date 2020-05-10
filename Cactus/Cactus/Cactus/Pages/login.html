@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cactus - Login</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+    <nav class="navbar text-center">
+        <div class="navbar_content">
+            <a href="index.html" class="navbar_logo">
+                <img src="../pic/logo/logo.png" alt="logo">
+            </a>
+            <div class="navbar_menu">
+
+                <div class="nav_item_bid">
+                    <a class="nav-link text-dark" href="activeLot.html">
+                        <img src="../pic/nav/bid.png" alt="bid">
+                        <div class="bid_active">
+
+                            
+                        </div>
+                    </a>
+                </div>
+
+                <div class="nav_item_user">
+                    <a class="nav-link text-dark" href="login.html"><img src="../pic/nav/login.png"
+                            alt="user"><span class="ml-2"><strong>Увійти</strong></span></a>
+                </div>
+
+                <div class="nav_item_menu">
+                    <a class="" asp-area="" asp-page="/burger_menu"><img src="../pic/nav/menu.png" alt="menu"></a>
+                    <!--<div class="" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <header>
+        <form action="#" >
+            <h3>Вхід</h3>
+            <input type="text" placeholder="(123) 456 78 90">
+            <input type="password" placeholder="Пароль">
+            <button class="submit" type="submit">Увійти</button>
+            <a href="reg.html">Реєстрація</a>
+        </form>
+    </header>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/site.js" asp-append-version="true"></script>
+
+</body>
+
+</html>

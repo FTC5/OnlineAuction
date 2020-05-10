@@ -1,0 +1,83 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../pic/back/back.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: HelveticaNeueCyr;
+
+}
+
+
+
+header {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    width: 45vw;
+    flex-wrap: wrap;
+    padding-left: 14%;
+}
+
+button {
+    background: #2F80ED;
+    width: 221px;
+    height: 40px;
+    border: 0;
+    color: #F2F2F2;
+}
+
+
+.bid {
+    display: flex;
+    flex-direction: row;
+    position:relative;
+}
+
+
+
+.сategories {
+    background-color: #F2F2F2;
+}
+
+.catalog_index {
+    height:15vh;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center;
+}
+
+.catalog_index_group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+}
+
+
+
+.featured_button {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_more-lots {
+    margin-bottom: 20px;
+}
+
+.featured_products_list {
+    width:70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom:20px;
+}

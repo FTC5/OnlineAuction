@@ -1,0 +1,32 @@
+header {
+    width: 74vw;
+    height: auto;
+    padding: 150px 0;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60vh;
+    justify-content: center;
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    padding: 10px 20px;
+    background: #f2f2f2;
+    border: 0;
+    margin: 15px 0;
+}
+
+.submit {
+    background: #2F80ED;
+    color: #f2f2f2;
+    font-weight: bold;
+}

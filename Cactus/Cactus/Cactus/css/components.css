@@ -1,0 +1,133 @@
+/* Навигатор */
+
+.navbar {
+    position: fixed;
+    background: #f2f2f2;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    box-shadow: 5px 0px 16px #20202038;
+    z-index: 100;
+}
+
+.navbar_content {
+    display: flex;
+    width: 74%;
+    justify-content:space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbar_menu {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: auto;
+    align-items: center;
+}
+
+/* .bid_active {
+    border-radius: 50%;
+    color: #f2f2f2;
+    background: #6FCF97;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+} */
+
+/* Карточка лота */
+
+
+
+.featured_products {
+    background: #f2f2f2;
+    height: 130vh;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card_body {
+    width: 25%;
+    height: auto;
+    background: #f2f2f2;
+    margin: 20px;
+    box-shadow:4px 7px 9px #20202038;
+    transition: 0.3s ease;
+    font-family: HelveticaNeueCyr;
+    font-weight: normal;
+    text-decoration: none !important;
+}
+
+.card_body:hover {
+    box-shadow: 1px 3px 9px #20202038;
+}
+
+.card_content {
+    padding: 10px;
+}
+
+.card_photo {
+    height: auto;
+    width: 99%;
+    padding-bottom: 10px;
+    
+}
+
+.card_title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card_bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+}
+
+
+/* футер */
+
+footer {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 180px;
+    background: #0E314A;
+    color: #f2f2f2;
+    align-items: flex-end;
+}
+
+.card_title {
+    text-decoration: none;
+    color: darkblue
+}
+
+.card_content {
+    text-decoration: none;
+}
+
+.card_step {
+    text-decoration: none;
+    color: darkblue
+}
+
+button {
+    border: 0;
+    background: #2F80ED;
+    width: 180px;
+    height: 50px;  
+    color: #f2f2f2;  
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+

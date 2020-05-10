@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cactus - bid</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/activeLot.css">
+</head>
+
+<body>
+
+    <nav class="navbar text-center">
+        <div class="navbar_content">
+            <a href="index.html" class="navbar_logo">
+                <img src="../pic/logo/logo.png" alt="logo">
+            </a>
+            <div class="navbar_menu">
+
+                <div class="nav_item_bid">
+                    <div class="bid_active">
+                        
+                    </div>
+                    <a class="nav-link text-dark" href="activeLot.html">
+                        <img src="../pic/nav/bid.png" alt="bid">
+                    </a>
+                </div>
+
+                <div class="nav_item_user">
+                    <a class="nav-link text-dark" href="user.html"><img src="../pic/nav/user.png"
+                            alt="user"><span class="ml-2"><strong>Артем</strong></span></a>
+                </div>
+
+                <div class="nav_item_menu">
+                    <a class="" asp-area="" asp-page="/burger_menu"><img src="../pic/nav/menu.png" alt="menu"></a>
+                    <!--<div class="" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <header>
+        <div class="catalog_list">
+            <div class="catalog_list_top">
+                <h2 class="active_catalog_title">
+                    Активні ставки
+                </h2>
+            </div>
+
+            <div class="catalog_categories_list">
+                <div class="featured_products_list">
+                    <a href="lotPage.html" class="card_body win">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="lotPage.html" class="card_body lose">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+        
+                    <button type="button" href="lotPage.html" class="card_body win" href="lotPage.html">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </button>
+                    <a href="lotPage.html" class="card_body win">
+                        <div class="card_content">
+                            <img src="../pic/products/product_example.png" alt="product" class="card_photo">
+                            <h6 class="card_title">
+                                Золотая монета 10 рублей 1894 года UNC !!! Александр III, С РУБЛЯ!!!
+                            </h6>
+                            <div class="card_bottom">
+                                <div class="card_step">Кроків: 3</div>
+                                <div class="card_price text-danger">5999 грн</div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                   
+                </div>
+                
+            </div>
+            <a class="button_block" href="catalog.html">
+                <button type="button" class="featured_button text-center mb-5 " asp-page="/catalog">
+                    Відкрити каталог
+                </button>
+            </a>
+        </div>
+        
+    </header>
+    
+
+    <footer class=" footerd d-flex flex-column align-items-center justify-content-around">
+        <img src="../pic/logo/logo.png">
+        <span>Авторські права © 2020 Cactus, Inc.</span>
+
+    </footer>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/site.js" asp-append-version="true"></script>
+
+</body>
+
+</html>

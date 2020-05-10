@@ -1,0 +1,142 @@
+header {
+    width: 74vw;
+    min-height: 80vh;    
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+
+
+
+.catalog_list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.catalog_list_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 55%;
+}
+
+.catalog_categories_list {
+    width: 100%;
+}
+
+.featured_products_list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    padding-top: 40px;
+    align-items: center;
+}
+
+.search_input {
+    border: 0;
+    background: lightgray;
+    padding: 10px 15px;
+    background-image: url("../pic/catalog/search.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.card_body {
+    width: auto;
+    height: 150px;
+    background: #f2f2f2;
+    margin: 20px;
+    box-shadow:4px 7px 9px #20202038;
+    transition: 0.3s ease;
+    font-family: HelveticaNeueCyr;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_body:hover {
+    box-shadow: 1px 3px 9px #20202038;
+}
+
+.card_content {
+    display: flex;
+    width: 99%;
+    height: 99%;
+    justify-content: center;
+}
+
+.card_photo {
+    height: 100%;
+    width: auto;
+    padding-bottom: 10px;
+    
+}
+
+.card_title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card_bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img {
+    width: 18%;
+}
+
+.card_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.control_button {
+    background: none;
+    padding: 5px;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control_button:hover {
+    background: ghostwhite;
+    padding: 5px;
+    margin: 0;
+    width: auto;
+    height: auto;
+    width: 30px;
+    height: 30px;
+}
+
+
+.control {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_bottom_left {
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    justify-content: space-between;
+}
+

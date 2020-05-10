@@ -1,0 +1,40 @@
+header {
+    width: 74vw;
+    height: 100vh;
+    padding: 150px 0;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 65vh;
+    justify-content: space-evenly;
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    padding: 10px 20px;
+    background: #f2f2f2;
+    border: 0;
+}
+
+.submit {
+    background: #2F80ED;
+    color: #f2f2f2;
+    font-weight: bold;
+}
+
+.input_block {
+    padding: 10px 0;
+}
+
+h6 {
+    text-align: center;
+}
