@@ -10,27 +10,27 @@ using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class BoughLotService:Service
+    public class BoughLotService :Service
     {
         public BoughLotService(IUnitOfWork db) : base(db)
         {
         }
 
-        public IEnumerable<LotDTO> GetSels(int UserId)
+        public IEnumerable<LotDTO> GetSels(int userId)
         {
-            var user = db.User.Get(UserId);
+            var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found", "");
             return mapper.Map<IEnumerable<LotDTO>>(user.Sels);
         }
-        public void DeleteSels(int UserId, int LotId)
+        public void DeleteSels(int userId, int lotId)
         {
-            var user = db.User.Get(UserId);
+            var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found", "");
 
             List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Sels);
-            LotDTO lot = lotDTOs.Find(i => i.Id == LotId);
+            LotDTO lot = lotDTOs.Find(i => i.Id == lotId);
 
             if (lot == null)
                 throw new LotNotFoundExaption("Lot not Found", "");
@@ -41,20 +41,20 @@ namespace OnlineAuction.BLL.BusinessModels
             db.User.Update(user);
             db.Save();
         }
-        public IEnumerable<LotDTO> GetBought(int UserId)
+        public IEnumerable<LotDTO> GetBought(int userId)
         {
-            var user = db.User.Get(UserId);
+            var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found", "");
             return mapper.Map<IEnumerable<LotDTO>>(user.Bought);
         }
-        public void DeleteBought(int UserId, int LotId)
+        public void DeleteBought(int userId, int lotId)
         {
-            var user = db.User.Get(UserId);
+            var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found", "");
             List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Bought);
-            LotDTO lot = lotDTOs.Find(i => i.Id == LotId);
+            LotDTO lot = lotDTOs.Find(i => i.Id == lotId);
 
             if (lot == null)
                 throw new LotNotFoundExaption("Lot not Found", "");

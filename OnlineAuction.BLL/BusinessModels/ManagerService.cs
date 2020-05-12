@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OnlineAuction.BLL.BusinessModels.Interfaces;
+using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class ManagerService:Service, IManagerService
+    public class ManagerService :Service, IManagerService
     {
         public ManagerService(IUnitOfWork db) : base(db)
         {
@@ -36,14 +36,9 @@ namespace OnlineAuction.BLL.BusinessModels
             if (lot == null)
                 throw new LotNotFoundExaption("Lot not Found", "");
 
-            if (lot == null)
-            {
+            if (moderation.ModerationResult == false && String.IsNullOrEmpty(moderation.Comment) == true)
+                throw new ValidationException("not all fields are filled", "");
 
-            }
-            else if (moderation.ModerationResult == false && String.IsNullOrEmpty(moderation.Comment) == true)
-            {
-
-            }
             else if (moderation.ModerationResult == false)
             {
                 lot.ModerationResult = false;
@@ -83,9 +78,9 @@ namespace OnlineAuction.BLL.BusinessModels
             });
             return mapper.Map<IEnumerable<LotDTO>>(lots);
         }
-        public void StopLot(int LotId)
+        public void StopLot(int lotId)
         {
-            var lot = db.Lot.Get(LotId);
+            var lot = db.Lot.Get(lotId);
             if (lot == null)
             {
 
@@ -96,7 +91,7 @@ namespace OnlineAuction.BLL.BusinessModels
             }
             if (lot.BetsCount == 0)
             {
-                db.Lot.Delete(LotId);
+                db.Lot.Delete(lotId);
                 db.Save();
             }
             else
@@ -131,9 +126,9 @@ namespace OnlineAuction.BLL.BusinessModels
 
             
         }
-        public void ContinueLot(int LotId)
+        public void ContinueLot(int lotId)
         {
-            var lot = db.Lot.Get(LotId);
+            var lot = db.Lot.Get(lotId);
 
             if (lot == null)
                 throw new LotNotFoundExaption("Lot not Found", "");

@@ -14,7 +14,7 @@ namespace OnlineAuction.Web.Models
             get { return bets;  }
             set { bets = value; }
         }
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int MinimumStroke { get; set; } = 1;
         public int BetsCount { get; set; } = 0;
         public int CurrentPrice { get; set; }

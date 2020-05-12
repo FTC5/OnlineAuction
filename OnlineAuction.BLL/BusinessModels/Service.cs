@@ -11,6 +11,7 @@ namespace OnlineAuction.BLL.BusinessModels
 {
     public class Service
     {
+
         protected IUnitOfWork db;
         protected readonly IMapper mapper;
 

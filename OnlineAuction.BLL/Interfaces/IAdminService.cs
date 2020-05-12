@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineAuction.BLL.BusinessModels.Interfaces
+namespace OnlineAuction.BLL.Interfaces
 {
     public interface IAdminService
     {
-        IEnumerable<CategoryDTO> GetCategory();
-        void DeleteCategory(int CategoryId);
+        void DeleteCategory(int categoryId);
         void AddCategory(CategoryDTO category);
         IEnumerable<AdvancedUserDTO> GetManegers();
         void DeleteManeger(int id);
-        void AddManeger(AdvancedUserDTO advuser);
+        void AddManeger(PersonDTO person, AuthenticationDTO authent);
+        void UpdateCategory(int CategoryId, string name);
     }
 }

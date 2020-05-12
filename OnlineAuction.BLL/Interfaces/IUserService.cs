@@ -8,20 +8,21 @@ using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
-namespace OnlineAuction.BLL.BusinessModels.Interfaces
+namespace OnlineAuction.BLL.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
-        void AddLotTOSubscription(int UserID, int LotID);
-        IEnumerable<LotDTO> GetSubscription(int UserId);
-        void DeleteSubscription(int UserId, int LotId);
-        IEnumerable<LotDTO> GetUserLot(int UserId);
-        void EditLot(int UserId, LotDTO changed);
-        void AddLot(int UserId, LotDTO lot);
-        UserDTO GetLotAutorInfo(int LotID);
-        void AddBalance(int UserId, int count);
-        void AddBet(int LotId, int UserId);
-        void ChangeLogin(int UserId, string newLogin);
-        void ChangePassword(int UserId, string newPassword);
+        void AddLotTOSubscription(int userD, int lotId);
+        IEnumerable<LotDTO> GetSubscription(int userd);
+        void DeleteSubscription(int userd, int lotId);
+        IEnumerable<LotDTO> GetUserLot(int userd);
+        void UpdateLot(int userd, LotDTO changed);
+        void AddLot(int userd, LotDTO lot);
+        void DeleteLot(int userId, int lotId);
+        UserDTO GetLotAutorInfo(int lotId);
+        void AddBalance(int userd, int count);
+        void AddBet(int lotId, int userd);
+        void ChangeLogin(int userd, string newLogin);
+        void ChangePassword(int userd, string newPassword);
     }
 }

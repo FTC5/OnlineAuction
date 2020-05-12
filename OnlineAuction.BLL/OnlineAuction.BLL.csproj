@@ -57,8 +57,10 @@
     <Compile Include="BusinessModels\AuthenticationService.cs" />
     <Compile Include="BusinessModels\BoughLotService.cs" />
     <Compile Include="BusinessModels\CatalogService.cs" />
+    <Compile Include="BusinessModels\CategoryService.cs" />
     <Compile Include="BusinessModels\CleanService.cs" />
     <Compile Include="BusinessModels\ManagerService.cs" />
+    <Compile Include="BusinessModels\RegistrationService.cs" />
     <Compile Include="BusinessModels\Service.cs" />
     <Compile Include="BusinessModels\UserService.cs" />
     <Compile Include="DTO\AuthenticationDTO.cs" />
@@ -83,8 +85,10 @@
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />
+    <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\ICleanService.cs" />
     <Compile Include="Interfaces\IManagerService.cs" />
+    <Compile Include="Interfaces\IRegistrationService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +101,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

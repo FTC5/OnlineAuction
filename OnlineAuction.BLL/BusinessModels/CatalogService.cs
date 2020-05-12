@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using OnlineAuction.BLL.BusinessModels.Interfaces;
+using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
@@ -21,7 +21,6 @@ namespace OnlineAuction.BLL.BusinessModels
         {
             var lots = db.Lot.Find(l=>(l.ModerationResult==false && l.Sels==false));
             var lotsDTO = mapper.Map<IEnumerable<LotDTO>> (lots);
-            lotsDTO.First().Product.Location = "10000";
             return lotsDTO;
         }
         public IEnumerable<LotDTO> FindByNameLot(String text)
@@ -42,23 +41,11 @@ namespace OnlineAuction.BLL.BusinessModels
             var lotDTO = mapper.Map<LotDTO>(lot);
             return lotDTO;
         }
-        public CategoryDTO GetCategory(int id)
-        {
-            var category = db.Category.Get(id);
-            var categoryDTO = mapper.Map<CategoryDTO>(category);
-            return categoryDTO;
-        }
-        public IEnumerable<CategoryDTO> GetCategories()
-        {
-            var categories = db.Category.GetAll();
-            var categoriesDTO = mapper.Map<IEnumerable<CategoryDTO>>(categories);
-            return categoriesDTO;
-        }
-        public IEnumerable<LotDTO> FindByCategory(int CategoryId)
+        public IEnumerable<LotDTO> FindByCategory(int categoryId)
         {
             var lots = db.Lot.Find(i => 
                 {
-                    if (i.Product.CategoryId == CategoryId)
+                    if (i.Product.CategoryId == categoryId)
                     {
                         return true;
                     }
@@ -67,7 +54,7 @@ namespace OnlineAuction.BLL.BusinessModels
                         int id = i.Product.Category.ParentCategory.Id;
                         while (i.Product.Category.ParentCategory != null)
                         {
-                            if (id == CategoryId && i.ModerationResult == true && i.Sels == false)
+                            if (id == categoryId && i.ModerationResult == true && i.Sels == false)
                             {
                                 return true;
                             }

@@ -8,7 +8,7 @@ namespace OnlineAuction.Web.Models
 {
     public class ImageModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Link { get; set; }
         public virtual ProductModel Product { get; set; }
     }

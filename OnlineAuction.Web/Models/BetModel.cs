@@ -8,7 +8,7 @@ namespace OnlineAuction.Web.Models
 {
     public class BetModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int UserId { get; set; }
         public int Price { get; set; }
         public virtual DateTime DateTime { get; set; }

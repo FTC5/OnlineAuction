@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OnlineAuction.BLL.BusinessModels.Interfaces;
+using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.DAL;
@@ -12,21 +12,14 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class AdminService:Service,IAdminService
+    public class AdminService:Service,IAdminService
     {
         public AdminService(IUnitOfWork db) : base(db)
         {
         }
-
-        public IEnumerable<CategoryDTO> GetCategory()
+        public void DeleteCategory(int categoryId)
         {
-            var category = db.Category.GetAll();
-            var categoryDTO = mapper.Map<IEnumerable<CategoryDTO>>(category);
-            return categoryDTO;
-        }
-        public void DeleteCategory(int CategoryId)
-        {
-            var category = db.Category.Get(CategoryId);
+            var category = db.Category.Get(categoryId);
             if (category == null)
                 throw new CategoryNotFoundExaption("Category not found", "");
 
@@ -35,7 +28,7 @@ namespace OnlineAuction.BLL.BusinessModels
 
             var lots = db.Lot.Find(i =>
               {
-                  if (i.Product.CategoryId == CategoryId)
+                  if (i.Product.CategoryId == categoryId)
                   {
                       return true;
                   }
@@ -45,7 +38,7 @@ namespace OnlineAuction.BLL.BusinessModels
                 throw new OperationException("Operation Failed : Lots with this category exists", "");
             var categorys = db.Category.Find(c =>
               {
-                  if (c.ParentCategory.Id == CategoryId)
+                  if (c.ParentCategory.Id == categoryId)
                   {
                       return true;
                   }
@@ -54,7 +47,33 @@ namespace OnlineAuction.BLL.BusinessModels
             if (categorys.Count()>0)
                 throw new OperationException("Operation Failed : Category is parent for other", "");
 
-            db.Category.Delete(CategoryId);
+            db.Category.Delete(categoryId);
+            db.Save();
+
+        }
+        public void UpdateCategory(int categoryId,string name)
+        {
+            var category = db.Category.Get(categoryId);
+            if (category == null)
+                throw new CategoryNotFoundExaption("Category not found", "");
+
+            if (category.ParentCategory == null)
+                throw new OperationException("Operation Failed : Cant update Main category", "");
+
+            category.Name = name;
+
+            var categories = db.Category.Find(c =>
+            {
+                if (c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategory.Id)
+                {
+                    return true;
+                }
+                return false;
+            });
+            if (categories.Count() > 0)
+                throw new OperationException("Operation Failed : Category already exists", "");
+
+            db.Category.Update(category);
             db.Save();
 
         }
@@ -95,26 +114,27 @@ namespace OnlineAuction.BLL.BusinessModels
             db.AdvancedUser.Delete(id);
             db.Save();
         }
-        public void AddManeger(AdvancedUserDTO advuser)
+        public void AddManeger(PersonDTO person,AuthenticationDTO authent)
         {
-            advuser.Admin = false;
-            
-            if (advuser.Authentication == null)
+            AdvancedUserDTO advUser = (AdvancedUserDTO)person;
+            advUser.Admin = false;
+            advUser.Authentication = authent;
+            if (authent == null)
                 throw new OperationException("Operation Failed : Empty authentication", "");
-            if(String.IsNullOrWhiteSpace(advuser.Authentication.Login) || 
-                String.IsNullOrWhiteSpace(advuser.Authentication.Password))
+            if(String.IsNullOrWhiteSpace(authent.Login) || 
+                String.IsNullOrWhiteSpace(authent.Password))
                 throw new ValidationException("Empty login or password", "");
-            if(advuser.Authentication.Password.Length<8)
-                throw new ValidationException("Small password", "");
+            if(authent.Password.Length<8)
+                throw new ValidationException("Small password > 8", "");
 
-            string login = advuser.Authentication.Login;
+            string login = authent.Login;
             var aut = db.Authentication.Find(a => a.Login == login);
-            if (aut.Count()==0)
+            if (aut.Count()!=0)
                 throw new OperationException("Operation Failed : Login already exists", "");
 
-            var authentication = mapper.Map<Authentication>(advuser.Authentication);
+            var authentication = mapper.Map<Authentication>(advUser.Authentication);
             db.Authentication.Create(authentication);
-            db.AdvancedUser.Create(mapper.Map<AdvancedUser>(advuser));
+            db.AdvancedUser.Create(mapper.Map<AdvancedUser>(advUser));
             db.Save();
         }
     }

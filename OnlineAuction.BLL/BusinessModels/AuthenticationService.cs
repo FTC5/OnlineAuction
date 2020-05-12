@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OnlineAuction.BLL.BusinessModels.Interfaces;
+using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.BLL.Infrastructure;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.BusinessModels
 {
-    class AuthenticationService : Service, IAuthenticationService
+    public class AuthenticationService : Service, IAuthenticationService
     {
         public AuthenticationService(IUnitOfWork db) : base(db)
         {
@@ -25,7 +25,7 @@ namespace OnlineAuction.BLL.BusinessModels
 
             return aut.First().Id;
         }
-        public int isAdvancedUserDTO(int userId)
+        public int IsAdvancedUserDTO(int userId)
         {
             var user = db.AdvancedUser.Get(userId);
             if (user == null)

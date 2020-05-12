@@ -8,7 +8,7 @@ namespace OnlineAuction.Web.Models
 {
     public class CategoryModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public int ParentCategoryId { get; set; }
         public virtual CategoryModel ParentCategory { get; set; }

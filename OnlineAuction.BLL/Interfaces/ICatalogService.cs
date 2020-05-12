@@ -8,7 +8,7 @@ using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
-namespace OnlineAuction.BLL.BusinessModels.Interfaces
+namespace OnlineAuction.BLL.Interfaces
 {
     public interface ICatalogService
     {
@@ -16,8 +16,6 @@ namespace OnlineAuction.BLL.BusinessModels.Interfaces
         IEnumerable<LotDTO> FindByNameLot(String text);
         IEnumerable<LotDTO> FindByAutor(String nick);
         LotDTO GetLot(int id);
-        CategoryDTO GetCategory(int id);
-        IEnumerable<CategoryDTO> GetCategories();
         IEnumerable<LotDTO> FindByCategory(int CategoryId);
     }
 }
