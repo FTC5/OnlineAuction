@@ -25,7 +25,7 @@ namespace OnlineAuction.Web.Controllers
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
 
-        public void PostManager(PersonModel person,string login,string password)
+        public void PostManager(string login,string password,PersonModel person)
         {
             AuthenticationModel model = new AuthenticationModel();
             model.Login = login;
