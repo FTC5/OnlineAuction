@@ -11,6 +11,5 @@ namespace OnlineAuction.Web.Models
         public int? Id { get; set; }
         public string Comment { get; set; } = "";
         public bool ModerationResult { get; set; } = false;
-        public virtual LotModel Lot { get; set; }
     }
 }

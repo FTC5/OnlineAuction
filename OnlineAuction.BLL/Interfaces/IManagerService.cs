@@ -12,9 +12,9 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IManagerService
     {
-        IEnumerable<LotDTO> GetUnCheackLot();
+        IEnumerable<LotViewDTO> GetUnCheackLot();
         void SetModeration(ModerationDTO moderation);
-        IEnumerable<LotDTO> GetOldLot();
+        IEnumerable<LotViewDTO> GetOldLot();
         void StopLot(int lotId);
         void ContinueLot(int lotId);
     }

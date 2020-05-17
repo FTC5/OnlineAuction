@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+   // [Authorize(Roles = "User")]
     public class SubscribeControler : ApiController
     {
         private IMapper mapper;
@@ -19,7 +20,7 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-        public void DeleteSubsribe(int userId,int lotId)
+        public void Delete(int userId,int lotId)
         {
             userService.DeleteSubscription(userId, lotId);
         }

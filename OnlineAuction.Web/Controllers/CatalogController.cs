@@ -22,10 +22,9 @@ namespace OnlineAuction.Web.Controllers
             this.catalogService = catalogService;
             this.categoryService = categoryService;
         }
-
         public IHttpActionResult GetLots()
         {
-            var lots = mapper.Map<IEnumerable<LotModel>>(catalogService.GetLots());
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(catalogService.GetLots());
             return Ok(lots);
         }
         [HttpGet, Route("api/catalog/categories/{parentId=1:decimal}")]
@@ -43,18 +42,21 @@ namespace OnlineAuction.Web.Controllers
         [HttpGet, Route("api/catalog/lots/include/{text}")]
         public IHttpActionResult FindLotsByName(string text)
         {
-            var categories = mapper.Map<LotModel>(catalogService.FindByNameLot(text));
-            return Ok(categories);
+            var searchresult = catalogService.FindByNameLot(text);
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
+            return Ok(lots);
         }
-        [HttpGet, Route("api/catalog/autorLots/{lastname:alpha}")]
+        [HttpGet, Route("api/catalog/autor/include/{text}")]
         public IHttpActionResult FindLotsByAutor(string text)
         {
-            var categories = mapper.Map<LotModel>(catalogService.FindByAutor(text)); 
-            return Ok(categories);
+            var searchresult = catalogService.FindByAutor(text);
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
+            return Ok(lots);
         }
-        public IHttpActionResult PutCategory(int categoryId)
+        [HttpGet, Route("api/catalog/lots/include/category/{categoryId:decimal}")]
+        public IHttpActionResult FindLotsWithCategory(int categoryId) //Dont work
         {
-            var categories = mapper.Map<LotModel>(catalogService.FindByCategory(categoryId));
+            var categories = mapper.Map<IEnumerable<LotViewModel>>(catalogService.FindByCategory(categoryId));
             return Ok(categories);
         }
         [Route("api/catalog/lot/{id:decimal}")]

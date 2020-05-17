@@ -20,7 +20,7 @@ namespace OnlineAuction.Web
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
-                name: "IntAndString",
+                name: "IdAndId",
                 routeTemplate: "api/{controller}/{id1}/{id2}",
                 defaults: new { },
                 constraints: new
@@ -30,7 +30,7 @@ namespace OnlineAuction.Web
                 }
             );
             config.Routes.MapHttpRoute(
-                name: "IntAndString",
+                name: "IntAndStringOrObg",
                 routeTemplate: "api/{controller}/{id}/{textOrObj}",
                 defaults: new { },
                 constraints: new
@@ -43,7 +43,12 @@ namespace OnlineAuction.Web
                 routeTemplate: "api/{controller}/{login}/{password}/{obj}",
                 defaults: new { obj = RouteParameter.Optional }
             );
-            
+            config.Routes.MapHttpRoute(
+                name: "Del",
+                routeTemplate: "api/{controller}/{action}/{userId}/{lotId}",
+                defaults: new {  }
+            );
+
 
         }
     }

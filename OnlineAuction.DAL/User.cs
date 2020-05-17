@@ -34,13 +34,7 @@ namespace OnlineAuction.DAL
             get { return bought ?? (bought = new List<Lot>()); }
             set { bought = value; }
         }
-        //private ICollection<Bet> bets;
-        //public virtual ICollection<Bet> Bets
-        //{
-        //    get { return bets ?? (bets = new List<Bet>()); }
-        //    set { bets = value; }
-        //}
-
+        
         public int Balance { get; set; } = 0;
     }
 }

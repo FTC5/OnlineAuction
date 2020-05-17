@@ -13,6 +13,5 @@ namespace OnlineAuction.Web.Models
         public string SendingAbroad { get; set; }
         public string PurchaseReturns { get; set; }
         public string CostOfdelivery { get; set; }
-        public virtual ProductModel Product { get; set; }
     }
 }

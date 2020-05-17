@@ -15,13 +15,16 @@ namespace OnlineAuction.BLL.DTO
             set { bets = value; }
         }
         public int Id { get; set; }
-        public int MinimumStroke { get; set; } = 1;
-        public int BetsCount { get; set; } = 0;
         public int CurrentPrice { get; set; }
+        public int MinimumStroke { get; set; } = 1;
+        public int BetsCount { get; set; } = 0;   
         public int UserId { get; set; }
-        public bool Change { get; set; } = false;
         public bool ModerationResult { get; set; } = false;
+        public bool Change { get; set; } = false;
+        public bool Sels { get; set; } = false;
+        public DateTime StartDate { get; set; }
         public int TermDay { get; set; }
+        public string UserName { get; set; }
         public virtual UserDTO User { get; set; }
         public virtual ProductDTO Product { get; set; }
         public virtual ModerationDTO Moderation { get; set; }

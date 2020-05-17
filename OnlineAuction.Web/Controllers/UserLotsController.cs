@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    //[Authorize(Roles = "User")]
     public class UserLotsController : ApiController
     {
         private IMapper mapper;
@@ -23,7 +24,7 @@ namespace OnlineAuction.Web.Controllers
         }
         public void GetLots(int userId)
         {
-            var lots = mapper.Map<IEnumerable<LotModel>>(userService.GetUserLot(userId));
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId));
         }
         public void PostLot(int userId, LotModel lot)
         {

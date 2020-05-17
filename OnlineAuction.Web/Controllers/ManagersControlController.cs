@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    // [Authorize(Roles = "Admin")]
     public class ManagersControlController : ApiController
     {
         private IMapper mapper;
@@ -24,8 +25,8 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-
-        public void PostManager(string login,string password,PersonModel person)
+        [HttpPost]
+        public void PostManager(string login, string password,[FromBody]PersonModel person)
         {
             AuthenticationModel model = new AuthenticationModel();
             model.Login = login;
@@ -37,6 +38,7 @@ namespace OnlineAuction.Web.Controllers
             var managers = mapper.Map<IEnumerable<AdvancedUserModel>>(adminService.GetManegers());
             return Ok(managers);
         }
+        [HttpDelete]
         public void DeleteManager(int manegerId)
         {
             adminService.DeleteManeger(manegerId);

@@ -12,10 +12,10 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface ICatalogService
     {
-        IEnumerable<LotDTO> GetLots();
-        IEnumerable<LotDTO> FindByNameLot(String text);
-        IEnumerable<LotDTO> FindByAutor(String nick);
+        IEnumerable<LotViewDTO> GetLots();
+        IEnumerable<LotViewDTO> FindByNameLot(String text);
+        IEnumerable<LotViewDTO> FindByAutor(String nick);
         LotDTO GetLot(int id);
-        IEnumerable<LotDTO> FindByCategory(int CategoryId);
+        IEnumerable<LotViewDTO> FindByCategory(int CategoryId);
     }
 }

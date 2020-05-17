@@ -11,8 +11,8 @@ namespace OnlineAuction.Web.Models
         public int? Id { get; set; }
         public int UserId { get; set; }
         public int Price { get; set; }
+        public string UserName { get; set; }
+        public int LotId { get; set; }
         public virtual DateTime DateTime { get; set; }
-        public virtual UserModel User { get; set; }
-        public virtual LotModel Lot { get; set; }
     }
 }

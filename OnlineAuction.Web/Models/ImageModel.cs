@@ -10,6 +10,5 @@ namespace OnlineAuction.Web.Models
     {
         public int? Id { get; set; }
         public string Link { get; set; }
-        public virtual ProductModel Product { get; set; }
     }
 }

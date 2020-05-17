@@ -11,7 +11,8 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-    public class LotModerationController : ApiController
+    //[Authorize(Roles = "Manager")]
+    public class LotModerationController : ApiController //Error
     {
         private IMapper mapper;
         private IManagerService managerService;
@@ -30,7 +31,7 @@ namespace OnlineAuction.Web.Controllers
             managerService.SetModeration(mapper.Map<ModerationDTO>(moderation));
         }
         [HttpPost]
-        public void PreventLot(int lotId,string cause)
+        public void PreventLot(int lotId,string cause) 
         {
             ModerationModel moderation = new ModerationModel();
             moderation.ModerationResult = false;

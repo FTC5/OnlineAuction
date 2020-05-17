@@ -27,7 +27,7 @@ namespace OnlineAuction.Web.Controllers
             int id = registrationService.AuthorizationRegistration(login, password);
             return Ok(id);
         }
-        [Route("api/registration/authorization/{id}/{perosn}")]
+        [Route("api/registration/person/{authorizationId}/{perosn}")]
         public IHttpActionResult PostUserInfo(int authorizationId, PersonModel person)
         {
             registrationService.UserRegistration(authorizationId, mapper.Map<PersonDTO>(person));

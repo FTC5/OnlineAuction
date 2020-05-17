@@ -13,20 +13,24 @@ namespace OnlineAuction.BLL.Infrastructure
     {
         public AutoMapping()
         {
+
             CreateMap<AdvancedUser, AdvancedUserDTO>();
             CreateMap<AdvancedUser, AdvancedUserDTO>().ReverseMap();
             CreateMap<Authentication, AuthenticationDTO>();
             CreateMap<Authentication, AuthenticationDTO>().ReverseMap();
-            CreateMap<Bet, BetDTO>();
-            CreateMap<Bet, BetDTO>().ReverseMap();
+            CreateMap<Bet, BetDTO>()
+                .ForMember(bd => bd.UserName, opt => opt.MapFrom(b => b.User.FirstName + " " + b.User.LastName))
+                .ForMember(bd => bd.LotId, opt => opt.MapFrom(b => b.Lot.Id));
+            CreateMap<BetDTO, Bet>();
             CreateMap<Category, CategoryDTO>();
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<DeliveryAndPayment, DeliveryAndPaymentDTO>();
             CreateMap<DeliveryAndPayment, DeliveryAndPaymentDTO>().ReverseMap();
             CreateMap<Image, ImageDTO>();
             CreateMap<Image, ImageDTO>().ReverseMap();
-            CreateMap<Lot, LotDTO>();
-            CreateMap<Lot, LotDTO>().ReverseMap();
+            CreateMap<LotDTO, Lot>();
+            CreateMap<Lot, LotDTO>()
+                .ForMember(bd => bd.UserName, opt => opt.MapFrom(b => b.User.FirstName + " " + b.User.LastName));
             CreateMap<Moderation, ModerationDTO>();
             CreateMap<Moderation, ModerationDTO>().ReverseMap();
             CreateMap<Person, PersonDTO>()
@@ -37,6 +41,14 @@ namespace OnlineAuction.BLL.Infrastructure
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<User, UserDTO>();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<AdvancedUserDTO, PersonDTO>();
+            CreateMap<AdvancedUserDTO, PersonDTO>().ReverseMap();
+            CreateMap<Lot, LotViewDTO>()
+                .ForMember(ld => ld.UserName, opt => opt.MapFrom(l => l.User.FirstName + " " + l.User.LastName))
+                .ForMember(ld => ld.Name, opt => opt.MapFrom(l => l.Product.Name))
+                .ForMember(ld => ld.Image, opt => opt.MapFrom(l => l.Product.Images.First()))
+                .ForMember(ld => ld.Category, opt => opt.MapFrom(l => l.Product.Category));
+
         }
     }
 }

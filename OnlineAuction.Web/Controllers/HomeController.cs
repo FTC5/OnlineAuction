@@ -11,20 +11,13 @@ using System.Web.Mvc;
 
 namespace OnlineAuction.Web.Controllers
 {
-    public class HomeController : ApiController
+    public class HomeController : Controller
     {
-        private IMapper mapper;
-        private ICatalogService catalogService;
+        public ActionResult Index()
+        {
+            ViewBag.Title = "Home Page";
 
-        public HomeController(ICatalogService catalogService)
-        {
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
-            this.catalogService = catalogService;
-        }
-        public IHttpActionResult GetLot(int lotId)
-        {
-            var lot = mapper.Map<LotModel>(catalogService.GetLot(lotId));
-            return Ok(lot);
+            return View();
         }
     }
 }

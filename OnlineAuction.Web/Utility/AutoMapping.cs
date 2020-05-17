@@ -37,6 +37,8 @@ namespace OnlineAuction.Web.Utility
             CreateMap<ProductModel, ProductDTO>().ReverseMap();
             CreateMap<UserModel, UserDTO>();
             CreateMap<UserModel, UserDTO>().ReverseMap();
+            CreateMap<LotViewModel, LotViewDTO>();
+            CreateMap<LotViewModel, LotViewDTO>().ReverseMap();
         }
     }
 }

@@ -53,16 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\AdminService.cs" />
-    <Compile Include="BusinessModels\AuthenticationService.cs" />
-    <Compile Include="BusinessModels\BoughLotService.cs" />
-    <Compile Include="BusinessModels\CatalogService.cs" />
-    <Compile Include="BusinessModels\CategoryService.cs" />
-    <Compile Include="BusinessModels\CleanService.cs" />
-    <Compile Include="BusinessModels\ManagerService.cs" />
-    <Compile Include="BusinessModels\RegistrationService.cs" />
-    <Compile Include="BusinessModels\Service.cs" />
-    <Compile Include="BusinessModels\UserService.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\BoughLotService.cs" />
+    <Compile Include="Services\CatalogService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\CleanService.cs" />
+    <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Services\RegistrationService.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="DTO\AuthenticationDTO.cs" />
     <Compile Include="DTO\BetDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="DTO\ImageDTO.cs" />
     <Compile Include="DTO\LotDTO.cs" />
     <Compile Include="DTO\AdvancedUserDTO.cs" />
+    <Compile Include="DTO\LotViewDTO.cs" />
     <Compile Include="DTO\ModerationDTO.cs" />
     <Compile Include="DTO\PersonDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
@@ -103,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

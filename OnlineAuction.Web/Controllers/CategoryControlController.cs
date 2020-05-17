@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+   // [Authorize(Roles = "Admin")]
     public class CategoryControlController : ApiController
     {
         private IMapper mapper;
@@ -22,13 +23,15 @@ namespace OnlineAuction.Web.Controllers
             this.categoryService = categoryService;
             this.adminService = adminService;
         }
-        public void PostCategory(int parentId,string name)
+        [HttpPost]
+        public void PostCategory([FromBody] CategoryModel category)
         {
-            CategoryModel category = new CategoryModel();
-            category.Name = name;
-            category.ParentCategoryId = parentId;
+            //CategoryModel category = new CategoryModel();
+            //category.Name = name;
+            //category.ParentCategoryId = parentId;
             adminService.AddCategory(mapper.Map<CategoryDTO>(category));
         }
+        [HttpDelete]
         public void DeleteCategory(int id)
         {
             adminService.DeleteCategory(id);
@@ -39,6 +42,7 @@ namespace OnlineAuction.Web.Controllers
             return Ok(categories);
 
         }
+        [HttpPut]
         public IHttpActionResult PutCategory(int id,string name)
         {
             adminService.UpdateCategory(id, name);

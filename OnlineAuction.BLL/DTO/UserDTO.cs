@@ -8,6 +8,7 @@ namespace OnlineAuction.BLL.DTO
 {
     public class UserDTO:PersonDTO
     {
+        public int Balance { get; set; } = 0;
         private ICollection<LotDTO> userLots;
         public virtual ICollection<LotDTO> UserLots
         {
@@ -20,12 +21,17 @@ namespace OnlineAuction.BLL.DTO
             get { return subscriptions; }
             set { subscriptions = value; }
         }
-        private ICollection<BetDTO> bets;
-        public virtual ICollection<BetDTO> Bets
+        private ICollection<LotDTO> sels;
+        public virtual ICollection<LotDTO> Sels
         {
-            get { return bets ; }
-            set { bets = value; }
+            get { return sels ?? (sels = new List<LotDTO>()); }
+            set { sels = value; }
         }
-        public int Balance { get; set; } = 0;
+        private ICollection<LotDTO> bought;
+        public virtual ICollection<LotDTO> Bought
+        {
+            get { return bought ?? (bought = new List<LotDTO>()); }
+            set { bought = value; }
+        }
     }
 }

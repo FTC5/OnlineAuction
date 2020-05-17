@@ -8,6 +8,7 @@ namespace OnlineAuction.Web.Models
 {
     public class UserModel: PersonModel
     {
+        public int Balance { get; set; } = 0;
         private ICollection<LotModel> userLots;
         public virtual ICollection<LotModel> UserLots
         {
@@ -20,12 +21,17 @@ namespace OnlineAuction.Web.Models
             get { return subscriptions; }
             set { subscriptions = value; }
         }
-        private ICollection<BetModel> bets;
-        public virtual ICollection<BetModel> Bets
+        private ICollection<LotModel> sels;
+        public virtual ICollection<LotModel> Sels
         {
-            get { return bets ; }
-            set { bets = value; }
+            get { return sels ?? (sels = new List<LotModel>()); }
+            set { sels = value; }
         }
-        public int Balance { get; set; } = 0;
+        private ICollection<LotModel> bought;
+        public virtual ICollection<LotModel> Bought
+        {
+            get { return bought ?? (bought = new List<LotModel>()); }
+            set { bought = value; }
+        }
     }
 }

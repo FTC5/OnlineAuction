@@ -21,19 +21,21 @@ namespace OnlineAuction.Web.Controllers
             this.catalogService = catalogService;
             this.userService = userService;
         }
-
+        [HttpGet]
         public IHttpActionResult GetLot(int lotId)
         {
             var lot= mapper.Map<LotModel>(catalogService.GetLot(lotId));
             return Ok(lot);
         }
         [HttpPut]
+        //[HttpPut, Authorize(Roles = "User")]
         public IHttpActionResult SubscribeLot(int lotId,int userId)
         {
             userService.AddLotTOSubscription(userId, lotId);
             return Ok();
         }
         [HttpPost]
+        //[HttpPost, Authorize(Roles = "User")]
         public IHttpActionResult AddBet(int lotId, int userId)
         {
             userService.AddBet(lotId,userId);

@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+   // [Authorize(Roles = "Manager")]
     public class OldLotControlController : ApiController
     {
         private IMapper mapper;
@@ -20,18 +21,22 @@ namespace OnlineAuction.Web.Controllers
             this.managerService = managerService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IHttpActionResult GetOldLot()
         {
-            var lots = mapper.Map<IEnumerable<LotModel>>(managerService.GetOldLot());
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetOldLot());
             return Ok(lots);
         }
-        [HttpPut, Route("api/oldLotControl/stop/{id:decimal}")]
+        [HttpPut, Route("api/stop/{lotId:decimal}")]
         public IHttpActionResult StopLot(int lotId)
         {
             managerService.StopLot(lotId);
             return Ok();
         }
-        [HttpPut, Route("api/oldLotControl/continue/{id:decimal}")]
+        [HttpPut, Route("api/continue/{lotId:decimal}")]
         public IHttpActionResult ContinueLot(int lotId)
         {
             managerService.ContinueLot(lotId);

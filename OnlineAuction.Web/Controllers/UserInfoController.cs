@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    //[Authorize]
     public class UserInfoController : ApiController
     {
         private IMapper mapper;
@@ -20,13 +21,17 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-        public void PutPassword(int userId,string password)
+        [HttpPut,Route("api/UserInfo/PutPassword/{userId:decimal}/{password}")]
+        public IHttpActionResult PutPassword(int userId,string password)
         {
             userService.ChangePassword(userId,password);
+            return Ok();
         }
-        public void PutLogin(int userId, string login)
+        [HttpPut]
+        public IHttpActionResult PutLogin(int userId, string login)
         {
             userService.ChangeLogin(userId,login);
+            return Ok();
         }
     }
 }

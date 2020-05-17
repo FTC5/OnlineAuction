@@ -22,6 +22,5 @@ namespace OnlineAuction.Web.Models
         public int CategoryId { get; set; }
         public virtual CategoryModel Category { get; set; }
         public virtual DeliveryAndPaymentModel DeliveryAndPayment { get; set; }
-        public virtual LotModel Lot { get; set; }
     }
 }
