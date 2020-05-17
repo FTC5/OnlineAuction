@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineAuction.BLL.Services
 {
@@ -21,10 +22,10 @@ namespace OnlineAuction.BLL.Services
         {
             var category = db.Category.Get(categoryId);
             if (category == null)
-                throw new CategoryNotFoundExaption("Category not found", "");
+                return;
 
             if (category.ParentCategory == null)
-                throw new OperationException("Operation Failed : Cant delete Main category", "");
+                throw new OperationFaildException("Operation Failed : Cant delete Main category");
 
             var lots = db.Lot.Find(i =>
               {
@@ -35,7 +36,7 @@ namespace OnlineAuction.BLL.Services
                   return false;
               });
             if (lots.Count() > 0)
-                throw new OperationException("Operation Failed : Lots with this category exists", "");
+                throw new OperationFaildException("Operation Failed : Lots with this category exists");
             var categorys = db.Category.Find(c =>
               {
                   if (c.ParentCategory!=null && c.ParentCategory.Id == categoryId)
@@ -45,7 +46,7 @@ namespace OnlineAuction.BLL.Services
                   return false;
               });
             if (categorys.Count()>0)
-                throw new OperationException("Operation Failed : Category is parent for other", "");
+                throw new OperationFaildException("Operation Failed : Category is parent for other");
 
             db.Category.Delete(categoryId);
             db.Save();
@@ -55,10 +56,10 @@ namespace OnlineAuction.BLL.Services
         {
             var category = db.Category.Get(categoryId);
             if (category == null)
-                throw new CategoryNotFoundExaption("Category not found", "");
+                return;
 
             if (category.ParentCategory == null)
-                throw new OperationException("Operation Failed : Cant update Main category", "");
+                throw new OperationFaildException("Operation Failed : Cant update Main category");
 
             var categories = db.Category.Find(c =>
             {
@@ -70,18 +71,20 @@ namespace OnlineAuction.BLL.Services
             });
             category.Name = name;
             if (categories.Count() > 0)
-                throw new OperationException("Operation Failed : Category already exists", "");
+                throw new OperationFaildException("Operation Failed : Category already exists");
 
             db.Category.Update(category);
             db.Save();
 
         }
-        public void AddCategory(CategoryDTO category)
+        public void AddCategory(CategoryDTO category)//validation
         {
-            if (String.IsNullOrEmpty(category.Name))
-                throw new ValidationException("Empty name","");
+            var results = new List<ValidationResult>();
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(category);
+            if (!Validator.TryValidateObject(category, context, results, true))
+                throw new Infrastructure.ValidationException("Unable to add category", results);
 
-            var categories = db.Category.Find(c =>
+              var categories = db.Category.Find(c =>
               {
                   if(c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategoryId)
                   {
@@ -89,8 +92,8 @@ namespace OnlineAuction.BLL.Services
                   }
                   return false;
               });
-            if (categories.Count()>0)
-                throw new OperationException("Operation Failed : Category already exists", "");
+            if (categories.Count() > 0)
+                return;
 
             var cat = mapper.Map<Category>(category);
             cat.ParentCategory = db.Category.Get(category.ParentCategoryId);
@@ -105,31 +108,35 @@ namespace OnlineAuction.BLL.Services
         public void DeleteManeger(int id)
         {
             var maneger = db.AdvancedUser.Get(id);
-            if(maneger==null)
-                throw new UserNotFoundExaption("User does not exist", "");
+            if (maneger == null)
+                return;
             if (maneger.Admin==true)
-                throw new OperationException("Operation Failed : Is not manager Id", "");
+                throw new OperationFaildException("Operation Failed : Is not manager Id");
 
             db.AdvancedUser.Delete(id);
             db.Save();
         }
-        public void AddManeger(PersonDTO person,AuthenticationDTO authent)
+        public void AddManager(PersonDTO person,AuthenticationDTO authent)//validation
         {
+            bool first = false;
+            var results1 = new List<ValidationResult>();
+            var results2 = new List<ValidationResult>();
+            var context1 = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            var context2 = new System.ComponentModel.DataAnnotations.ValidationContext(authent);
+            first = !Validator.TryValidateObject(person, context1, results1, true);
+            if (!Validator.TryValidateObject(person, context2, results2, true) || first == false)
+            {
+                results1.AddRange(results2);
+                throw new Infrastructure.ValidationException("Can not add new manager", results1);
+            }
+                
             AdvancedUserDTO advUser = mapper.Map<AdvancedUserDTO>(person);
             advUser.Admin = false;
             advUser.Authentication = authent;
-            if (authent == null)
-                throw new OperationException("Operation Failed : Empty authentication", "");
-            if(String.IsNullOrWhiteSpace(authent.Login) || 
-                String.IsNullOrWhiteSpace(authent.Password))
-                throw new ValidationException("Empty login or password", "");
-            if(authent.Password.Length<8)
-                throw new ValidationException("Small password > 8", "");
-
             string login = authent.Login;
             var aut = db.Authentication.Find(a => a.Login == login);
             if (aut.Count()!=0)
-                throw new OperationException("Operation Failed : Login already exists", "");
+                throw new OperationFaildException("Operation Failed : Login already exists");
 
             var authentication = mapper.Map<Authentication>(advUser.Authentication);
             db.Authentication.Create(authentication);

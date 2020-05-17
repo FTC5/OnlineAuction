@@ -19,15 +19,12 @@ namespace OnlineAuction.DAL
         public string DeliveryMethod { get; set; }
         [Column("SendingAbroad", TypeName = "ntext")]
         [MaxLength(50)]
-        [Required]
         public string SendingAbroad { get; set; }
         [Column("PurchaseReturns", TypeName = "ntext")]
         [MaxLength(50)]
-        [Required]
         public string PurchaseReturns { get; set; }
         [Column("CostOfdelivery", TypeName = "ntext")]
         [MaxLength(50)]
-        [Required]
         public string CostOfdelivery { get; set; }
         public virtual Product Product { get; set; }
     }

@@ -31,7 +31,7 @@ namespace OnlineAuction.Web.Controllers
             AuthenticationModel model = new AuthenticationModel();
             model.Login = login;
             model.Password = password;
-            adminService.AddManeger(mapper.Map<PersonDTO>(person), mapper.Map<AuthenticationDTO>(model));
+            adminService.AddManager(mapper.Map<PersonDTO>(person), mapper.Map<AuthenticationDTO>(model));
         }
         public IHttpActionResult GetManagers()
         {

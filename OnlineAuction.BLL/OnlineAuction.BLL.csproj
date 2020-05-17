@@ -44,6 +44,10 @@
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -75,10 +79,8 @@
     <Compile Include="DTO\PersonDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Infrastructure\OperationException.cs" />
+    <Compile Include="Infrastructure\OperationFaildException.cs" />
     <Compile Include="Infrastructure\AutoMapping.cs" />
-    <Compile Include="Infrastructure\CategoryNotFoundExaption.cs" />
-    <Compile Include="Infrastructure\AuthenticationException..cs" />
     <Compile Include="Infrastructure\UserNotFoundExaption.cs" />
     <Compile Include="Infrastructure\LotNotFoundExaption.cs" />
     <Compile Include="Infrastructure\ValidationException .cs" />

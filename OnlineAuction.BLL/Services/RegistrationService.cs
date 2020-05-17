@@ -8,6 +8,7 @@ using OnlineAuction.BLL.DTO;
 using OnlineAuction.DAL.Interfaces;
 using OnlineAuction.DAL;
 using OnlineAuction.BLL.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineAuction.BLL.Services
 {
@@ -17,19 +18,20 @@ namespace OnlineAuction.BLL.Services
         {
         }
 
-        public int AuthorizationRegistration(string login,string password)
+        public int AuthorizationRegistration(string login,string password)//Validation
         {
-            if (String.IsNullOrWhiteSpace(login) == true || String.IsNullOrWhiteSpace(password))
-                throw new ValidationException("Empty string", "");
-            if (password.Length < 8)
-                throw new ValidationException("Small password>8", "");
-
             var authentication = new AuthenticationDTO();
             authentication.Login = login;
             authentication.Password = password;
+
+            var results = new List<ValidationResult>();
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(authentication);
+            if (!Validator.TryValidateObject(authentication, context, results, true))
+                throw new Infrastructure.ValidationException("Authorization have error", results);
+
             var aut = db.Authentication.Find(a => a.Login == login);
             if (aut.Count() != 0)
-                throw new OperationException("Operation Failed : Login already exists", "");
+                throw new OperationFaildException("Operation Failed : Login already exists");
 
             db.Authentication.Create(mapper.Map<Authentication>(authentication));
             db.Save();

@@ -8,10 +8,17 @@ namespace OnlineAuction.BLL.Infrastructure
 {
     public class UserNotFoundExaption : Exception
     {
-        public string Property { get; protected set; }
-        public UserNotFoundExaption(string message, string prop) : base(message)
+        public UserNotFoundExaption()
         {
-            Property = prop;
+        }
+
+        public UserNotFoundExaption(string message) : base(message)
+        {
+            
+        }
+
+        public UserNotFoundExaption(string message, Exception innerException) : base(message, innerException)
+        {
         }
     }
 }

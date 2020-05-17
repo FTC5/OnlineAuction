@@ -16,7 +16,7 @@ namespace OnlineAuction.BLL.Interfaces
         void AddCategory(CategoryDTO category);
         IEnumerable<AdvancedUserDTO> GetManegers();
         void DeleteManeger(int id);
-        void AddManeger(PersonDTO person, AuthenticationDTO authent);
+        void AddManager(PersonDTO person, AuthenticationDTO authent);
         void UpdateCategory(int CategoryId, string name);
     }
 }

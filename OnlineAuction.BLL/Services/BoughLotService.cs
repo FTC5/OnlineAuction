@@ -20,20 +20,20 @@ namespace OnlineAuction.BLL.Services
         {
             var user = db.User.Get(userId);
             if (user == null)
-                throw new UserNotFoundExaption("User not found", "");
+                return null;
             return mapper.Map<IEnumerable<LotViewDTO>>(user.Sels);
         }
         public void DeleteSels(int userId, int lotId)
         {
             var user = db.User.Get(userId);
             if (user == null)
-                throw new UserNotFoundExaption("User not found", "");
+                return;
 
             List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Sels);
             LotDTO lot = lotDTOs.Find(i => i.Id == lotId);
 
             if (lot == null)
-                throw new LotNotFoundExaption("Lot not Found", "");
+                return;
 
             user.Sels.Remove(mapper.Map<Lot>(lot));
             db.User.Update(user);
@@ -43,19 +43,19 @@ namespace OnlineAuction.BLL.Services
         {
             var user = db.User.Get(userId);
             if (user == null)
-                throw new UserNotFoundExaption("User not found", "");
+                return null;
             return mapper.Map<IEnumerable<LotViewDTO>>(user.Bought);
         }
         public void DeleteBought(int userId, int lotId)
         {
             var user = db.User.Get(userId);
             if (user == null)
-                throw new UserNotFoundExaption("User not found", "");
+                return;
             List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Bought);
             LotDTO lot = lotDTOs.Find(i => i.Id == lotId);
 
             if (lot == null)
-                throw new LotNotFoundExaption("Lot not Found", "");
+                return;
 
             user.Bought.Remove(mapper.Map<Lot>(lot));
             db.User.Update(user);

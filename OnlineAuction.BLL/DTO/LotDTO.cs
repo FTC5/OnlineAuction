@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,14 @@ namespace OnlineAuction.BLL.DTO
         private ICollection<BetDTO> bets;
         public virtual ICollection<BetDTO> Bets
         {
-            get { return bets;  }
+            get { return bets; }
             set { bets = value; }
         }
         public int Id { get; set; }
         public int CurrentPrice { get; set; }
-        public int MinimumStroke { get; set; } = 1;
-        public int BetsCount { get; set; } = 0;   
+        [Required(ErrorMessage = "Specify a minimum bid")]
+        public int MinimumStroke { get; set; }
+        public int BetsCount { get; set; } = 0;
         public int UserId { get; set; }
         public bool ModerationResult { get; set; } = false;
         public bool Change { get; set; } = false;
@@ -25,7 +27,9 @@ namespace OnlineAuction.BLL.DTO
         public DateTime StartDate { get; set; }
         public int TermDay { get; set; }
         public string UserName { get; set; }
+        [Required(ErrorMessage = "Lot dont have Autor")]
         public virtual UserDTO User { get; set; }
+        [Required(ErrorMessage = "Lot dont have Product")]
         public virtual ProductDTO Product { get; set; }
         public virtual ModerationDTO Moderation { get; set; }
     }

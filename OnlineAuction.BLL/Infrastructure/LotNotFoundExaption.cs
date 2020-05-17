@@ -8,10 +8,16 @@ namespace OnlineAuction.BLL.Infrastructure
 {
     public class LotNotFoundExaption : Exception
     {
-        public string Property { get; protected set; }
-        public LotNotFoundExaption(string message, string prop) : base(message)
+        public LotNotFoundExaption()
         {
-            Property = prop;
+        }
+
+        public LotNotFoundExaption(string message) : base(message)
+        {
+        }
+
+        public LotNotFoundExaption(string message, Exception innerException) : base(message, innerException)
+        {
         }
     }
 }

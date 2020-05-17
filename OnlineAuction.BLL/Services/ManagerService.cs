@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineAuction.BLL.Services
 {
@@ -30,14 +31,16 @@ namespace OnlineAuction.BLL.Services
               });
             return mapper.Map<IEnumerable<LotViewDTO>>(lots);
         }
-        public void SetModeration(ModerationDTO moderation)
+        public void SetModeration(ModerationDTO moderation)//Validation
         {
+            var results = new List<ValidationResult>();
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(moderation);
+            if (!Validator.TryValidateObject(moderation, context, results, true))
+                throw new Infrastructure.ValidationException("Unable to add moderation", results);
+
             var lot = db.Lot.Get(moderation.Id);
             if (lot == null)
-                throw new LotNotFoundExaption("Lot not Found", "");
-
-            if (moderation.ModerationResult == false && String.IsNullOrEmpty(moderation.Comment) == true)
-                throw new ValidationException("not all fields are filled", "");
+                throw new LotNotFoundExaption("Lot with id="+ moderation.Id + "did not Found");
 
             else if (moderation.ModerationResult == false)
             {
@@ -83,10 +86,12 @@ namespace OnlineAuction.BLL.Services
             var lot = db.Lot.Get(lotId);
             if (lot == null)
             {
+                throw new LotNotFoundExaption("Lot not Found");
 
             }
             else if(lot.StartDate.AddDays(lot.TermDay).Date<= DateTime.Now.Date)
             {
+                throw new OperationFaildException("Operation Failed : Cant delete Main category");
 
             }
             if (lot.BetsCount == 0)
@@ -131,12 +136,7 @@ namespace OnlineAuction.BLL.Services
             var lot = db.Lot.Get(lotId);
 
             if (lot == null)
-                throw new LotNotFoundExaption("Lot not Found", "");
-
-            if (lot == null)
-            {
-
-            }
+                throw new LotNotFoundExaption("Lot not Found");
             lot.TermDay += 1;
             db.Lot.Update(lot);
             db.Save();
