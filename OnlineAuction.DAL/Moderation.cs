@@ -19,6 +19,5 @@ namespace OnlineAuction.DAL
         [Column("ModerationResult", TypeName = "bit")]
         [Required]
         public bool ModerationResult { get; set; } = false;
-        public Lot Lot { get; set; }
     }
 }

@@ -15,6 +15,5 @@ namespace OnlineAuction.BLL.DTO
         public string SendingAbroad { get; set; }
         public string PurchaseReturns { get; set; }
         public string CostOfdelivery { get; set; }
-        public virtual ProductDTO Product { get; set; }
     }
 }

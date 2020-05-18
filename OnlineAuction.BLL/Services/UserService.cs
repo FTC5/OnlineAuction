@@ -146,7 +146,7 @@ namespace OnlineAuction.BLL.Services
             lot.CurrentPrice = newPrice;
             lot.BetsCount += 1;
             var bet = mapper.Map<Bet>(betDTO);
-            bet.Lot = lot;
+            //bet.Lot = lot;
             bet.User = user;
             lot.Bets.Add(bet);
             db.Bet.Create(bet);

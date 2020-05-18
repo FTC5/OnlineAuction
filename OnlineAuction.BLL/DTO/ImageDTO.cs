@@ -13,6 +13,5 @@ namespace OnlineAuction.BLL.DTO
         [Required(ErrorMessage = "Provide a link to the image")]
         [Url(ErrorMessage = "Invalid hyperlink")]
         public string Link { get; set; }
-        public virtual ProductDTO Product { get; set; }
     }
 }

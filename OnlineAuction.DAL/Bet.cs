@@ -18,6 +18,5 @@ namespace OnlineAuction.DAL
         public int Price { get; set; }
         public DateTime DateTime { get; set; }
         public virtual User User { get; set; }
-        public virtual Lot Lot { get; set; }
     }
 }

@@ -13,6 +13,5 @@ namespace OnlineAuction.BLL.DTO
         [Required(ErrorMessage = "Write a comment, namely for what reason the lot was not accepted")]
         public string Comment { get; set; } = "";
         public bool ModerationResult { get; set; } = false;
-        public virtual LotDTO Lot { get; set; }
     }
 }

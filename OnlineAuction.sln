@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.BLL", "Online
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.Web", "OnlineAuction.Web\OnlineAuction.Web.csproj", "{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.BLL.Tests", "OnlineAuction.BLL.Tests\OnlineAuction.BLL.Tests.csproj", "{ACCCC060-79D7-4063-943A-870E95B46F27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACCCC060-79D7-4063-943A-870E95B46F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACCCC060-79D7-4063-943A-870E95B46F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACCCC060-79D7-4063-943A-870E95B46F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCCC060-79D7-4063-943A-870E95B46F27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
