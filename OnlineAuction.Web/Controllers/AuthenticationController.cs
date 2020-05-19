@@ -19,10 +19,10 @@ namespace OnlineAuction.Web.Controllers
         private IAuthenticationService authentication;
         private ICategoryService categoryService;
 
-        public AuthenticationController(IAuthenticationService authentication)
+        public AuthenticationController(IAuthenticationService authentication,IMapper mapper)
         {
             HttpContext.Current = null;
-             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
             this.authentication = authentication;
         }
         public void GetAuthentication(string login,string password)

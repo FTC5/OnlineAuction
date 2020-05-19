@@ -16,15 +16,11 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private IManagerService managerService;
 
-        public OldLotControlController(IManagerService managerService)
+        public OldLotControlController(IManagerService managerService,IMapper mapper)
         {
             this.managerService = managerService;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public IHttpActionResult GetOldLot()
         {
             var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetOldLot());

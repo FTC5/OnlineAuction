@@ -28,5 +28,6 @@ namespace OnlineAuction.BLL.DTO
         public virtual CategoryDTO Category { get; set; }
         [Required(ErrorMessage = "Lot dont have delivery and payment")]
         public virtual DeliveryAndPaymentDTO DeliveryAndPayment { get; set; }
+        public virtual LotDTO Lot { get; set; }
     }
 }

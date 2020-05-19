@@ -17,7 +17,7 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private ICategoryService categoryService;
         private IAdminService adminService;
-        public CategoryControlController(ICategoryService categoryService, IAdminService adminService)
+        public CategoryControlController(ICategoryService categoryService, IAdminService adminService,IMapper mapper)
         {
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
             this.categoryService = categoryService;

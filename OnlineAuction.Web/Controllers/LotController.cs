@@ -15,9 +15,9 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private ICatalogService catalogService;
         private IUserService userService;
-        public LotController(ICatalogService catalogService, IUserService userService)
+        public LotController(ICatalogService catalogService, IUserService userService,IMapper mapper)
         {
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper(); 
+            this.mapper = mapper;
             this.catalogService = catalogService;
             this.userService = userService;
         }

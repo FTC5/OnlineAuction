@@ -17,7 +17,7 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private ICatalogService catalogService;
 
-        public MainPageController(ICatalogService catalogService)
+        public MainPageController(ICatalogService catalogService,IMapper mapper)
         {
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
             this.catalogService = catalogService;

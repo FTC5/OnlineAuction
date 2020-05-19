@@ -26,5 +26,6 @@ namespace OnlineAuction.DAL
         [Column("CostOfdelivery", TypeName = "ntext")]
         [MaxLength(50)]
         public string CostOfdelivery { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

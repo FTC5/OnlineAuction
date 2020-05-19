@@ -49,10 +49,11 @@ namespace OnlineAuction.DAL.Context
             images.Add(image);
             var product = new Product() { Category = cat, DeliveryAndPayment = del, Location = "XD", Description = "-", Price = 100, Name = "Ботинок На Ложкибейт",Images=images };
             var lot = new Lot() { MinimumStroke = 100, Product = product, TermDay = 6,StartDate=DateTime.Now.Date, User = user1,CurrentPrice=product.Price };
-            var moderation = new Moderation(); //{ Lot = lot };
+            var moderation = new Moderation() { Lot = lot };
             user1.UserLots.Add(lot);
             lot.Moderation = moderation;
             product.Lot = lot;
+            del.Product = product;
             context.Product.Add(product);
             context.Image.Add(image);
             context.DeliveryAndPayment.Add(del);

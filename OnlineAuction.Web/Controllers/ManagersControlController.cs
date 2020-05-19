@@ -19,11 +19,11 @@ namespace OnlineAuction.Web.Controllers
         private IAdminService adminService;
         private IUserService userService;
 
-        public ManagersControlController(IAdminService adminService, IUserService userService)
+        public ManagersControlController(IAdminService adminService, IUserService userService,IMapper mapper)
         {
             this.adminService = adminService;
             this.userService = userService;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
         [HttpPost]
         public void PostManager(string login, string password,[FromBody]PersonModel person)

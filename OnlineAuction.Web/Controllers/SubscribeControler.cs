@@ -15,10 +15,10 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private IUserService userService;
 
-        public SubscribeControler(IUserService userService)
+        public SubscribeControler(IUserService userService,IMapper mapper)
         {
             this.userService = userService;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
         public void Delete(int userId,int lotId)
         {

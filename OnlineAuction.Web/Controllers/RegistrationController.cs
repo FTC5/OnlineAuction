@@ -17,11 +17,11 @@ namespace OnlineAuction.Web.Controllers
         private IRegistrationService registrationService;
         IAuthenticationService authentication;
 
-        public RegistrationController(IRegistrationService registrationService,IAuthenticationService authentication)
+        public RegistrationController(IRegistrationService registrationService,IAuthenticationService authentication,IMapper mapper)
         {
             this.registrationService = registrationService;
             this.authentication = authentication;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
         [Route("api/registration/authorization/{login}/{password}")]
         public IHttpActionResult PostAuthorization(string login, string password)

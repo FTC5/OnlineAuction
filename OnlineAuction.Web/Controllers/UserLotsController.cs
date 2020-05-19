@@ -17,10 +17,10 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private IUserService userService;
 
-        public UserLotsController(IUserService userService)
+        public UserLotsController(IUserService userService,IMapper mapper)
         {
             this.userService = userService;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
         public void GetLots(int userId)
         {

@@ -16,10 +16,10 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private IUserService userService;
 
-        public UserInfoController(IUserService userService)
+        public UserInfoController(IUserService userService,IMapper mapper)
         {
             this.userService = userService;
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
         }
         [HttpPut,Route("api/UserInfo/PutPassword/{userId:decimal}/{password}")]
         public IHttpActionResult PutPassword(int userId,string password)

@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\AutoMapping.cs" />
+    <Compile Include="Infrastructure\UoWModule.cs" />
     <Compile Include="Interfaces\IBoughLotService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
@@ -81,11 +83,9 @@
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Infrastructure\OperationFaildException.cs" />
-    <Compile Include="Infrastructure\AutoMapping.cs" />
     <Compile Include="Infrastructure\UserNotFoundExaption.cs" />
     <Compile Include="Infrastructure\LotNotFoundExaption.cs" />
     <Compile Include="Infrastructure\ValidationException .cs" />
-    <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />

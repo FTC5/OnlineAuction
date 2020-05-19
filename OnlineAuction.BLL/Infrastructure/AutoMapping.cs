@@ -13,13 +13,13 @@ namespace OnlineAuction.BLL.Infrastructure
     {
         public AutoMapping()
         {
-
             CreateMap<AdvancedUser, AdvancedUserDTO>();
             CreateMap<AdvancedUser, AdvancedUserDTO>().ReverseMap();
             CreateMap<Authentication, AuthenticationDTO>();
             CreateMap<Authentication, AuthenticationDTO>().ReverseMap();
             CreateMap<Bet, BetDTO>()
-                .ForMember(bd => bd.UserName, opt => opt.MapFrom(b => b.User.FirstName + " " + b.User.LastName));
+                .ForMember(bd => bd.UserName, opt => opt.MapFrom(b => b.User.FirstName + " " + b.User.LastName))
+                .ForMember(bd => bd.LotId, opt => opt.MapFrom(b => b.Lot.Id));
             CreateMap<BetDTO, Bet>();
             CreateMap<Category, CategoryDTO>();
             CreateMap<Category, CategoryDTO>().ReverseMap();

@@ -16,9 +16,9 @@ namespace OnlineAuction.Web.Controllers
         private ICatalogService catalogService;
         private ICategoryService categoryService;
 
-        public CatalogController(ICatalogService catalogService, ICategoryService categoryService)
+        public CatalogController(ICatalogService catalogService, ICategoryService categoryService, IMapper mapper)
         {
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper =mapper;
             this.catalogService = catalogService;
             this.categoryService = categoryService;
         }

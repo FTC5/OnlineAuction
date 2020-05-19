@@ -28,6 +28,8 @@ namespace OnlineAuction.DAL.Context
             //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Lot>().HasRequired(s => s.Product)
                 .WithRequiredPrincipal(ad => ad.Lot);
+            modelBuilder.Entity<Moderation>().HasRequired(s => s.Lot)
+               .WithRequiredPrincipal(ad => ad.Moderation);
         }
     }
 }
