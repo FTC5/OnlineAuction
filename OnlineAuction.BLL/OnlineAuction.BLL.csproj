@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IBoughLotService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BoughLotService.cs" />

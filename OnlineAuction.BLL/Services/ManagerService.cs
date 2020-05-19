@@ -31,37 +31,43 @@ namespace OnlineAuction.BLL.Services
               });
             return mapper.Map<IEnumerable<LotViewDTO>>(lots);
         }
-        public void SetModeration(ModerationDTO moderation)//Validation
+        public void AllowLot(int lotId)
         {
-            var results = new List<ValidationResult>();
-            var context = new System.ComponentModel.DataAnnotations.ValidationContext(moderation);
-            if (!Validator.TryValidateObject(moderation, context, results, true))
-                throw new Infrastructure.ValidationException("Unable to add moderation", results);
-
-            var lot = db.Lot.Get(moderation.Id);
+            var lot = db.Lot.Get(lotId);
             if (lot == null)
-                throw new LotNotFoundExaption("Lot with id="+ moderation.Id + "did not Found");
-
-            else if (moderation.ModerationResult == false)
-            {
-                lot.ModerationResult = false;
-                lot.Change = false;
-            }
-            else
-            {
-                lot.ModerationResult = true;
-                lot.Change = true;
-            }
-            var moder= mapper.Map<Moderation>(moderation);
+                throw new LotNotFoundExaption("Lot with id= " + lotId + " did not Found");
+            lot.ModerationResult = true;
+            lot.Change = true;
+            ConfirmModeration(lot, true, "");
+        }
+        public void PreventLot(int lotId,string comment)
+        {
+            var lot = db.Lot.Get(lotId);
+            if (lot == null)
+                throw new LotNotFoundExaption("Lot with id= " + lotId + " did not Found");
+            if (String.IsNullOrWhiteSpace(comment))
+                throw new Infrastructure.ValidationException("Write a comment, namely for what reason the lot was not accepted");
+            lot.ModerationResult = false;
+            lot.Change = false;
+            ConfirmModeration(lot, true, comment);
+        }
+        private void ConfirmModeration(Lot lot,bool result,string comment)
+        {
             if (lot.Moderation == null)
             {
+                ModerationDTO moderation = new ModerationDTO();
+                moderation.ModerationResult = result;
+                moderation.Comment = comment;
+                var moder = mapper.Map<Moderation>(moderation);
                 lot.Moderation = moder;
                 db.Moderation.Create(moder);
                 db.Lot.Update(lot);
             }
             else
             {
-                db.Moderation.Update(moder);
+                lot.Moderation.ModerationResult = result;
+                lot.Moderation.Comment = comment;
+                db.Moderation.Update(lot.Moderation);
                 db.Lot.Update(lot);
             }
             db.Save();
@@ -81,7 +87,7 @@ namespace OnlineAuction.BLL.Services
             });
             return mapper.Map<IEnumerable<LotViewDTO>>(lots);
         }
-        public void StopLot(int lotId)
+        public void StopLot(int lotId)////
         {
             var lot = db.Lot.Get(lotId);
             if (lot == null)
@@ -91,7 +97,7 @@ namespace OnlineAuction.BLL.Services
             }
             else if(lot.StartDate.AddDays(lot.TermDay).Date<= DateTime.Now.Date)
             {
-                throw new OperationFaildException("Operation Failed : Cant delete Main category");
+                throw new OperationFaildException("Operation Failed : Cant delete not old lot");
 
             }
             if (lot.BetsCount == 0)
@@ -102,7 +108,6 @@ namespace OnlineAuction.BLL.Services
             else
             {
                 lot.Sels = true;
-                lot.Change = true;
                 lot.ModerationResult = true;
                 foreach (var item in lot.Bets)
                 {

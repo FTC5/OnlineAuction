@@ -18,7 +18,7 @@ namespace OnlineAuction.BLL.Services
         {
         }
 
-        public int AuthorizationRegistration(string login,string password)//Validation
+        public void AuthorizationRegistration(string login,string password)
         {
             var authentication = new AuthenticationDTO();
             authentication.Login = login;
@@ -35,12 +35,16 @@ namespace OnlineAuction.BLL.Services
 
             db.Authentication.Create(mapper.Map<Authentication>(authentication));
             db.Save();
-            return db.Authentication.Find(a => a.Login == login).First().Id;
         }
         public void UserRegistration(int authenticationId, PersonDTO person)
         {
-            person.Id = authenticationId;
-            UserDTO user = (UserDTO)person;
+            var results = new List<ValidationResult>();
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(person);
+            if (!Validator.TryValidateObject(person, context, results, true))
+                throw new Infrastructure.ValidationException("Data have error", results);
+            UserDTO user = mapper.Map<UserDTO>(person);
+            var aut = mapper.Map<AuthenticationDTO>(db.Authentication.Get(authenticationId));
+            user.Authentication = aut ?? throw new OperationFaildException("Authorization not found");
             db.User.Create(mapper.Map<User>(user));
         }
     }

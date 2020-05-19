@@ -25,19 +25,12 @@ namespace OnlineAuction.Web.Controllers
         [HttpPut]
         public void AllowLot(int lotId)
         {
-            ModerationModel moderation = new ModerationModel();
-            moderation.ModerationResult = true;
-            moderation.Id = lotId;
-            managerService.SetModeration(mapper.Map<ModerationDTO>(moderation));
+            managerService.AllowLot(lotId);
         }
         [HttpPost]
         public void PreventLot(int lotId,string cause) 
         {
-            ModerationModel moderation = new ModerationModel();
-            moderation.ModerationResult = false;
-            moderation.Comment = cause;
-            moderation.Id = lotId;
-            managerService.SetModeration(mapper.Map<ModerationDTO>(moderation));
+            managerService.PreventLot(lotId,cause);
         }
     }
 }

@@ -15,14 +15,16 @@ namespace OnlineAuction.BLL.Services
         public AuthenticationService(IUnitOfWork db) : base(db)
         {
         }
-        public int AuthenticationCheack(AuthenticationDTO authentication)
+        public int GetAuthenticationId(AuthenticationDTO authentication)
         {
             if (authentication == null)
-                throw new NullReferenceException("No authentication set");
+                return 0;
 
             string login = authentication.Login;
             string pasword= authentication.Password;
             var aut = db.Authentication.Find(a => (a.Login == login && a.Password == pasword)).ToList();
+            if (aut.Count==0)
+                return 0;
             return aut.First().Id;
         }
         public int IsAdvancedUserDTO(int userId)

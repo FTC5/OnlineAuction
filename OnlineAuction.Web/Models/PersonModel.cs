@@ -12,7 +12,7 @@ namespace OnlineAuction.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DateOfBirth { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public virtual AuthenticationModel Authentication { get; set; }
     }
 }

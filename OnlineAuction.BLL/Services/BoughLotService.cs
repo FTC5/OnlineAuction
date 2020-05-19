@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Infrastructure;
+using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.DAL;
 using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.Services
 {
-    public class BoughLotService :Service
+    public class BoughLotService :Service, IBoughLotService
     {
         public BoughLotService(IUnitOfWork db) : base(db)
         {

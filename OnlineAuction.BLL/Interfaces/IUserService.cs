@@ -12,7 +12,7 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IUserService
     {
-        void AddLotTOSubscription(int userD, int lotId);
+        void AddLotToSubscription(int userD, int lotId);
         IEnumerable<LotViewDTO> GetSubscription(int userd);
         void DeleteSubscription(int userd, int lotId);
         IEnumerable<LotViewDTO> GetUserLot(int userd);

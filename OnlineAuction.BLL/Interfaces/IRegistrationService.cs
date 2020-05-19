@@ -9,7 +9,7 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IRegistrationService
     {
-        int AuthorizationRegistration(string login, string password);
+        void AuthorizationRegistration(string login, string password);
         void UserRegistration(int authenticationId, PersonDTO person);
     }
 }

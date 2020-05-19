@@ -11,6 +11,7 @@ using OnlineAuction.DAL.Interfaces;
 using OnlineAuction.DAL;
 using OnlineAuction.BLL.Interfaces;
 using AutoFixture;
+using OnlineAuction.BLL.DTO;
 
 namespace OnlineAuction.BLL.Tests
 {
@@ -21,12 +22,13 @@ namespace OnlineAuction.BLL.Tests
         private IAdminService _adminService;
         private IUnitOfWork _unitOfWork;
         private int id = 1;
-
+       
         [SetUp]
         public void SetUp()
         {
             _unitOfWork = Substitute.For<IUnitOfWork>();
             _adminService = new AdminService(_unitOfWork);
+            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
         }
         [Test]
         public void DeleteCategory_should_throw_OperationFaildException_when_parentCategory_is_null()
@@ -42,8 +44,8 @@ namespace OnlineAuction.BLL.Tests
         public void DeleteCategory_should_throw_OperationFaildException_when_category_use_in_lot()
         {
             var category = _fixture.Create<Category>();
+            category.ParentCategory = _fixture.Create<Category>();
             _fixture.RepeatCount = 1;
-            var list = new List<Lot>();
             var lots = _fixture.CreateMany<Lot>();
             _unitOfWork.Category.Get(id).Returns(category);
             _unitOfWork.Lot.Find(i => { return true; }).ReturnsForAnyArgs(lots);
@@ -56,7 +58,7 @@ namespace OnlineAuction.BLL.Tests
         public void DeleteCategory_should_throw_OperationFaildException_when_Category_have_chield_category()
         {
             var category = _fixture.Create<Category>();
-            _fixture.RepeatCount = 1;
+            category.ParentCategory = _fixture.Create<Category>();
             var catList = new List<Category>();
             catList.Add(category);
             _unitOfWork.Category.Get(id).Returns(category);
@@ -68,11 +70,11 @@ namespace OnlineAuction.BLL.Tests
             Assert.That(ex.Message, Is.EqualTo("Operation Failed : Category is parent for other"));
         }
         [Test]
-        public void DeleteCategory_should_stor_if_category_with_id_not_fount()
+        public void DeleteCategory_should_stop_if_category_with_id_not_fount()
         {
             _unitOfWork.Category.Get(id).Returns(l => null);
 
-            Assert.Throws<Exception>(() => _adminService.DeleteCategory(id));
+            _adminService.DeleteCategory(id);
 
             _unitOfWork.DidNotReceiveWithAnyArgs().Lot.Find(default);
         }
@@ -80,6 +82,7 @@ namespace OnlineAuction.BLL.Tests
         public void DeleteCategory_delete_category()
         {
             var category = _fixture.Create<Category>();
+            category.ParentCategory = _fixture.Create<Category>();
             _unitOfWork.Category.Get(id).Returns(category);
             _unitOfWork.Lot.Find(i => { return true; }).ReturnsForAnyArgs(new List<Lot>());
             _unitOfWork.Category.Find(i => { return true; }).ReturnsForAnyArgs(new List<Category>());
@@ -88,79 +91,168 @@ namespace OnlineAuction.BLL.Tests
 
             _unitOfWork.Received().Save();
         }
+        [Test]
+        public void UpdateCategory_should_stop_if_name_empty()
+        {
+            string name = " ";
+            
+            _adminService.UpdateCategory(id, name);
 
-        //[Test]
-        //public void UpdateCategory_should_stor_if_category_with_id_not_fount()
-        //{
+            _unitOfWork.Category.DidNotReceiveWithAnyArgs().Find(default);
+        }
+        [Test]
+        public void UpdateCategory_should_throw_OperationFaildException_when_category_with_id_not_fount()
+        {
+            _unitOfWork.Category.Get(id).Returns(c => null);
 
-        //}
-        //[Test]
-        //public void UpdateCategory_should_throw_OperationFaildException_when_parentCategory_is_null()
-        //{
+            var ex = Assert.Throws<OperationFaildException>(() => _adminService.UpdateCategory(id,"A"));
 
-        //}
-        //[Test]
-        //public void UpdateCategory_should_throw_OperationFaildException_when_Category_with_name_already_exists()
-        //{
+            Assert.That(ex.Message, Is.EqualTo("Operation Failed : Category not found"));
+        }
+        [Test]
+        public void UpdateCategory_should_throw_OperationFaildException_when_parentCategory_is_null()
+        {
+            var category = _fixture.Build<Category>().Without(c => c.ParentCategory).Create();
+            _unitOfWork.Category.Get(id).Returns(category);
 
-        //}
-        //[Test]
-        //public void UpdateCategory_update_category()
-        //{
+            var ex = Assert.Throws<OperationFaildException>(() => _adminService.UpdateCategory(id, "A"));
 
-        //}
+            Assert.That(ex.Message, Is.EqualTo("Operation Failed : Cant update Main category"));
+        }
+        [Test]
+        public void UpdateCategory_should_throw_OperationFaildException_when_Category_with_name_already_exists()
+        {
+            var category = _fixture.Create<Category>();
+            _fixture.RepeatCount = 1;
+            var catList = _fixture.CreateMany<Category>();
+            category.ParentCategory = catList.First();
+            _unitOfWork.Category.Get(id).Returns(category);
+            _unitOfWork.Category.Find(default).ReturnsForAnyArgs(catList);
 
-        //[Test]
-        //public void AddCategory_throw_ValidationException_if_category__without_name()
-        //{
+            var ex = Assert.Throws<OperationFaildException>(() => _adminService.UpdateCategory(id, "A"));
 
-        //}
-        //[Test]
-        //public void AddCategory_should_stop_if_category_null()
-        //{
+            Assert.That(ex.Message, Is.EqualTo("Operation Failed : Category already exists"));
+        }
+        [Test]
+        public void UpdateCategory_update_category()
+        {
+            var category = _fixture.Create<Category>();
+            category.ParentCategory = _fixture.Create<Category>();
+            _unitOfWork.Category.Get(id).Returns(category);
+            _unitOfWork.Category.Find(default).ReturnsForAnyArgs(new List<Category>());
 
-        //}
-        //[Test]
-        //public void AddCategory_should_stop_if_category__already_exists()
-        //{
+            _adminService.UpdateCategory(id, "A");
 
-        //}
-        //[Test]
-        //public void AddCategory_add_category()
-        //{
+            _unitOfWork.Received().Save();
+        }
 
-        //}
+        [Test]
+        public void AddCategory_throw_ValidationException_if_category__without_name()
+        {
+            string name = " ";
+            var category = _fixture.Build<CategoryDTO>().With(c =>c.Name, name).Create();
 
-        //[Test]
-        //public void DeleteManeger_should_stop_if_maneger_with_id_not_fount()
-        //{
+            var ex = Assert.Throws<OnlineAuction.BLL.Infrastructure.ValidationException>(() => _adminService.AddCategory(category));
 
-        //}
-        //[Test]
-        //public void DeleteManeger_throw_OperationFaildException_if_maneger_is_admin_()
-        //{
+            Assert.That(ex.Message, Is.Not.Empty);
+        }
+        [Test]
+        public void AddCategory_should_stop_if_category_null()
+        {
+            CategoryDTO category = null;
 
-        //}
-        //[Test]
-        //public void DeleteManeger_delete_maneger()
-        //{
+            var ex = Assert.Throws<ArgumentNullException>(() => _adminService.AddCategory(category));
 
-        //}
+            Assert.That(ex.Message, Is.EqualTo("Category is null"));
+        }
+        [Test]
+        public void AddCategory_should_stop_if_category__already_exists()
+        {
+            var category = _fixture.Create<CategoryDTO>();
+            var list = _fixture.CreateMany<Category>();
+            _unitOfWork.Category.Find(default).ReturnsForAnyArgs(list);
 
-        //[Test]
-        //public void AddManager_throw_ValidationException_if_person_or_authentication_vaild_error()
-        //{
+            _adminService.AddCategory(category);
 
-        //}
-        //[Test]
-        //public void AddManager_throw_OperationFaildException_if_authentication_login_already_exists()
-        //{
+            _unitOfWork.DidNotReceive().Save();
 
-        //}
-        //[Test]
-        //public void AddManager_add_manager()
-        //{
+        }
+        [Test]
+        public void AddCategory_add_category()
+        {
+            var category = _fixture.Create<CategoryDTO>();
+            _unitOfWork.Category.Find(default).ReturnsForAnyArgs(new List<Category>());
 
-        //}
+            _adminService.AddCategory(category);
+
+            _unitOfWork.Received().Save();
+        }
+
+        [Test]
+        public void DeleteManeger_should_stop_if_maneger_with_id_not_fount()
+        {
+            _unitOfWork.AdvancedUser.Get(default).ReturnsForAnyArgs(m => null);
+
+            _adminService.DeleteManeger(id);
+
+            _unitOfWork.AdvancedUser.DidNotReceive().Delete(default);
+        }
+        [Test]
+        public void DeleteManeger_throw_OperationFaildException_if_maneger_is_admin_()
+        {
+            var user = _fixture.Build<AdvancedUser>().With(a => a.Admin, true).Create();
+            _unitOfWork.AdvancedUser.Get(default).ReturnsForAnyArgs(user);
+
+            var ex = Assert.Throws<OperationFaildException>(() => _adminService.DeleteManeger(id));
+
+            Assert.That(ex.Message, Is.EqualTo("Operation Failed : Is not manager Id"));
+        }
+        [Test]
+        public void DeleteManeger_delete_maneger()
+        {
+            var user = _fixture.Build<AdvancedUser>().With(a => a.Admin, false).Create();
+            _unitOfWork.AdvancedUser.Get(default).ReturnsForAnyArgs(user);
+
+            _adminService.DeleteManeger(id);
+
+            _unitOfWork.Received().Save();
+        }
+
+        [Test]
+        public void AddManager_throw_ValidationException_if_person_or_authentication_valid_error()
+        {
+            var persone= _fixture.Create<PersonDTO>();
+            var authentication=_fixture.Create<AuthenticationDTO>();
+
+            var ex = Assert.Throws<ValidationException>(() => _adminService.AddManager(persone, authentication));
+
+            Assert.That(ex.Message, Is.Not.Empty);
+        }
+        [Test]
+        public void AddManager_throw_OperationFaildException_if_authentication_login_already_exists()
+        {
+            string login = "cake";
+            var persone = _fixture.Create<PersonDTO>();
+            persone.PhoneNumber = "0987098911";
+            var authentication = _fixture.Build<AuthenticationDTO>().With(b=>b.Login,login).Create();
+            _unitOfWork.Authentication.Find(default).ReturnsForAnyArgs(_fixture.CreateMany<Authentication>());
+
+            var ex = Assert.Throws<OperationFaildException>(() => _adminService.AddManager(persone, authentication));
+
+            Assert.That(ex.Message, Is.EqualTo("Operation Failed : Login already exists"));
+        }
+        [Test]
+        public void AddManager_complite()
+        {
+            string login = "cake";
+            var persone = _fixture.Create<PersonDTO>();
+            persone.PhoneNumber = "0987098911";
+            var authentication = _fixture.Build<AuthenticationDTO>().With(b => b.Login, login).Create();
+            _unitOfWork.Authentication.Find(default).ReturnsForAnyArgs(new List<Authentication>());
+
+            _adminService.AddManager(persone, authentication);
+
+            _unitOfWork.Received().Save();
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IAuthenticationService
     {
-        int AuthenticationCheack(AuthenticationDTO authentication);
+        int GetAuthenticationId(AuthenticationDTO authentication);
         int IsAdvancedUserDTO(int userId);
     }
 }

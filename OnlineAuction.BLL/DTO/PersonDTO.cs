@@ -17,10 +17,8 @@ namespace OnlineAuction.BLL.DTO
         [Required(ErrorMessage = "Specify the date of birth")]
         public string DateOfBirth { get; set; }
         [Required(ErrorMessage = "Enter a phone number")]
-        [RegularExpression(@"([+]?\d{1,}[(]\d{3}[)]\d{3}[-\s]?\d{2}[-\s]?\d{2})|([(]?\d{3}[)]?[-\s]?\d{3}([-\s]?\d{2}){2})"
-            , ErrorMessage = "The phone number is in the wrong format")]
-        //[Phone]
-        public int PhoneNumber { get; set; }
+        [Phone]
+        public string PhoneNumber { get; set; }
         public virtual AuthenticationDTO Authentication { get; set; }
     }
 }

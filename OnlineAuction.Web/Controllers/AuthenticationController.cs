@@ -30,7 +30,7 @@ namespace OnlineAuction.Web.Controllers
             var aut = new AuthenticationModel();
             aut.Login = login;
             aut.Password = password;
-            aut.Id = authentication.AuthenticationCheack(mapper.Map<AuthenticationDTO>(aut));
+            aut.Id = authentication.GetAuthenticationId(mapper.Map<AuthenticationDTO>(aut));
             if(aut.Id == null)
             {
                 return;

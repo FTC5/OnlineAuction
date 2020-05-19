@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 namespace OnlineAuction.BLL.Interfaces
 {
     public interface IManagerService
-    {
+    {      
         IEnumerable<LotViewDTO> GetUnCheackLot();
-        void SetModeration(ModerationDTO moderation);
+        void AllowLot(int lotId);
+        void PreventLot(int lotId, string comment);
         IEnumerable<LotViewDTO> GetOldLot();
         void StopLot(int lotId);
         void ContinueLot(int lotId);

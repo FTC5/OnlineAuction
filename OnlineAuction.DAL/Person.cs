@@ -21,7 +21,7 @@ namespace OnlineAuction.DAL
         [Column("DateOfBirth", TypeName = "ntext")]
         [MaxLength(50)]
         public string DateOfBirth { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public Authentication Authentication { get; set; }
     }
 }

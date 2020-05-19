@@ -18,7 +18,7 @@ namespace OnlineAuction.BLL.Services
         public UserService(IUnitOfWork db) : base(db)
         {
         }
-        public void AddLotTOSubscription(int userId,int lotId)
+        public void AddLotToSubscription(int userId,int lotId)
         {
             var user = db.User.Get(userId);
             var lot = db.Lot.Get(lotId);
@@ -146,14 +146,13 @@ namespace OnlineAuction.BLL.Services
             lot.CurrentPrice = newPrice;
             lot.BetsCount += 1;
             var bet = mapper.Map<Bet>(betDTO);
-            //bet.Lot = lot;
             bet.User = user;
             lot.Bets.Add(bet);
             db.Bet.Create(bet);
             db.Lot.Update(lot);
             db.User.Update(user);
             db.Save();
-            AddLotTOSubscription(lotId, userId);
+            AddLotToSubscription(lotId, userId);
         }
         public void ChangeLogin(int userId,string newLogin)
         {

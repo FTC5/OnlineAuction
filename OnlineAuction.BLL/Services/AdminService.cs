@@ -55,8 +55,11 @@ namespace OnlineAuction.BLL.Services
         public void UpdateCategory(int categoryId,string name)
         {
             var category = db.Category.Get(categoryId);
-            if (category == null)
+            if (String.IsNullOrWhiteSpace(name))
                 return;
+
+            if (category == null)
+                throw new OperationFaildException("Operation Failed : Category not found");
 
             if (category.ParentCategory == null)
                 throw new OperationFaildException("Operation Failed : Cant update Main category");
@@ -69,29 +72,31 @@ namespace OnlineAuction.BLL.Services
                 }
                 return false;
             });
-            category.Name = name;
             if (categories.Count() > 0)
                 throw new OperationFaildException("Operation Failed : Category already exists");
 
+            category.Name = name;
             db.Category.Update(category);
             db.Save();
 
         }
         public void AddCategory(CategoryDTO category)//validation
         {
+            if (category == null)
+                throw new ArgumentNullException("", "Category is null");
             var results = new List<ValidationResult>();
             var context = new System.ComponentModel.DataAnnotations.ValidationContext(category);
             if (!Validator.TryValidateObject(category, context, results, true))
                 throw new Infrastructure.ValidationException("Unable to add category", results);
-
-              var categories = db.Category.Find(c =>
-              {
-                  if(c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategoryId)
-                  {
-                      return true;
-                  }
-                  return false;
-              });
+        
+            var categories = db.Category.Find(c =>
+            {
+                if(c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategoryId)
+                {
+                    return true;
+                }
+                return false;
+            });
             if (categories.Count() > 0)
                 return;
 
@@ -124,7 +129,7 @@ namespace OnlineAuction.BLL.Services
             var context1 = new System.ComponentModel.DataAnnotations.ValidationContext(person);
             var context2 = new System.ComponentModel.DataAnnotations.ValidationContext(authent);
             first = !Validator.TryValidateObject(person, context1, results1, true);
-            if (!Validator.TryValidateObject(person, context2, results2, true) || first == false)
+            if (!Validator.TryValidateObject(authent, context2, results2, true) || first == true)
             {
                 results1.AddRange(results2);
                 throw new Infrastructure.ValidationException("Can not add new manager", results1);

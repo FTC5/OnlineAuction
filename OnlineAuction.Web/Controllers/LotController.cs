@@ -31,7 +31,7 @@ namespace OnlineAuction.Web.Controllers
         //[HttpPut, Authorize(Roles = "User")]
         public IHttpActionResult SubscribeLot(int lotId,int userId)
         {
-            userService.AddLotTOSubscription(userId, lotId);
+            userService.AddLotToSubscription(userId, lotId);
             return Ok();
         }
         [HttpPost]

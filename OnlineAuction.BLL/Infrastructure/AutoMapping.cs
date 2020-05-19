@@ -38,6 +38,8 @@ namespace OnlineAuction.BLL.Infrastructure
             CreateMap<Person, PersonDTO>().ReverseMap();
             CreateMap<Product,ProductDTO>();
             CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<UserDTO, PersonDTO>();
+            CreateMap<UserDTO, PersonDTO>().ReverseMap();
             CreateMap<User, UserDTO>();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<AdvancedUserDTO, PersonDTO>();

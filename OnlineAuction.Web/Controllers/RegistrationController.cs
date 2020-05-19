@@ -15,16 +15,22 @@ namespace OnlineAuction.Web.Controllers
     {
         private IMapper mapper;
         private IRegistrationService registrationService;
+        IAuthenticationService authentication;
 
-        public RegistrationController(IRegistrationService registrationService)
+        public RegistrationController(IRegistrationService registrationService,IAuthenticationService authentication)
         {
             this.registrationService = registrationService;
+            this.authentication = authentication;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
         [Route("api/registration/authorization/{login}/{password}")]
         public IHttpActionResult PostAuthorization(string login, string password)
         {
-            int id = registrationService.AuthorizationRegistration(login, password);
+            AuthenticationModel model = new AuthenticationModel();
+            model.Login = login;
+            model.Password = password;
+            registrationService.AuthorizationRegistration(login, password);
+            int id = authentication.GetAuthenticationId(mapper.Map<AuthenticationDTO>(model));
             return Ok(id);
         }
         [Route("api/registration/person/{authorizationId}/{perosn}")]
