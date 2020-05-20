@@ -83,7 +83,7 @@ namespace OnlineAuction.BLL.Services
         public void AddCategory(CategoryDTO category)//validation
         {
             if (category == null)
-                throw new ArgumentNullException("", "Category is null");
+                return;
             var results = new List<ValidationResult>();
             var context = new System.ComponentModel.DataAnnotations.ValidationContext(category);
             if (!Validator.TryValidateObject(category, context, results, true))

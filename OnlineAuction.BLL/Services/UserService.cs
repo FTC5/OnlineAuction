@@ -15,7 +15,7 @@ namespace OnlineAuction.BLL.Services
 {
     public class UserService : Service, IUserService
     {
-        public UserService(IUnitOfWork db) : base(db)
+        public UserService(IUnitOfWork db) : base(db)//SubscribeController
         {
         }
         public void AddLotToSubscription(int userId,int lotId)
@@ -36,14 +36,14 @@ namespace OnlineAuction.BLL.Services
             db.User.Update(user);
             db.Save();
         }
-        public IEnumerable<LotViewDTO> GetSubscription(int userId)
+        public IEnumerable<LotViewDTO> GetSubscription(int userId)//SubscribeController
         {
             var user = db.User.Get(userId);
             if (user == null)
                 return null;
             return mapper.Map<IEnumerable<LotViewDTO>>(user.Subscriptions);
         }
-        public void DeleteSubscription(int userId,int lotId)
+        public void DeleteSubscription(int userId,int lotId)//SubscribeController
         {
             var user = db.User.Get(userId);
             if (user == null)
@@ -78,7 +78,7 @@ namespace OnlineAuction.BLL.Services
             db.Lot.Update(mapper.Map<Lot>(lot));
             db.Save();
         }
-        public void AddLot(int userId, LotDTO lot)// Validation
+        public void AddLot(int userId, LotDTO lot)
         {
             var results = new List<ValidationResult>();
             var context = new System.ComponentModel.DataAnnotations.ValidationContext(lot);
@@ -109,15 +109,18 @@ namespace OnlineAuction.BLL.Services
             db.Lot.Delete(lot.Id);
             db.Save();
         }
-        public UserDTO GetLotAutorInfo(int lotId)
+        public UserDTO GetLotAutorInfo(int lotId)////////////////////////////
         {
             var lot = db.Lot.Get(lotId);
             var user = lot.User;
-            if (user == null)
-                throw new UserNotFoundExaption("User not found");
             return mapper.Map<UserDTO>(user);
         }
-        public void AddBalance(int userId, int count)
+        public UserDTO GetUserInfo(int userId)/////////////////////////////
+        {
+            var user = db.Lot.Get(userId);
+            return mapper.Map<UserDTO>(user);
+        }
+        public void AddBalance(int userId, int count)//////////////////////////
         {
             var user = db.User.Get(userId);
             if (user == null)

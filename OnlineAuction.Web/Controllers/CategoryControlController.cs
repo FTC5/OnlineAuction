@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -17,24 +18,23 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private ICategoryService categoryService;
         private IAdminService adminService;
-        public CategoryControlController(ICategoryService categoryService, IAdminService adminService,IMapper mapper)
+        public CategoryControlController(IMapper mapper,ICategoryService categoryService, IAdminService adminService)
         {
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
             this.categoryService = categoryService;
             this.adminService = adminService;
         }
-        [HttpPost]
-        public void PostCategory([FromBody] CategoryModel category)
+        [HttpPost, ValidationException]
+        public IHttpActionResult PostCategory([FromBody] CategoryModel category)
         {
-            //CategoryModel category = new CategoryModel();
-            //category.Name = name;
-            //category.ParentCategoryId = parentId;
             adminService.AddCategory(mapper.Map<CategoryDTO>(category));
+            return Ok();
         }
-        [HttpDelete]
-        public void DeleteCategory(int id)
+        [HttpDelete, OperationFaildException]
+        public IHttpActionResult DeleteCategory(int id)
         {
             adminService.DeleteCategory(id);
+            return Ok();
         }
         public IHttpActionResult GetCategory()
         {
@@ -42,12 +42,11 @@ namespace OnlineAuction.Web.Controllers
             return Ok(categories);
 
         }
-        [HttpPut]
+        [HttpPut, OperationFaildException]
         public IHttpActionResult PutCategory(int id,string name)
         {
-            adminService.UpdateCategory(id, name);
-            return Ok();
-
+                adminService.UpdateCategory(id, name);
+                return Ok();
         }
     }
 }

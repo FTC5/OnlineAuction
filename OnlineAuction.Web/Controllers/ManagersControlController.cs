@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -25,23 +26,25 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
-        [HttpPost]
-        public void PostManager(string login, string password,[FromBody]PersonModel person)
+        [HttpPost, OperationFaildException, ValidationException]
+        public IHttpActionResult PostManager(string login, string password,[FromBody]PersonModel person)
         {
             AuthenticationModel model = new AuthenticationModel();
             model.Login = login;
             model.Password = password;
             adminService.AddManager(mapper.Map<PersonDTO>(person), mapper.Map<AuthenticationDTO>(model));
+            return Ok();
         }
         public IHttpActionResult GetManagers()
         {
             var managers = mapper.Map<IEnumerable<AdvancedUserModel>>(adminService.GetManegers());
             return Ok(managers);
         }
-        [HttpDelete]
-        public void DeleteManager(int manegerId)
+        [HttpDelete, OperationFaildException]
+        public IHttpActionResult DeleteManager(int manegerId)
         {
             adminService.DeleteManeger(manegerId);
+            return Ok();
         }
     }
 }

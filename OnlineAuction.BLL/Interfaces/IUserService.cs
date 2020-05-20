@@ -22,6 +22,7 @@ namespace OnlineAuction.BLL.Interfaces
         UserDTO GetLotAutorInfo(int lotId);
         void AddBalance(int userd, int count);
         void AddBet(int lotId, int userd);
+        UserDTO GetUserInfo(int userId);
         void ChangeLogin(int userd, string newLogin);
         void ChangePassword(int userd, string newPassword);
     }

@@ -176,6 +176,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\BoughLotControlController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\CategoryControlController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,10 +186,15 @@
     <Compile Include="Controllers\ManagersControlController.cs" />
     <Compile Include="Controllers\OldLotControlController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\SalesLotController.cs" />
     <Compile Include="Controllers\SubscribeControler.cs" />
+    <Compile Include="Controllers\SubscribeControlController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLotsController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="ExceptionFilters\LotNotFoundExaptionAttribute .cs" />
+    <Compile Include="ExceptionFilters\OperationFaildExceptionAttribute .cs" />
+    <Compile Include="ExceptionFilters\UserNotFoundExaptionAttribute.cs" />
+    <Compile Include="ExceptionFilters\ValidationExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -19,7 +19,7 @@ namespace OnlineAuction.BLL.Services
         {
         }
 
-        public IEnumerable<LotViewDTO> GetUnCheackLot()
+        public IEnumerable<LotViewDTO> GetUncheckedLots()
         {
             var lots = db.Lot.Find(i =>
               {
@@ -87,7 +87,7 @@ namespace OnlineAuction.BLL.Services
             });
             return mapper.Map<IEnumerable<LotViewDTO>>(lots);
         }
-        public void StopLot(int lotId)////
+        public void StopLot(int lotId)
         {
             var lot = db.Lot.Get(lotId);
             if (lot == null)

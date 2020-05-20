@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -23,15 +24,23 @@ namespace OnlineAuction.Web.Controllers
             this.managerService = managerService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-        [HttpPut]
-        public void AllowLot(int lotId)
+        [HttpGet]
+        public IHttpActionResult GetUncheckedLots()
+        {
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetUncheckedLots());
+            return Ok(lots);
+        }
+        [HttpPut,LotNotFoundExaption]
+        public IHttpActionResult AllowLot(int lotId)
         {
             managerService.AllowLot(lotId);
+            return Ok();
         }
-        [HttpPost]
-        public void PreventLot(int lotId,string cause) 
+        [HttpPost,LotNotFoundExaption, ValidationException]
+        public IHttpActionResult PreventLot(int lotId,string cause) 
         {
             managerService.PreventLot(lotId,cause);
+            return Ok();
         }
     }
 }

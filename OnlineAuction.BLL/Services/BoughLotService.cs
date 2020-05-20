@@ -11,20 +11,20 @@ using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.Services
 {
-    public class BoughLotService :Service, IBoughLotService
+    public class BoughLotService :Service, IBoughLotService///
     {
         public BoughLotService(IUnitOfWork db) : base(db)
         {
         }
 
-        public IEnumerable<LotViewDTO> GetSels(int userId)
+        public IEnumerable<LotViewDTO> GetSales(int userId)
         {
             var user = db.User.Get(userId);
             if (user == null)
                 return null;
             return mapper.Map<IEnumerable<LotViewDTO>>(user.Sels);
         }
-        public void DeleteSels(int userId, int lotId)
+        public void DeleteSales(int userId, int lotId)
         {
             var user = db.User.Get(userId);
             if (user == null)

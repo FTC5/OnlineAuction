@@ -31,7 +31,7 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void GetSels_should_return_null_when_user_not_found()
         {
-            var result = _boughLotService.GetSels(default);
+            var result = _boughLotService.GetSales(default);
 
             Assert.IsNull(result);
         }
@@ -42,7 +42,7 @@ namespace OnlineAuction.BLL.Tests
             var user = _fixture.Build<User>().With(u => u.Sels, _fixture.CreateMany<Lot>().ToList()).Create();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
 
-            var result = _boughLotService.GetSels(default);
+            var result = _boughLotService.GetSales(default);
 
             Assert.AreEqual(result.Count(),user.Sels.Count());
         }
@@ -52,7 +52,7 @@ namespace OnlineAuction.BLL.Tests
             var user = _fixture.Build<User>().Without(u => u.Sels).Create();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
 
-            var result = _boughLotService.GetSels(default);
+            var result = _boughLotService.GetSales(default);
 
             Assert.AreEqual(result.Count(),0);
         }

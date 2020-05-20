@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -23,7 +24,7 @@ namespace OnlineAuction.Web.Controllers
             this.authentication = authentication;
             this.mapper = mapper;
         }
-        [Route("api/registration/authorization/{login}/{password}")]
+        [Route("api/registration/authorization/{login}/{password}"), OperationFaildException, ValidationException]
         public IHttpActionResult PostAuthorization(string login, string password)
         {
             AuthenticationModel model = new AuthenticationModel();
@@ -33,7 +34,7 @@ namespace OnlineAuction.Web.Controllers
             int id = authentication.GetAuthenticationId(mapper.Map<AuthenticationDTO>(model));
             return Ok(id);
         }
-        [Route("api/registration/person/{authorizationId}/{perosn}")]
+        [Route("api/registration/person/{authorizationId}/{perosn}"), OperationFaildException, ValidationException]
         public IHttpActionResult PostUserInfo(int authorizationId, PersonModel person)
         {
             registrationService.UserRegistration(authorizationId, mapper.Map<PersonDTO>(person));

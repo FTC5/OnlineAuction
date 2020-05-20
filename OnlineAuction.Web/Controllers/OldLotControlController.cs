@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -26,13 +27,13 @@ namespace OnlineAuction.Web.Controllers
             var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetOldLot());
             return Ok(lots);
         }
-        [HttpPut, Route("api/stop/{lotId:decimal}")]
+        [HttpPut, Route("api/stop/{lotId:decimal}"), OperationFaildException, LotNotFoundExaption]
         public IHttpActionResult StopLot(int lotId)
         {
             managerService.StopLot(lotId);
             return Ok();
         }
-        [HttpPut, Route("api/continue/{lotId:decimal}")]
+        [HttpPut, Route("api/continue/{lotId:decimal}"), LotNotFoundExaption]
         public IHttpActionResult ContinueLot(int lotId)
         {
             managerService.ContinueLot(lotId);

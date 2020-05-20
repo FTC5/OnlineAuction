@@ -9,8 +9,8 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IBoughLotService
     {
-        IEnumerable<LotViewDTO> GetSels(int userId);
-        void DeleteSels(int userId, int lotId);
+        IEnumerable<LotViewDTO> GetSales(int userId);
+        void DeleteSales(int userId, int lotId);
         IEnumerable<LotViewDTO> GetBought(int userId);
         void DeleteBought(int userId, int lotId);
         

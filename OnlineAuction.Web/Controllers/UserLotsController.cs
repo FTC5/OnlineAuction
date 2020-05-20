@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -17,26 +18,32 @@ namespace OnlineAuction.Web.Controllers
         private IMapper mapper;
         private IUserService userService;
 
-        public UserLotsController(IUserService userService,IMapper mapper)
+        public UserLotsController(IUserService userService, IMapper mapper)
         {
             this.userService = userService;
             this.mapper = mapper;
         }
+        [HttpGet]
         public void GetLots(int userId)
         {
             var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId));
         }
+        [HttpPost, UserNotFoundExaption]
         public void PostLot(int userId, LotModel lot)
         {
             userService.AddLot(userId, mapper.Map<LotDTO>(lot));
         }
-        public void PutLot(int userId, LotModel lot)
+        [HttpPut,LotNotFoundExaption, UserNotFoundExaption]
+        public IHttpActionResult PutLot(int userId, LotModel lot)
         {
             userService.UpdateLot(userId, mapper.Map<LotDTO>(lot));
+            return Ok();
         }
-        public void DeleteLot(int userId, int lotId)
+        [HttpDelete,OperationFaildException]
+        public IHttpActionResult DeleteLot(int userId, int lotId)
         {
             userService.DeleteLot(userId, lotId);
+            return Ok();
         }
     }
 }
