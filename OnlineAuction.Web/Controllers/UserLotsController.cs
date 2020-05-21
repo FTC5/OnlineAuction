@@ -13,6 +13,7 @@ using System.Web.Http;
 namespace OnlineAuction.Web.Controllers
 {
     //[Authorize(Roles = "User")]
+    [RoutePrefix("api/user/lots")]
     public class UserLotsController : ApiController
     {
         private IMapper mapper;
@@ -23,23 +24,23 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
-        [HttpGet]
+        [HttpGet,Route("get")]
         public void GetLots(int userId)
         {
             var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId));
         }
-        [HttpPost, UserNotFoundExaption]
-        public void PostLot(int userId, LotModel lot)
+        [HttpPost, UserNotFoundExaption, Route("add")]
+        public void PostLot(int userId,[FromBody] LotModel lot)
         {
             userService.AddLot(userId, mapper.Map<LotDTO>(lot));
         }
-        [HttpPut,LotNotFoundExaption, UserNotFoundExaption]
+        [HttpPut,LotNotFoundExaption, UserNotFoundExaption, Route("edit")]
         public IHttpActionResult PutLot(int userId, LotModel lot)
         {
             userService.UpdateLot(userId, mapper.Map<LotDTO>(lot));
             return Ok();
         }
-        [HttpDelete,OperationFaildException]
+        [HttpDelete,OperationFaildException, Route("delete")]
         public IHttpActionResult DeleteLot(int userId, int lotId)
         {
             userService.DeleteLot(userId, lotId);

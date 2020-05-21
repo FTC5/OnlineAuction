@@ -31,14 +31,15 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void GetSels_should_return_null_when_user_not_found()
         {
-            var result = _boughLotService.GetSales(default);
+            int userId = 0;
+
+            var result = _boughLotService.GetSales(userId);
 
             Assert.IsNull(result);
         }
         [Test]
         public void GetSels_should_return_IEnumerable_LotViewDTO_when_user_found()
         {
-
             var user = _fixture.Build<User>().With(u => u.Sels, _fixture.CreateMany<Lot>().ToList()).Create();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
 
@@ -59,7 +60,9 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void DeleteBought_should_stop_when_user_not_found()
         {
-            _boughLotService.DeleteBought(default, default);
+            int userId = 0;
+
+            _boughLotService.DeleteBought(userId, default);
 
             _unitOfWork.DidNotReceive().Save();
         }
@@ -68,18 +71,20 @@ namespace OnlineAuction.BLL.Tests
         {
             var user = _fixture.Create<User>();
             _unitOfWork.User.Get(default).Returns(user);
+
             _boughLotService.DeleteBought(default, default);
 
             _unitOfWork.DidNotReceive().Save();
         }
         [Test]
-        public void DeleteBought_should_completed_when_lot_and_user_found()
+        public void DeleteBought_should_completed_when_lot_and_user_found_()
         {
             int lotid = 1;
             var lot = _fixture.Build<Lot>().With(l => l.Id, lotid).Create();
             var user = _fixture.Create<User>();
             user.Bought.Add(lot);
             _unitOfWork.User.Get(default).Returns(user);
+
             _boughLotService.DeleteBought(default, lotid);
 
             _unitOfWork.Received().Save();

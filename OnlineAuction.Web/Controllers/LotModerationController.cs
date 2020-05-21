@@ -13,6 +13,7 @@ using System.Web.Http;
 namespace OnlineAuction.Web.Controllers
 {
     //[Authorize(Roles = "Manager")]
+    [RoutePrefix("api/moderation")]
     public class LotModerationController : ApiController //Error
     {
         private IMapper mapper;
@@ -24,19 +25,19 @@ namespace OnlineAuction.Web.Controllers
             this.managerService = managerService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
-        [HttpGet]
+        [HttpGet,Route("get")]
         public IHttpActionResult GetUncheckedLots()
         {
             var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetUncheckedLots());
             return Ok(lots);
         }
-        [HttpPut,LotNotFoundExaption]
+        [HttpPost, LotNotFoundExaption,Route("allow")]
         public IHttpActionResult AllowLot(int lotId)
         {
             managerService.AllowLot(lotId);
             return Ok();
         }
-        [HttpPost,LotNotFoundExaption, ValidationException]
+        [HttpPost,LotNotFoundExaption, ValidationException, Route("prevent")]
         public IHttpActionResult PreventLot(int lotId,string cause) 
         {
             managerService.PreventLot(lotId,cause);

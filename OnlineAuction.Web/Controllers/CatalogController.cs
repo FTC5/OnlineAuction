@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    [RoutePrefix("api/catalog")]
     public class CatalogController : ApiController
     {
         private IMapper mapper;
@@ -27,39 +28,39 @@ namespace OnlineAuction.Web.Controllers
             var lots = mapper.Map<IEnumerable<LotViewModel>>(catalogService.GetLots());
             return Ok(lots);
         }
-        [HttpGet, Route("api/catalog/categories/{parentId=1:decimal}")]
+        [HttpGet, Route("categories/{parentId=1:decimal}")]
         public IHttpActionResult GetChieldCategory(int? parentId)
         {
             var categories = mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetChildCategories(parentId)); 
             return Ok(categories);
         }
-        [HttpGet, Route("api/catalog/category/{id:decimal}")]
+        [HttpGet, Route("category/{id:decimal}")]
         public IHttpActionResult GetCategory(int Id)
         {
             var category = mapper.Map<CategoryModel>(categoryService.GetCategory(Id));
             return Ok(category);
         }
-        [HttpGet, Route("api/catalog/lots/include/{text}")]
+        [HttpGet, Route("lots/include/{text}")]
         public IHttpActionResult FindLotsByName(string text)
         {
             var searchresult = catalogService.FindByNameLot(text);
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
-        [HttpGet, Route("api/catalog/autor/include/{text}")]
+        [HttpGet, Route("autor/include/{text}")]
         public IHttpActionResult FindLotsByAutor(string text)
         {
             var searchresult = catalogService.FindByAutor(text);
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
-        [HttpGet, Route("api/catalog/lots/include/category/{categoryId:decimal}")]
-        public IHttpActionResult FindLotsWithCategory(int categoryId) //Dont work
+        [HttpGet, Route("lots/include/category/{categoryId:decimal}")]
+        public IHttpActionResult FindLotsWithCategory(int categoryId)
         {
             var categories = mapper.Map<IEnumerable<LotViewModel>>(catalogService.FindByCategory(categoryId));
             return Ok(categories);
         }
-        [Route("api/catalog/lot/{id:decimal}")]
+        [Route("lot/{id:decimal}")]
         public IHttpActionResult GetLot(int id)
         {
             var lots = mapper.Map<LotModel>(catalogService.GetLot(id));

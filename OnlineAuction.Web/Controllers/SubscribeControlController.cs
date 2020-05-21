@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    [RoutePrefix("api/subscribe")]
     public class SubscribeControlController : ApiController
     {
         private IMapper mapper;
@@ -18,13 +19,13 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
             this.userService = userService;
         }
-        [HttpGet]
+        [HttpGet,Route("get")]
         public IHttpActionResult GetSubscription(int userId)
         {
-            var lots = mapper.Map<LotViewModel>(userService.GetSubscription(userId));
+            var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetSubscription(userId));
             return Ok(lots);
         }
-        [HttpDelete]
+        [HttpDelete, Route("delete")]
         public void DeleteSubscription(int userId,int lotId)
         {
             userService.DeleteSubscription(userId,lotId);

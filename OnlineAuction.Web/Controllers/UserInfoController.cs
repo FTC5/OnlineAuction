@@ -12,6 +12,7 @@ using System.Web.Http;
 namespace OnlineAuction.Web.Controllers
 {
     //[Authorize]
+    [RoutePrefix("api/user")]
     public class UserInfoController : ApiController
     {
         private IMapper mapper;
@@ -22,24 +23,24 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
-        [HttpPut,Route("api/UserInfo/PutPassword/{userId:decimal}/{password}"), UserNotFoundExaption]
+        [HttpPut,Route("put/password/"), UserNotFoundExaption]
         public IHttpActionResult PutPassword(int userId,string password)
         {
             userService.ChangePassword(userId,password);
             return Ok();
         }
-        [HttpPut, UserNotFoundExaption]
+        [HttpPut, UserNotFoundExaption,Route("put/login/")]
         public IHttpActionResult PutLogin(int userId, string login)
         {
             userService.ChangeLogin(userId,login);
             return Ok();
         }
-        [HttpPost, UserNotFoundExaption]
+        [HttpPost, UserNotFoundExaption, Route("add/balance/")]
         public void AddToBalance(int userId, int count)
         {
             userService.AddBalance(userId, count);
         }
-        [HttpGet]
+        [HttpGet, Route("get")]
         public IHttpActionResult GetUserInfo(int userId)
         {
             var user=mapper.Map<UserModel>(userService.GetUserInfo(userId));

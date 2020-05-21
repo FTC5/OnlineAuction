@@ -52,8 +52,8 @@ namespace OnlineAuction.BLL.Services
             var user = db.User.Get(userId);
             if (user == null)
                 return;
-            List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Bought);
-            LotDTO lot = lotDTOs.Find(i => i.Id == lotId);
+            var lots = mapper.Map<List<LotDTO>>(user.Bought);
+            var lot = lots.Find(i => i.Id == lotId);
 
             if (lot == null)
                 return;

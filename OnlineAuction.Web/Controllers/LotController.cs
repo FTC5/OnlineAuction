@@ -1,13 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using AutoMapper;
-using OnlineAuction.BLL.Interfaces;
-using OnlineAuction.Web.ExceptionFilters;
-using OnlineAuction.Web.Models;
-using OnlineAuction.Web.Utility;
 
 namespace OnlineAuction.Web.Controllers
 {
@@ -42,10 +41,10 @@ namespace OnlineAuction.Web.Controllers
             userService.AddBet(lotId,userId);
             return Ok();
         }
-        [HttpGet,, Route("api/lot/autor/{lotId:decimal}")]
-        public IHttpActionResult GetLotAutorInfo(int lotId)
+        [HttpGet]
+        public IHttpActionResult GetAutorInfo(int id)
         {
-            var autor = mapper.Map<UserModel>(userService.GetLotAutorInfo(lotId));
+            var autor = mapper.Map<UserModel>(userService.GetLotAutorInfo(id));
             return Ok(autor);
         }
     }

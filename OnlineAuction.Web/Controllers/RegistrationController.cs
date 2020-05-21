@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
+    [RoutePrefix("api/registration")]
     public class RegistrationController : ApiController
     {
         private IMapper mapper;
@@ -24,7 +25,7 @@ namespace OnlineAuction.Web.Controllers
             this.authentication = authentication;
             this.mapper = mapper;
         }
-        [Route("api/registration/authorization/{login}/{password}"), OperationFaildException, ValidationException]
+        [Route("authorization/"), OperationFaildException, ValidationException]
         public IHttpActionResult PostAuthorization(string login, string password)
         {
             AuthenticationModel model = new AuthenticationModel();
@@ -34,7 +35,7 @@ namespace OnlineAuction.Web.Controllers
             int id = authentication.GetAuthenticationId(mapper.Map<AuthenticationDTO>(model));
             return Ok(id);
         }
-        [Route("api/registration/person/{authorizationId}/{perosn}"), OperationFaildException, ValidationException]
+        [Route("person/"), OperationFaildException, ValidationException]
         public IHttpActionResult PostUserInfo(int authorizationId, PersonModel person)
         {
             registrationService.UserRegistration(authorizationId, mapper.Map<PersonDTO>(person));

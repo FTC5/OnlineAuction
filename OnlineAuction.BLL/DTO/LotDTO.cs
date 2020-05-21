@@ -27,7 +27,6 @@ namespace OnlineAuction.BLL.DTO
         public DateTime StartDate { get; set; }
         public int TermDay { get; set; }
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Lot dont have Autor")]
         public virtual UserDTO User { get; set; }
         [Required(ErrorMessage = "Lot dont have Product")]
         public virtual ProductDTO Product { get; set; }

@@ -80,7 +80,7 @@ namespace OnlineAuction.BLL.Services
             db.Save();
 
         }
-        public void AddCategory(CategoryDTO category)//validation
+        public void AddCategory(CategoryDTO category)//Parent=null//Perent not found
         {
             if (category == null)
                 return;

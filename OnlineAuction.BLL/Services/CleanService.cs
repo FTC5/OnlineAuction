@@ -14,16 +14,16 @@ namespace OnlineAuction.BLL.Services
         {
         }
 
-        public void CleanOld()
+        public void CleanOldLots()
         {
             int twoWeek = 14;
-            DateTime date = DateTime.Now.Date;
-            date.AddDays(twoWeek);
-            DateTime datebuff;
+            TimeSpan time = new TimeSpan(twoWeek, 0, 0, 0);  
+            DateTime date = DateTime.Now.Date;     
+            DateTime buff;
             var lots = db.Lot.Find(l =>
             {
-                datebuff = l.StartDate.AddDays(l.TermDay).Date;
-                if (datebuff > date)
+                buff = l.StartDate.AddDays(l.TermDay).Date;
+                if (time<(date-buff))
                 {
                     return true;
                 }
@@ -37,8 +37,6 @@ namespace OnlineAuction.BLL.Services
                 }
                 db.Lot.Delete(lot.Id);
             }
-
-
         }
     }
 }

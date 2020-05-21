@@ -46,6 +46,7 @@ namespace OnlineAuction.Web.Utility
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ICategoryService>().To<CategoryService>();
             kernel.Bind<IRegistrationService>().To<RegistrationService>();
+            kernel.Bind<IBoughLotService>().To<BoughLotService>();
         }
     }
 }

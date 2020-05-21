@@ -63,14 +63,20 @@ namespace OnlineAuction.BLL.Services
         }
         public void UpdateLot(int userId,LotDTO changed)
         {
+            if (changed == null)
+            {
+                return;
+            }
             var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found");
-            List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.Subscriptions);
-            LotDTO lot = lotDTOs.Find(i => (i.Id == changed.Id && i.UserId==changed.Id));
+            List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.UserLots);
+            LotDTO lot = lotDTOs.Find(i => (i.Id == changed.Id));
             if (lot == null)
-                throw new LotNotFoundExaption("Lot not found");
-            if (lot.ModerationResult == true)
+            {
+                AddLot(userId, changed);
+                return;
+            }else if (lot.ModerationResult == true)
             {
                 return;
             }
@@ -117,7 +123,7 @@ namespace OnlineAuction.BLL.Services
         }
         public UserDTO GetUserInfo(int userId)/////////////////////////////
         {
-            var user = db.Lot.Get(userId);
+            var user = db.User.Get(userId);
             return mapper.Map<UserDTO>(user);
         }
         public void AddBalance(int userId, int count)//////////////////////////

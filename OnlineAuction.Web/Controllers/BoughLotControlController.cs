@@ -18,10 +18,12 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
             this.boughtLotService = boughtLotServicee;
         }
+        [HttpDelete]
         public void DeleteBought(int userId,int lotId)
         {
             boughtLotService.DeleteBought(userId, lotId);
         }
+        [HttpGet]
         public void GetBought(int userId)
         {
             boughtLotService.GetBought(userId);

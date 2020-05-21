@@ -29,27 +29,6 @@ namespace OnlineAuction.Web
                     id2 = new IntRouteConstraint()
                 }
             );
-            config.Routes.MapHttpRoute(
-                name: "IntAndStringOrObg",
-                routeTemplate: "api/{controller}/{id}/{textOrObj}",
-                defaults: new { },
-                constraints: new
-                {
-                    id = new IntRouteConstraint()
-                }
-            );
-            config.Routes.MapHttpRoute(
-                name: "loginAndPassword",
-                routeTemplate: "api/{controller}/{login}/{password}/{obj}",
-                defaults: new { obj = RouteParameter.Optional }
-            );
-            config.Routes.MapHttpRoute(
-                name: "Del",
-                routeTemplate: "api/{controller}/{action}/{userId}/{lotId}",
-                defaults: new {  }
-            );
-
-
         }
     }
 }

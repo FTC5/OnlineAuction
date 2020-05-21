@@ -161,9 +161,9 @@ namespace OnlineAuction.BLL.Tests
         {
             CategoryDTO category = null;
 
-            var ex = Assert.Throws<ArgumentNullException>(() => _adminService.AddCategory(category));
+            _adminService.AddCategory(category);
 
-            Assert.That(ex.Message, Is.EqualTo("Category is null"));
+            _unitOfWork.Category.DidNotReceiveWithAnyArgs().Find(default);
         }
         [Test]
         public void AddCategory_should_stop_if_category__already_exists()

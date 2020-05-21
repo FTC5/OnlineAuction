@@ -187,7 +187,6 @@
     <Compile Include="Controllers\OldLotControlController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\SalesLotController.cs" />
-    <Compile Include="Controllers\SubscribeControler.cs" />
     <Compile Include="Controllers\SubscribeControlController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLotsController.cs" />
@@ -195,6 +194,7 @@
     <Compile Include="ExceptionFilters\OperationFaildExceptionAttribute .cs" />
     <Compile Include="ExceptionFilters\UserNotFoundExaptionAttribute.cs" />
     <Compile Include="ExceptionFilters\ValidationExceptionAttribute.cs" />
+    <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -9,6 +9,6 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface ICleanService
     {
-        void CleanOld();
+        void CleanOldLots();
     }
 }
