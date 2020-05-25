@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.Filters;
+using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-    [RoutePrefix("api/user/sales")]
+    [RoutePrefix("api/user/sales"), CookieAuthorization(Role = "User")]
     public class SalesLotController : ApiController
     {
         private IMapper mapper;
@@ -24,9 +26,10 @@ namespace OnlineAuction.Web.Controllers
             boughtLotService.DeleteSales(userId, lotId);
         }
         [HttpGet, Route("get")]
-        public void GetSales(int userId)
+        public IHttpActionResult GetSales(int userId)
         {
-            boughtLotService.GetSales(userId);
+            var lots=mapper.Map<IEnumerable<LotViewModel>>(boughtLotService.GetSales(userId));
+            return Ok(lots);
         }
     }
 }

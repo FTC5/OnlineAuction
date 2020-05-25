@@ -75,11 +75,11 @@ namespace OnlineAuction.BLL.Services
         public IEnumerable<LotViewDTO> GetOldLot()
         {
             DateTime date = DateTime.Now.Date;
-            DateTime datebuff;
+            DateTime buff;
             var lots = db.Lot.Find(l =>
             {
-                datebuff = l.StartDate.AddDays(l.TermDay).Date;
-                if (datebuff > date && l.Sels==false)
+                buff = l.StartDate;
+                if (l.TermDay < (date - buff).Days && l.Sels == false)
                 {
                     return true;
                 }
@@ -95,26 +95,38 @@ namespace OnlineAuction.BLL.Services
                 throw new LotNotFoundExaption("Lot not Found");
 
             }
-            else if(lot.StartDate.AddDays(lot.TermDay).Date<= DateTime.Now.Date)
+            else if(lot.TermDay > (DateTime.Now.Date-lot.StartDate).Days )
             {
                 throw new OperationFaildException("Operation Failed : Cant delete not old lot");
 
             }
             if (lot.BetsCount == 0)
             {
-                db.Lot.Delete(lotId);
+                db.Moderation.Delete(lotId);
+                db.DeliveryAndPayment.Delete(lotId);
+                db.Product.Delete(lotId);
+                db.Lot.Delete(lot.Id);
                 db.Save();
             }
             else
             {
                 lot.Sels = true;
-                lot.ModerationResult = true;
-                foreach (var item in lot.Bets)
+                db.Lot.Update(lot);
+                db.Save();
+                var Bets = lot.Bets.ToList();
+                int lastId=0;
+                foreach (var item in Bets)
                 {
                     var user = db.User.Get(item.Id);
                     if (user == null)
                     {
                         db.Bet.Delete(item.Id);
+                        continue;
+                    }
+                    else
+                    {
+                        db.Bet.Delete(lastId);
+                        lastId = item.Id;
                     }
                     user.Subscriptions.Remove(lot);
                     db.User.Update(user);
@@ -122,7 +134,6 @@ namespace OnlineAuction.BLL.Services
                     {
                         continue;
                     }
-                    db.Bet.Delete(item.Id);
                 }
                 var sellUser = db.User.Get(lot.UserId);
                 sellUser.UserLots.Remove(lot);

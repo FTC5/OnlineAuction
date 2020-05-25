@@ -19,7 +19,7 @@ namespace OnlineAuction.BLL.Services
         }
         public IEnumerable<LotViewDTO> GetLots() 
         {
-            var lots = db.Lot.Find(l=>(l.ModerationResult==false && l.Sels==false));
+            var lots = db.Lot.Find(l=>(l.ModerationResult==true && l.Sels==false));
             var lotsDTO = mapper.Map<IEnumerable<LotViewDTO>> (lots);
             return lotsDTO;
         }

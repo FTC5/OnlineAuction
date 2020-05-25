@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,13 @@ namespace OnlineAuction.Web.Controllers
             var lot= mapper.Map<LotModel>(catalogService.GetLot(lotId));
             return Ok(lot);
         }
-        [HttpPut, LotNotFoundExaption, UserNotFoundExaption]
-        //[HttpPut, Authorize(Roles = "User")]
+        [HttpPut, CookieAuthorization(Role = "User"), LotNotFoundExaption, UserNotFoundExaption]
         public IHttpActionResult SubscribeLot(int lotId,int userId)
         {
             userService.AddLotToSubscription(userId, lotId);
             return Ok();
         }
-        [HttpPost, LotNotFoundExaption,UserNotFoundExaption]
-        //[HttpPost, Authorize(Roles = "User")]
+        [HttpPost,CookieAuthorization(Role = "User"), LotNotFoundExaption,UserNotFoundExaption]
         public IHttpActionResult AddBet(int lotId, int userId)
         {
             userService.AddBet(lotId,userId);

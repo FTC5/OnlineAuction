@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-    [RoutePrefix("api/subscribe")]
+    [RoutePrefix("api/subscribe"), CookieAuthorization(Role = "User")]
     public class SubscribeControlController : ApiController
     {
         private IMapper mapper;

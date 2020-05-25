@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ninject;
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.Models;
@@ -20,17 +21,20 @@ namespace OnlineAuction.Web.Filters
     {
         private IAuthenticationService authenticationService;
         private IMapper mapper;
-        public CustomAuthenticationAttribute(IAuthenticationService authenticationServic,IMapper mapper)
+        public CustomAuthenticationAttribute()
         {
-            this.authenticationService = authenticationServic;
-            this.mapper = mapper;
         }
 
         public bool AllowMultiple
         {
             get { return false; }
         }
-
+        [Inject]
+        public void SetAttribute(IAuthenticationService authenticationService, IMapper mapper)
+        {
+            this.authenticationService = authenticationService;
+            this.mapper = mapper;
+        }
         public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             context.Principal = null;

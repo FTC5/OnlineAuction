@@ -28,39 +28,39 @@ namespace OnlineAuction.Web.Controllers
             var lots = mapper.Map<IEnumerable<LotViewModel>>(catalogService.GetLots());
             return Ok(lots);
         }
-        [HttpGet, Route("categories/{parentId=1:decimal}")]
+        [HttpGet, Route("categories")]
         public IHttpActionResult GetChieldCategory(int? parentId)
         {
             var categories = mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetChildCategories(parentId)); 
             return Ok(categories);
         }
-        [HttpGet, Route("category/{id:decimal}")]
+        [HttpGet, Route("category")]
         public IHttpActionResult GetCategory(int Id)
         {
             var category = mapper.Map<CategoryModel>(categoryService.GetCategory(Id));
             return Ok(category);
         }
-        [HttpGet, Route("lots/include/{text}")]
+        [HttpGet, Route("lots/include")]
         public IHttpActionResult FindLotsByName(string text)
         {
             var searchresult = catalogService.FindByNameLot(text);
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
-        [HttpGet, Route("autor/include/{text}")]
+        [HttpGet, Route("autor/include")]
         public IHttpActionResult FindLotsByAutor(string text)
         {
             var searchresult = catalogService.FindByAutor(text);
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
-        [HttpGet, Route("lots/include/category/{categoryId:decimal}")]
+        [HttpGet, Route("lots/include/category")]
         public IHttpActionResult FindLotsWithCategory(int categoryId)
         {
             var categories = mapper.Map<IEnumerable<LotViewModel>>(catalogService.FindByCategory(categoryId));
             return Ok(categories);
         }
-        [Route("lot/{id:decimal}")]
+        [Route("lot/")]
         public IHttpActionResult GetLot(int id)
         {
             var lots = mapper.Map<LotModel>(catalogService.GetLot(id));

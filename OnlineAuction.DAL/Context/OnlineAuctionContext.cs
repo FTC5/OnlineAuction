@@ -30,6 +30,10 @@ namespace OnlineAuction.DAL.Context
                 .WithRequiredPrincipal(ad => ad.Lot);
             modelBuilder.Entity<Moderation>().HasRequired(s => s.Lot)
                .WithRequiredPrincipal(ad => ad.Moderation);
+            modelBuilder.Entity<Product>()
+                .HasMany(c => c.Images)
+                .WithOptional()
+                .WillCascadeOnDelete(true);
         }
     }
 }

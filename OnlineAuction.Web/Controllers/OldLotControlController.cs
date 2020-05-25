@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -11,8 +12,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-   // [Authorize(Roles = "Manager")]
-    [RoutePrefix("api/old/lot")]
+    [RoutePrefix("api/old/lot"), CookieAuthorization(Role = "Manager")]
     public class OldLotControlController : ApiController
     {
         private IMapper mapper;

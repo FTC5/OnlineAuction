@@ -44,8 +44,11 @@ namespace OnlineAuction.BLL.Services
                 throw new Infrastructure.ValidationException("Data have error", results);
             UserDTO user = mapper.Map<UserDTO>(person);
             var aut = mapper.Map<AuthenticationDTO>(db.Authentication.Get(authenticationId));
-            user.Authentication = aut ?? throw new OperationFaildException("Authorization not found");
+            if(aut==null)
+                throw new OperationFaildException("Authorization not found");
+            user.Id = aut.Id;
             db.User.Create(mapper.Map<User>(user));
+            db.Save();
         }
     }
 }

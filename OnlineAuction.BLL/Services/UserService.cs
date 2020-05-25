@@ -15,8 +15,33 @@ namespace OnlineAuction.BLL.Services
 {
     public class UserService : Service, IUserService
     {
+        IMapper updateMap;
         public UserService(IUnitOfWork db) : base(db)//SubscribeController
         {
+            updateMap = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<LotDTO, Lot>()
+                .ForMember(
+                    l => l.Product, p => p.Ignore()
+                 )
+                 .ForMember(
+                    l => l.User, us => us.Ignore()
+                 )
+                 .ForMember(
+                    l => l.Moderation, m => m.Ignore()
+                 );
+
+                cfg.CreateMap<ProductDTO, Product>()
+                .ForMember(
+                    d => d.DeliveryAndPayment, d => d.Ignore()
+                 )
+                 .ForMember(
+                    p => p.Category, c => c.Ignore()
+                 )
+                 .ForMember(
+                    p => p.Images, im => im.Ignore()
+                 );
+            }).CreateMapper();
         }
         public void AddLotToSubscription(int userId,int lotId)
         {
@@ -48,9 +73,8 @@ namespace OnlineAuction.BLL.Services
             var user = db.User.Get(userId);
             if (user == null)
                 return;
-            List<LotDTO> lotDTOs= mapper.Map<List<LotDTO>>(user.Subscriptions);
-            LotDTO lot=lotDTOs.Find(i => i.Id == lotId);
-            user.Subscriptions.Remove(mapper.Map<Lot>(lot));
+            var lot = user.Subscriptions.ToList().Find(i => i.Id == lotId);
+            user.Subscriptions.Remove(lot);
             db.User.Update(user);
             db.Save();
         }
@@ -81,8 +105,50 @@ namespace OnlineAuction.BLL.Services
                 return;
             }
             lot.Change = true;
-            db.Lot.Update(mapper.Map<Lot>(lot));
+            var lot1 = db.Lot.Get(changed.Id);
+            var product = lot1.Product;
+            UpdateImage(changed.Product.Images.ToList(), product.Images.ToList());
+            var dap = product.DeliveryAndPayment;
+            db.Lot.Update(updateMap.Map(lot, lot1));
+            db.Product.Update(updateMap.Map(lot.Product, product));
+            db.DeliveryAndPayment.Update(mapper.Map(changed.Product.DeliveryAndPayment, dap));
             db.Save();
+        }
+        private void UpdateImage(List<ImageDTO> imagesDTO,List<Image> images)
+        {
+            int size = 0;
+            if(imagesDTO.Count< images.Count)
+            {
+                size = images.Count();
+                for (int i = 0; i < size; i++)
+                {
+                    if (imagesDTO.Count <= i)
+                    {
+                        db.Image.Delete(images[i].Id);
+                    }
+                    else
+                    {
+                        images[i].Link = imagesDTO[i].Link;
+                        db.Image.Update(images[i]);
+                    }
+                }
+            }
+            else
+            {
+                size = imagesDTO.Count();
+                for (int i = 0; i < size; i++)
+                {
+                    if (images.Count <= i)
+                    {
+                        db.Image.Create(mapper.Map<Image>(imagesDTO[i]));
+                    }
+                    else
+                    {
+                        images[i].Link = imagesDTO[i].Link;
+                        db.Image.Update(images[i]);
+                    }
+                }
+            }
         }
         public void AddLot(int userId, LotDTO lot)
         {
@@ -94,6 +160,7 @@ namespace OnlineAuction.BLL.Services
             var user= db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found");
+            lot.Moderation = new ModerationDTO();
             var eLot = mapper.Map<Lot>(lot);
             eLot.User = user;
             user.UserLots.Add(eLot);
@@ -112,21 +179,24 @@ namespace OnlineAuction.BLL.Services
                 return;
             if (lot.StartDate!=DateTime.Now.Date && lot.CurrentPrice!=lot.Product.Price)
                 throw new OperationFaildException("Lot cannot be deleted. Bidding has already begun");
+            db.Moderation.Delete(lotId);
+            db.DeliveryAndPayment.Delete(lotId);
+            db.Product.Delete(lotId);
             db.Lot.Delete(lot.Id);
             db.Save();
         }
-        public UserDTO GetLotAutorInfo(int lotId)////////////////////////////
+        public UserDTO GetLotAutorInfo(int lotId)
         {
             var lot = db.Lot.Get(lotId);
             var user = lot.User;
             return mapper.Map<UserDTO>(user);
         }
-        public UserDTO GetUserInfo(int userId)/////////////////////////////
+        public UserDTO GetUserInfo(int userId)
         {
             var user = db.User.Get(userId);
             return mapper.Map<UserDTO>(user);
         }
-        public void AddBalance(int userId, int count)//////////////////////////
+        public void AddBalance(int userId, int count)
         {
             var user = db.User.Get(userId);
             if (user == null)
@@ -162,12 +232,12 @@ namespace OnlineAuction.BLL.Services
             db.Lot.Update(lot);
             db.User.Update(user);
             db.Save();
-            AddLotToSubscription(lotId, userId);
+            AddLotToSubscription(userId, lotId);
         }
         public void ChangeLogin(int userId,string newLogin)
         {
             var cheack = db.Authentication.Find(i => i.Login == newLogin);
-            if (cheack!=null)
+            if (cheack.Count()>0)
             {
                 return;
             }

@@ -8,13 +8,12 @@ namespace OnlineAuction.BLL.DTO
 {
     public class LotViewDTO
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
         public int BetsCount { get; set; } = 0;
         public int CurrentPrice { get; set; }
-        public string FirstImageUrl { get; set; }
         public bool ModerationResult { get; set; } = false;
         public bool Change { get; set; } = true;
         public bool Sels { get; set; } = false;

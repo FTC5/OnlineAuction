@@ -2,6 +2,7 @@
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -12,9 +13,8 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-    //[Authorize(Roles = "Manager")]
-    [RoutePrefix("api/moderation")]
-    public class LotModerationController : ApiController //Error
+    [CookieAuthorization(Role = "Manager"),RoutePrefix("api/moderation")]
+    public class LotModerationController : ApiController
     {
         private IMapper mapper;
         private IManagerService managerService;

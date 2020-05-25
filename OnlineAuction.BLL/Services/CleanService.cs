@@ -23,7 +23,7 @@ namespace OnlineAuction.BLL.Services
             var lots = db.Lot.Find(l =>
             {
                 buff = l.StartDate.AddDays(l.TermDay).Date;
-                if (time<(date-buff))
+                if (time<(buff - date))
                 {
                     return true;
                 }
@@ -35,8 +35,15 @@ namespace OnlineAuction.BLL.Services
                 {
                     db.Bet.Delete(item.Id);
                 }
-                db.Lot.Delete(lot.Id);
+                DeleteLot(lot.Id);
             }
+        }
+        public void DeleteLot(int lotId)
+        {
+            db.Moderation.Delete(lotId);
+            db.DeliveryAndPayment.Delete(lotId);
+            db.Product.Delete(lotId);
+            db.Lot.Delete(lotId);
         }
     }
 }

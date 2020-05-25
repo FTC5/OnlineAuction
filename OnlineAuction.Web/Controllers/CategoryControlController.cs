@@ -2,6 +2,7 @@
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -12,7 +13,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-   // [Authorize(Roles = "Admin")]
+    [CookieAuthorization(Role = "Admin")]
     public class CategoryControlController : ApiController
     {
         private IMapper mapper;

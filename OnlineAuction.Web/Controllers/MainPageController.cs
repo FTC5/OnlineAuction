@@ -19,7 +19,7 @@ namespace OnlineAuction.Web.Controllers
 
         public MainPageController(ICatalogService catalogService,IMapper mapper)
         {
-            mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
+            this.mapper = mapper;
             this.catalogService = catalogService;
         }
         public IHttpActionResult GetLot(int lotId)

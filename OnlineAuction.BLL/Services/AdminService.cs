@@ -80,7 +80,7 @@ namespace OnlineAuction.BLL.Services
             db.Save();
 
         }
-        public void AddCategory(CategoryDTO category)//Parent=null//Perent not found
+        public void AddCategory(CategoryDTO category)
         {
             if (category == null)
                 return;
@@ -88,10 +88,14 @@ namespace OnlineAuction.BLL.Services
             var context = new System.ComponentModel.DataAnnotations.ValidationContext(category);
             if (!Validator.TryValidateObject(category, context, results, true))
                 throw new Infrastructure.ValidationException("Unable to add category", results);
-        
+            var parent= db.Category.Get(category.ParentCategoryId);
+            if (parent == null)
+            {
+                parent = db.Category.Get(1);
+            }  
             var categories = db.Category.Find(c =>
             {
-                if(c.Name.Equals(category.Name) && c.ParentCategory.Id == category.ParentCategoryId)
+                if(c.Name.Equals(category.Name) && parent.Id == category.ParentCategoryId)
                 {
                     return true;
                 }
@@ -101,7 +105,7 @@ namespace OnlineAuction.BLL.Services
                 return;
 
             var cat = mapper.Map<Category>(category);
-            cat.ParentCategory = db.Category.Get(category.ParentCategoryId);
+            cat.ParentCategory = parent;
             db.Category.Create(cat);
             db.Save();
         }
@@ -117,8 +121,7 @@ namespace OnlineAuction.BLL.Services
                 return;
             if (maneger.Admin==true)
                 throw new OperationFaildException("Operation Failed : Is not manager Id");
-
-            db.AdvancedUser.Delete(id);
+            db.Authentication.Delete(id);
             db.Save();
         }
         public void AddManager(PersonDTO person,AuthenticationDTO authent)//validation
@@ -137,15 +140,15 @@ namespace OnlineAuction.BLL.Services
                 
             AdvancedUserDTO advUser = mapper.Map<AdvancedUserDTO>(person);
             advUser.Admin = false;
-            advUser.Authentication = authent;
             string login = authent.Login;
             var aut = db.Authentication.Find(a => a.Login == login);
             if (aut.Count()!=0)
                 throw new OperationFaildException("Operation Failed : Login already exists");
 
-            var authentication = mapper.Map<Authentication>(advUser.Authentication);
-            db.Authentication.Create(authentication);
-            db.AdvancedUser.Create(mapper.Map<AdvancedUser>(advUser));
+            var authentication = mapper.Map<Authentication>(authent);
+            var user = mapper.Map<AdvancedUser>(advUser);
+            user.Authentication = authentication;
+            db.AdvancedUser.Create(user);
             db.Save();
         }
     }

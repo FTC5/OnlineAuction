@@ -21,8 +21,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -190,11 +190,14 @@
     <Compile Include="Controllers\SubscribeControlController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLotsController.cs" />
-    <Compile Include="ExceptionFilters\LotNotFoundExaptionAttribute .cs" />
-    <Compile Include="ExceptionFilters\OperationFaildExceptionAttribute .cs" />
-    <Compile Include="ExceptionFilters\UserNotFoundExaptionAttribute.cs" />
-    <Compile Include="ExceptionFilters\ValidationExceptionAttribute.cs" />
+    <Compile Include="Filters\CookieAuthorizationFilter.cs" />
+    <Compile Include="Filters\ExceptionFilters\LotNotFoundExaptionAttribute .cs" />
+    <Compile Include="Filters\ExceptionFilters\OperationFaildExceptionAttribute .cs" />
+    <Compile Include="Filters\ExceptionFilters\UserNotFoundExaptionAttribute.cs" />
+    <Compile Include="Filters\ExceptionFilters\ValidationExceptionAttribute.cs" />
     <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
+    <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Filters\ICookieAuthorizationFilter .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -2,6 +2,7 @@
 using OnlineAuction.BLL.DTO;
 using OnlineAuction.BLL.Interfaces;
 using OnlineAuction.Web.ExceptionFilters;
+using OnlineAuction.Web.Filters;
 using OnlineAuction.Web.Models;
 using OnlineAuction.Web.Utility;
 using System;
@@ -12,8 +13,7 @@ using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
 {
-    //[Authorize(Roles = "User")]
-    [RoutePrefix("api/user/lots")]
+    [RoutePrefix("api/user/lots"), CookieAuthorization(Role = "User")]
     public class UserLotsController : ApiController
     {
         private IMapper mapper;
@@ -25,9 +25,10 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpGet,Route("get")]
-        public void GetLots(int userId)
+        public IHttpActionResult GetLots(int userId)
         {
             var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId));
+            return Ok(lots);
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
         public void PostLot(int userId,[FromBody] LotModel lot)
