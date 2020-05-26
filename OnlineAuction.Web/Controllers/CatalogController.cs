@@ -5,6 +5,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -23,47 +24,47 @@ namespace OnlineAuction.Web.Controllers
             this.catalogService = catalogService;
             this.categoryService = categoryService;
         }
-        public IHttpActionResult GetLots()
+        public async Task<IHttpActionResult> GetLots()
         {
-            var lots = mapper.Map<IEnumerable<LotViewModel>>(catalogService.GetLots());
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(catalogService.GetLots()));
             return Ok(lots);
         }
         [HttpGet, Route("categories")]
-        public IHttpActionResult GetChieldCategory(int? parentId)
+        public async Task<IHttpActionResult> GetChieldCategory(int? parentId)
         {
-            var categories = mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetChildCategories(parentId)); 
+            var categories = await Task.Run(() => mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetChildCategories(parentId))); 
             return Ok(categories);
         }
         [HttpGet, Route("category")]
-        public IHttpActionResult GetCategory(int Id)
+        public async Task<IHttpActionResult> GetCategory(int Id)
         {
-            var category = mapper.Map<CategoryModel>(categoryService.GetCategory(Id));
+            var category = await Task.Run(() => mapper.Map<CategoryModel>(categoryService.GetCategory(Id)));
             return Ok(category);
         }
         [HttpGet, Route("lots/include")]
-        public IHttpActionResult FindLotsByName(string text)
+        public async Task<IHttpActionResult> FindLotsByName(string text)
         {
-            var searchresult = catalogService.FindByNameLot(text);
+            var searchresult = await Task.Run(() => catalogService.FindByNameLot(text));
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
         [HttpGet, Route("autor/include")]
-        public IHttpActionResult FindLotsByAutor(string text)
+        public async Task<IHttpActionResult> FindLotsByAutor(string text)
         {
-            var searchresult = catalogService.FindByAutor(text);
+            var searchresult = await Task.Run(() => catalogService.FindByAutor(text));
             var lots = mapper.Map<IEnumerable<LotViewModel>>(searchresult);
             return Ok(lots);
         }
         [HttpGet, Route("lots/include/category")]
-        public IHttpActionResult FindLotsWithCategory(int categoryId)
+        public async Task<IHttpActionResult> FindLotsWithCategory(int categoryId)
         {
-            var categories = mapper.Map<IEnumerable<LotViewModel>>(catalogService.FindByCategory(categoryId));
+            var categories = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(catalogService.FindByCategory(categoryId)));
             return Ok(categories);
         }
         [Route("lot/")]
-        public IHttpActionResult GetLot(int id)
+        public async Task<IHttpActionResult> GetLot(int id)
         {
-            var lots = mapper.Map<LotModel>(catalogService.GetLot(id));
+            var lots = await Task.Run(() => mapper.Map<LotModel>(catalogService.GetLot(id)));
             return Ok(lots);
         }
     }

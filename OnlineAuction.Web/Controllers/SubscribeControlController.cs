@@ -5,6 +5,7 @@ using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -21,15 +22,15 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
         }
         [HttpGet,Route("get")]
-        public IHttpActionResult GetSubscription(int userId)
+        public async Task<IHttpActionResult> GetSubscription(int userId)
         {
-            var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetSubscription(userId));
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(userService.GetSubscription(userId)));
             return Ok(lots);
         }
         [HttpDelete, Route("delete")]
-        public void DeleteSubscription(int userId,int lotId)
+        public async void DeleteSubscription(int userId,int lotId)
         {
-            userService.DeleteSubscription(userId,lotId);
+            await Task.Run(() => userService.DeleteSubscription(userId,lotId));
         }
     }
 }

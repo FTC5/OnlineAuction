@@ -6,6 +6,7 @@ using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -23,27 +24,27 @@ namespace OnlineAuction.Web.Controllers
             this.userService = userService;
         }
         [HttpGet]
-        public IHttpActionResult GetLot(int lotId)
+        public async Task<IHttpActionResult> GetLot(int lotId)
         {
-            var lot= mapper.Map<LotModel>(catalogService.GetLot(lotId));
+            var lot= await Task.Run(() => mapper.Map<LotModel>(catalogService.GetLot(lotId)));
             return Ok(lot);
         }
         [HttpPut, CookieAuthorization(Role = "User"), LotNotFoundExaption, UserNotFoundExaption]
-        public IHttpActionResult SubscribeLot(int lotId,int userId)
+        public async Task<IHttpActionResult> SubscribeLot(int lotId,int userId)
         {
-            userService.AddLotToSubscription(userId, lotId);
+            await Task.Run(() => userService.AddLotToSubscription(userId, lotId));
             return Ok();
         }
         [HttpPost,CookieAuthorization(Role = "User"), LotNotFoundExaption,UserNotFoundExaption]
-        public IHttpActionResult AddBet(int lotId, int userId)
+        public async Task<IHttpActionResult> AddBet(int lotId, int userId)
         {
-            userService.AddBet(lotId,userId);
+            await Task.Run(() => userService.AddBet(lotId,userId));
             return Ok();
         }
         [HttpGet]
-        public IHttpActionResult GetAutorInfo(int id)
+        public async Task<IHttpActionResult> GetAutorInfo(int id)
         {
-            var autor = mapper.Map<UserModel>(userService.GetLotAutorInfo(id));
+            var autor = await Task.Run(() => mapper.Map<UserModel>(userService.GetLotAutorInfo(id)));
             return Ok(autor);
         }
     }

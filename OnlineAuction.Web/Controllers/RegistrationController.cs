@@ -7,6 +7,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -36,9 +37,9 @@ namespace OnlineAuction.Web.Controllers
             return Ok(id);
         }
         [Route("person/"), OperationFaildException, ValidationException]
-        public IHttpActionResult PostUserInfo(int authorizationId, PersonModel person)
+        public async Task<IHttpActionResult> PostUserInfo(int authorizationId, PersonModel person)
         {
-            registrationService.UserRegistration(authorizationId, mapper.Map<PersonDTO>(person));
+            await Task.Run(() => registrationService.UserRegistration(authorizationId, mapper.Map<PersonDTO>(person)));
             return Ok();
         }
     }

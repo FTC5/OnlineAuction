@@ -7,6 +7,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -24,21 +25,21 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpGet, Route("get")]
-        public IHttpActionResult GetOldLot()
+        public async Task<IHttpActionResult> GetOldLot()
         {
-            var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetOldLot());
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(managerService.GetOldLot()));
             return Ok(lots);
         }
         [HttpPut, Route("stop"), OperationFaildException, LotNotFoundExaption]
-        public IHttpActionResult StopLot(int lotId)//Error
+        public async Task<IHttpActionResult> StopLot(int lotId)//Error
         {
-            managerService.StopLot(lotId);
+            await Task.Run(() => managerService.StopLot(lotId));
             return Ok();
         }
         [HttpPut, Route("continue"), LotNotFoundExaption]
-        public IHttpActionResult ContinueLot(int lotId)
+        public async Task<IHttpActionResult> ContinueLot(int lotId)
         {
-            managerService.ContinueLot(lotId);
+            await Task.Run(() => managerService.ContinueLot(lotId));
             return Ok();
         }
     }

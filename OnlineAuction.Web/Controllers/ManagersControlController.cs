@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
@@ -28,23 +29,23 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpPost, OperationFaildException, ValidationException]
-        public IHttpActionResult PostManager(string login, string password,[FromBody]PersonModel person)
+        public async Task<IHttpActionResult> PostManager(string login, string password,[FromBody]PersonModel person)
         {
             AuthenticationModel model = new AuthenticationModel();
             model.Login = login;
             model.Password = password;
-            adminService.AddManager(mapper.Map<PersonDTO>(person), mapper.Map<AuthenticationDTO>(model));
+            await Task.Run(() => adminService.AddManager(mapper.Map<PersonDTO>(person), mapper.Map<AuthenticationDTO>(model)));
             return Ok();
         }
-        public IHttpActionResult GetManagers()
+        public async Task<IHttpActionResult> GetManagers()
         {
-            var managers = mapper.Map<IEnumerable<AdvancedUserModel>>(adminService.GetManegers());
+            var managers = await Task.Run(() => mapper.Map<IEnumerable<AdvancedUserModel>>(adminService.GetManegers()));
             return Ok(managers);
         }
         [HttpDelete, OperationFaildException]
-        public IHttpActionResult DeleteManager(int manegerId)
+        public async Task<IHttpActionResult> DeleteManager(int manegerId)
         {
-            adminService.DeleteManeger(manegerId);
+            await Task.Run(() => adminService.DeleteManeger(manegerId));
             return Ok();
         }
     }

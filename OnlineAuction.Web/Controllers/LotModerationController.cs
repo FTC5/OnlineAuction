@@ -8,6 +8,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -26,21 +27,21 @@ namespace OnlineAuction.Web.Controllers
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
         [HttpGet,Route("get")]
-        public IHttpActionResult GetUncheckedLots()
+        public async Task <IHttpActionResult> GetUncheckedLots()
         {
-            var lots = mapper.Map<IEnumerable<LotViewModel>>(managerService.GetUncheckedLots());
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(managerService.GetUncheckedLots()));
             return Ok(lots);
         }
         [HttpPost, LotNotFoundExaption,Route("allow")]
-        public IHttpActionResult AllowLot(int lotId)
+        public async Task<IHttpActionResult> AllowLot(int lotId)
         {
-            managerService.AllowLot(lotId);
+            await Task.Run(() => managerService.AllowLot(lotId));
             return Ok();
         }
         [HttpPost,LotNotFoundExaption, ValidationException, Route("prevent")]
-        public IHttpActionResult PreventLot(int lotId,string cause) 
+        public async Task<IHttpActionResult> PreventLot(int lotId,string cause) 
         {
-            managerService.PreventLot(lotId,cause);
+            await Task.Run(() => managerService.PreventLot(lotId,cause));
             return Ok();
         }
     }

@@ -7,6 +7,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -24,26 +25,26 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpPut,Route("put/password/"), UserNotFoundExaption]
-        public IHttpActionResult PutPassword(int userId,string password)
+        public async Task<IHttpActionResult> PutPassword(int userId,string password)
         {
-            userService.ChangePassword(userId,password);
+            await Task.Run(() => userService.ChangePassword(userId,password));
             return Ok();
         }
         [HttpPut, UserNotFoundExaption,Route("put/login/")]
-        public IHttpActionResult PutLogin(int userId, string login)
+        public async Task<IHttpActionResult> PutLogin(int userId, string login)
         {
-            userService.ChangeLogin(userId,login);
+            await Task.Run(() => userService.ChangeLogin(userId,login));
             return Ok();
         }
         [HttpPost, UserNotFoundExaption, Route("add/balance/")]
-        public void AddToBalance(int userId, int count)
+        public async void AddToBalance(int userId, int count)
         {
-            userService.AddBalance(userId, count);
+            await Task.Run(() => userService.AddBalance(userId, count));
         }
         [HttpGet, Route("get")]
-        public IHttpActionResult GetUserInfo(int userId)
+        public async Task<IHttpActionResult> GetUserInfo(int userId)
         {
-            var user=mapper.Map<UserModel>(userService.GetUserInfo(userId));
+            var  user = await Task.Run(() => mapper.Map<UserModel>(userService.GetUserInfo(userId)));
             return Ok(user);
         }
     }

@@ -14,28 +14,28 @@ namespace OnlineAuction.BLL.Services
         {
         }
 
-        public void CleanOldLots()
+        public async void CleanOldLots()
         {
             int twoWeek = 14;
             TimeSpan time = new TimeSpan(twoWeek, 0, 0, 0);  
             DateTime date = DateTime.Now.Date;     
             DateTime buff;
-            var lots = db.Lot.Find(l =>
+            var lots = await Task.Run(() => db.Lot.Find(l =>
             {
                 buff = l.StartDate.AddDays(l.TermDay).Date;
-                if (time<(buff - date))
+                if (time < (buff - date))
                 {
                     return true;
                 }
                 return false;
-            });
+            }));
             foreach (var lot in lots)
             {
                 foreach (var item in lot.Bets)
                 {
                     db.Bet.Delete(item.Id);
                 }
-                DeleteLot(lot.Id);
+                await Task.Run(() => DeleteLot(lot.Id));
             }
         }
         public void DeleteLot(int lotId)

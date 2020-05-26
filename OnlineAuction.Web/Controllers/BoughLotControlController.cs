@@ -5,6 +5,7 @@ using OnlineAuction.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -22,14 +23,14 @@ namespace OnlineAuction.Web.Controllers
             this.boughtLotService = boughtLotServicee;
         }
         [HttpDelete]
-        public void DeleteBought(int userId,int lotId)
+        public async void DeleteBought(int userId,int lotId)
         {
-            boughtLotService.DeleteBought(userId, lotId);
+            await Task.Run(()=>boughtLotService.DeleteBought(userId, lotId));
         }
         [HttpGet]
-        public IHttpActionResult GetBought(int userId)
+        public async Task<IHttpActionResult> GetBought(int userId)
         {
-            var lots=mapper.Map<IEnumerable<LotViewModel>>(boughtLotService.GetBought(userId));
+            var lots= await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(boughtLotService.GetBought(userId)));
             return Ok(lots);
         }
     }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace OnlineAuction.Web.Controllers
@@ -22,9 +23,9 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
             this.catalogService = catalogService;
         }
-        public IHttpActionResult GetLot(int lotId)
+        public async Task<IHttpActionResult> GetLot(int lotId)
         {
-            var lot = mapper.Map<LotModel>(catalogService.GetLot(lotId));
+            var lot = await Task.Run(() => mapper.Map<LotModel>(catalogService.GetLot(lotId)));
             return Ok(lot);
         }
 

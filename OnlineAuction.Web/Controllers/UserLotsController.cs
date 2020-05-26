@@ -8,6 +8,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -25,26 +26,26 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpGet,Route("get")]
-        public IHttpActionResult GetLots(int userId)
+        public async Task <IHttpActionResult> GetLots(int userId)
         {
-            var lots = mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId));
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId)));
             return Ok(lots);
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
-        public void PostLot(int userId,[FromBody] LotModel lot)
+        public async void PostLot(int userId,[FromBody] LotModel lot)
         {
-            userService.AddLot(userId, mapper.Map<LotDTO>(lot));
+            await Task.Run(() => userService.AddLot(userId, mapper.Map<LotDTO>(lot)));
         }
         [HttpPut,LotNotFoundExaption, UserNotFoundExaption, Route("edit")]
-        public IHttpActionResult PutLot(int userId, LotModel lot)
+        public async Task<IHttpActionResult> PutLot(int userId, LotModel lot)
         {
-            userService.UpdateLot(userId, mapper.Map<LotDTO>(lot));
+            await Task.Run(() => userService.UpdateLot(userId, mapper.Map<LotDTO>(lot)));
             return Ok();
         }
         [HttpDelete,OperationFaildException, Route("delete")]
-        public IHttpActionResult DeleteLot(int userId, int lotId)
+        public async Task<IHttpActionResult> DeleteLot(int userId, int lotId)
         {
-            userService.DeleteLot(userId, lotId);
+            await Task.Run(() => userService.DeleteLot(userId, lotId));
             return Ok();
         }
     }

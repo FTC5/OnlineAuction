@@ -8,6 +8,7 @@ using OnlineAuction.Web.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -26,27 +27,27 @@ namespace OnlineAuction.Web.Controllers
             this.adminService = adminService;
         }
         [HttpPost, ValidationException]
-        public IHttpActionResult PostCategory([FromBody] CategoryModel category)
+        public async Task<IHttpActionResult> PostCategory([FromBody] CategoryModel category)
         {
-            adminService.AddCategory(mapper.Map<CategoryDTO>(category));
+            await Task.Run(() => adminService.AddCategory(mapper.Map<CategoryDTO>(category)));
             return Ok();
         }
         [HttpDelete, OperationFaildException]
-        public IHttpActionResult DeleteCategory(int id)
+        public async Task<IHttpActionResult> DeleteCategory(int id)
         {
-            adminService.DeleteCategory(id);
+            await Task.Run(() => adminService.DeleteCategory(id));
             return Ok();
         }
-        public IHttpActionResult GetCategory()
+        public async Task<IHttpActionResult> GetCategory()
         {
-            var categories = mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetCategories());
+            var categories = await Task.Run(() => mapper.Map<IEnumerable<CategoryModel>>(categoryService.GetCategories()));
             return Ok(categories);
 
         }
         [HttpPut, OperationFaildException]
-        public IHttpActionResult PutCategory(int id,string name)
+        public async Task<IHttpActionResult> PutCategory(int id,string name)
         {
-                adminService.UpdateCategory(id, name);
+                await Task.Run(() => adminService.UpdateCategory(id, name));
                 return Ok();
         }
     }
