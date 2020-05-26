@@ -11,7 +11,7 @@ using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.Services
 {
-    public class BoughLotService :Service, IBoughLotService///
+    public class BoughLotService :Service, IBoughLotService
     {
         public BoughLotService(IUnitOfWork db) : base(db)
         {

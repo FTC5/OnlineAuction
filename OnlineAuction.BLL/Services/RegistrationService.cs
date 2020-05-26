@@ -14,8 +14,10 @@ namespace OnlineAuction.BLL.Services
 {
     public class RegistrationService:Service, IRegistrationService
     {
-        public RegistrationService(IUnitOfWork db) : base(db)
+        private IValidationCheckService validation;
+        public RegistrationService(IUnitOfWork db,IValidationCheckService validation) : base(db)
         {
+            this.validation = validation;
         }
 
         public void AuthorizationRegistration(string login,string password)
@@ -24,9 +26,8 @@ namespace OnlineAuction.BLL.Services
             authentication.Login = login;
             authentication.Password = password;
 
-            var results = new List<ValidationResult>();
-            var context = new System.ComponentModel.DataAnnotations.ValidationContext(authentication);
-            if (!Validator.TryValidateObject(authentication, context, results, true))
+            var results = validation.Check<AuthenticationDTO>(authentication);
+            if (results.Count>0)
                 throw new Infrastructure.ValidationException("Authorization have error", results);
 
             var aut = db.Authentication.Find(a => a.Login == login);
@@ -38,9 +39,8 @@ namespace OnlineAuction.BLL.Services
         }
         public void UserRegistration(int authenticationId, PersonDTO person)
         {
-            var results = new List<ValidationResult>();
-            var context = new System.ComponentModel.DataAnnotations.ValidationContext(person);
-            if (!Validator.TryValidateObject(person, context, results, true))
+            var results = validation.Check<PersonDTO>(person);
+            if (results.Count > 0)
                 throw new Infrastructure.ValidationException("Data have error", results);
             UserDTO user = mapper.Map<UserDTO>(person);
             var aut = mapper.Map<AuthenticationDTO>(db.Authentication.Get(authenticationId));

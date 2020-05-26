@@ -49,6 +49,11 @@ namespace OnlineAuction.BLL.Infrastructure
                 .ForMember(ld => ld.Name, opt => opt.MapFrom(l => l.Product.Name))
                 .ForMember(ld => ld.Image, opt => opt.MapFrom(l => l.Product.Images.First()))
                 .ForMember(ld => ld.Category, opt => opt.MapFrom(l => l.Product.Category));
+            CreateMap<LotDTO, LotViewDTO>()
+                .ForMember(ld => ld.UserName, opt => opt.MapFrom(l => l.User.FirstName + " " + l.User.LastName))
+                .ForMember(ld => ld.Name, opt => opt.MapFrom(l => l.Product.Name))
+                .ForMember(ld => ld.Image, opt => opt.MapFrom(l => l.Product.Images.First()))
+                .ForMember(ld => ld.Category, opt => opt.MapFrom(l => l.Product.Category));
 
         }
     }

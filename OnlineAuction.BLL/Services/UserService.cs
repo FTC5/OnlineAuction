@@ -16,8 +16,12 @@ namespace OnlineAuction.BLL.Services
     public class UserService : Service, IUserService
     {
         IMapper updateMap;
-        public UserService(IUnitOfWork db) : base(db)//SubscribeController
+        ICleanService cleanService;
+        IValidationCheckService validation;
+        public UserService(IUnitOfWork db,ICleanService cleanService,IValidationCheckService validation) : base(db)//SubscribeController
         {
+            this.cleanService = cleanService;
+            this.validation=validation;
             updateMap = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<LotDTO, Lot>()
@@ -94,8 +98,8 @@ namespace OnlineAuction.BLL.Services
             var user = db.User.Get(userId);
             if (user == null)
                 throw new UserNotFoundExaption("User not found");
-            List<LotDTO> lotDTOs = mapper.Map<List<LotDTO>>(user.UserLots);
-            LotDTO lot = lotDTOs.Find(i => (i.Id == changed.Id));
+            var lots = user.UserLots.ToList();
+            var lot = lots.Find(i => (i.Id == changed.Id));
             if (lot == null)
             {
                 AddLot(userId, changed);
@@ -105,12 +109,13 @@ namespace OnlineAuction.BLL.Services
                 return;
             }
             lot.Change = true;
-            var lot1 = db.Lot.Get(changed.Id);
-            var product = lot1.Product;
+            //var lot1 = db.Lot.Get(changed.Id);
+            var product = lot.Product;
+            lot.StartDate = DateTime.Now;//
             UpdateImage(changed.Product.Images.ToList(), product.Images.ToList());
             var dap = product.DeliveryAndPayment;
-            db.Lot.Update(updateMap.Map(lot, lot1));
-            db.Product.Update(updateMap.Map(lot.Product, product));
+            db.Lot.Update(updateMap.Map(changed, lot));
+            db.Product.Update(updateMap.Map(changed.Product, product));
             db.DeliveryAndPayment.Update(mapper.Map(changed.Product.DeliveryAndPayment, dap));
             db.Save();
         }
@@ -152,10 +157,9 @@ namespace OnlineAuction.BLL.Services
         }
         public void AddLot(int userId, LotDTO lot)
         {
-            var results = new List<ValidationResult>();
-            var context = new System.ComponentModel.DataAnnotations.ValidationContext(lot);
-            if (!Validator.TryValidateObject(lot, context, results, true))
-                throw new Infrastructure.ValidationException("Authorization have error", results);
+            var results = validation.Check<LotDTO>(lot); ;
+            if (results.Count>0)
+                throw new Infrastructure.ValidationException("Lot have error", results);
 
             var user= db.User.Get(userId);
             if (user == null)
@@ -174,16 +178,16 @@ namespace OnlineAuction.BLL.Services
         {
             var lot = db.Lot.Get(lotId);
             if (lot == null)
+            {
                 return;
-            if (lot.UserId != userId)
+            }
+            else if (lot.UserId != userId)
+            {
                 return;
-            if (lot.StartDate!=DateTime.Now.Date && lot.CurrentPrice!=lot.Product.Price)
+            }
+            if (lot.StartDate != DateTime.Now.Date && lot.CurrentPrice != lot.Product.Price)
                 throw new OperationFaildException("Lot cannot be deleted. Bidding has already begun");
-            db.Moderation.Delete(lotId);
-            db.DeliveryAndPayment.Delete(lotId);
-            db.Product.Delete(lotId);
-            db.Lot.Delete(lot.Id);
-            db.Save();
+            cleanService.DeleteLot(lotId);
         }
         public UserDTO GetLotAutorInfo(int lotId)
         {
@@ -209,7 +213,7 @@ namespace OnlineAuction.BLL.Services
         {
             var lot = db.Lot.Get(lotId);
             if (lot == null)
-                throw new LotNotFoundExaption("Lots by Category not Found");
+                throw new LotNotFoundExaption("Lots not Found");
 
             int newPrice = lot.CurrentPrice + lot.MinimumStroke;
             var user = db.User.Get(userId);
@@ -230,7 +234,6 @@ namespace OnlineAuction.BLL.Services
             lot.Bets.Add(bet);
             db.Bet.Create(bet);
             db.Lot.Update(lot);
-            db.User.Update(user);
             db.Save();
             AddLotToSubscription(userId, lotId);
         }

@@ -40,7 +40,6 @@ namespace OnlineAuction.Web.Utility
         {
             kernel.Bind<IAdminService>().To<AdminService>();
             kernel.Bind<ICatalogService>().To<CatalogService>();
-            kernel.Bind<ICleanService>().To<CleanService>();
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
             kernel.Bind<IManagerService>().To<ManagerService>();
             kernel.Bind<IUserService>().To<UserService>();

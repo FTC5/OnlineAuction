@@ -15,8 +15,10 @@ namespace OnlineAuction.BLL.Services
 {
     public class ManagerService :Service, IManagerService
     {
-        public ManagerService(IUnitOfWork db) : base(db)
+        ICleanService cleanService;
+        public ManagerService(IUnitOfWork db,ICleanService cleanService) : base(db)
         {
+            this.cleanService = cleanService;
         }
 
         public IEnumerable<LotViewDTO> GetUncheckedLots()
@@ -70,43 +72,24 @@ namespace OnlineAuction.BLL.Services
                 db.Moderation.Update(lot.Moderation);
                 db.Lot.Update(lot);
             }
+            lot.StartDate = DateTime.Now;
             db.Save();
         }
         public IEnumerable<LotViewDTO> GetOldLot()
         {
-            DateTime date = DateTime.Now.Date;
-            DateTime buff;
-            var lots = db.Lot.Find(l =>
-            {
-                buff = l.StartDate;
-                if (l.TermDay < (date - buff).Days && l.Sels == false)
-                {
-                    return true;
-                }
-                return false;
-            });
-            return mapper.Map<IEnumerable<LotViewDTO>>(lots);
+            return mapper.Map<IEnumerable<LotViewDTO>>(cleanService.GetOldLots());
         }
         public void StopLot(int lotId)
         {
             var lot = db.Lot.Get(lotId);
             if (lot == null)
-            {
                 throw new LotNotFoundExaption("Lot not Found");
-
-            }
-            else if(lot.TermDay > (DateTime.Now.Date-lot.StartDate).Days )
-            {
+            if(lot.TermDay > (DateTime.Now.Date-lot.StartDate).Days )
                 throw new OperationFaildException("Operation Failed : Cant delete not old lot");
 
-            }
-            if (lot.BetsCount == 0)
+            if (lot.BetsCount == 0)///CleanService
             {
-                db.Moderation.Delete(lotId);
-                db.DeliveryAndPayment.Delete(lotId);
-                db.Product.Delete(lotId);
-                db.Lot.Delete(lot.Id);
-                db.Save();
+                cleanService.DeleteLot(lotId);
             }
             else
             {
@@ -130,10 +113,6 @@ namespace OnlineAuction.BLL.Services
                     }
                     user.Subscriptions.Remove(lot);
                     db.User.Update(user);
-                    if (item.Price == lot.CurrentPrice)
-                    {
-                        continue;
-                    }
                 }
                 var sellUser = db.User.Get(lot.UserId);
                 sellUser.UserLots.Remove(lot);
