@@ -29,35 +29,6 @@ namespace OnlineAuction.BLL.Tests
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
         }
         [Test]
-        public void GetSels_should_return_null_when_user_not_found()
-        {
-            int userId = 0;
-
-            var result = _boughLotService.GetSales(userId);
-
-            Assert.IsNull(result);
-        }
-        [Test]
-        public void GetSels_should_return_IEnumerable_LotViewDTO_when_user_found()
-        {
-            var user = _fixture.Build<User>().With(u => u.Sels, _fixture.CreateMany<Lot>().ToList()).Create();
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            var result = _boughLotService.GetSales(default);
-
-            Assert.AreEqual(result.Count(),user.Sels.Count());
-        }
-        [Test]
-        public void GetSels_should_return_empty_IEnumerable_when_user_found_without_sels()
-        {
-            var user = _fixture.Build<User>().Without(u => u.Sels).Create();
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            var result = _boughLotService.GetSales(default);
-
-            Assert.AreEqual(result.Count(),0);
-        }
-        [Test]
         public void DeleteBought_should_stop_when_user_not_found()
         {
             int userId = 0;
@@ -67,14 +38,14 @@ namespace OnlineAuction.BLL.Tests
             _unitOfWork.DidNotReceive().Save();
         }
         [Test]
-        public void DeleteBought_should_stop_when_lot_not_found()
+        public void DeleteBought_not_stop_when_user_with_id_not_found()
         {
             var user = _fixture.Create<User>();
             _unitOfWork.User.Get(default).Returns(user);
 
             _boughLotService.DeleteBought(default, default);
 
-            _unitOfWork.DidNotReceive().Save();
+            _unitOfWork.Received().Save();
         }
         [Test]
         public void DeleteBought_should_completed_when_lot_and_user_found_()

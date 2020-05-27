@@ -73,11 +73,15 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BoughLotService.cs" />
     <Compile Include="Services\CatalogService.cs" />
+    <Compile Include="Services\CategoryManagementService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="BusinessModels\CleanService.cs" />
     <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Services\ModerationService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
     <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\UserInfoService.cs" />
+    <Compile Include="Services\UserLotService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="DTO\AuthenticationDTO.cs" />
     <Compile Include="DTO\BetDTO.cs" />
@@ -94,7 +98,7 @@
     <Compile Include="Infrastructure\OperationFaildException.cs" />
     <Compile Include="Infrastructure\UserNotFoundExaption.cs" />
     <Compile Include="Infrastructure\LotNotFoundExaption.cs" />
-    <Compile Include="Infrastructure\ValidationException .cs" />
+    <Compile Include="Infrastructure\ValidationDTOException .cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICatalogService.cs" />

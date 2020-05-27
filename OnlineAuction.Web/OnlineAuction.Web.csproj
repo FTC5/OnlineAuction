@@ -380,16 +380,16 @@
     <Content Include="Scripts\jquery-3.5.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlineAuction.BLL\OnlineAuction.BLL.csproj">
-      <Project>{26ecbde3-7664-4d67-9a71-96ecae4b8610}</Project>
-      <Name>OnlineAuction.BLL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineAuction.BLL\OnlineAuction.BLL.csproj">
+      <Project>{26ecbde3-7664-4d67-9a71-96ecae4b8610}</Project>
+      <Name>OnlineAuction.BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

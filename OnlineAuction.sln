@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.960
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.DAL", "OnlineAuction.DAL\OnlineAuction.DAL.csproj", "{7AB3C335-1373-4FE5-9826-A72A0821BA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.BLL", "OnlineAuction.BLL\OnlineAuction.BLL.csproj", "{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.Web", "OnlineAuction.Web\OnlineAuction.Web.csproj", "{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.BLL.Tests", "OnlineAuction.BLL.Tests\OnlineAuction.BLL.Tests.csproj", "{ACCCC060-79D7-4063-943A-870E95B46F27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineAuction.BLL", "OnlineAuction.BLL\OnlineAuction.BLL.csproj", "{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AB3C335-1373-4FE5-9826-A72A0821BA6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7B4BCF2-7554-4F17-9A31-55AE102BD5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{ACCCC060-79D7-4063-943A-870E95B46F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACCCC060-79D7-4063-943A-870E95B46F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACCCC060-79D7-4063-943A-870E95B46F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26ECBDE3-7664-4D67-9A71-96ECAE4B8610}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

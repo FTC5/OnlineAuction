@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.Infrastructure
 {
-    public class ValidationException : Exception
+    public class ValidationDTOException : Exception
     {
         List<ValidationResult> errorList;
 
-        public ValidationException()
+        public ValidationDTOException()
         {
         }
 
-        public ValidationException(string message,List<ValidationResult> errorList) : base(message)
+        public ValidationDTOException(string message,List<ValidationResult> errorList) : base(message)
         {
             this.errorList = errorList;
         }
 
-        public ValidationException(string message) : base(message)
+        public ValidationDTOException(string message) : base(message)
         {
         }
 
-        public ValidationException(string message, Exception innerException) : base(message, innerException)
+        public ValidationDTOException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

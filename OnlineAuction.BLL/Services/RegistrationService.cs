@@ -28,7 +28,7 @@ namespace OnlineAuction.BLL.Services
 
             var results = validation.Check<AuthenticationDTO>(authentication);
             if (results.Count>0)
-                throw new Infrastructure.ValidationException("Authorization have error", results);
+                throw new ValidationDTOException("Authorization have error", results);
 
             var aut = db.Authentication.Find(a => a.Login == login);
             if (aut.Count() != 0)
@@ -41,9 +41,9 @@ namespace OnlineAuction.BLL.Services
         {
             var results = validation.Check<PersonDTO>(person);
             if (results.Count > 0)
-                throw new Infrastructure.ValidationException("Data have error", results);
+                throw new ValidationDTOException("Data have error", results);
             UserDTO user = mapper.Map<UserDTO>(person);
-            var aut = mapper.Map<AuthenticationDTO>(db.Authentication.Get(authenticationId));
+            var aut = db.Authentication.Get(authenticationId);
             if(aut==null)
                 throw new OperationFaildException("Authorization not found");
             user.Id = aut.Id;

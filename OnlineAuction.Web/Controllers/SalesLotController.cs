@@ -14,21 +14,21 @@ namespace OnlineAuction.Web.Controllers
     public class SalesLotController : ApiController
     {
         private IMapper mapper;
-        private ISalesLotService boughtLotService;
-        public SalesLotController(ISalesLotService boughtLotServicee, IMapper mapper)
+        private ISalesLotService salestLotService;
+        public SalesLotController(ISalesLotService salesLotServicee, IMapper mapper)
         {
             this.mapper = mapper;
-            this.boughtLotService = boughtLotServicee;
+            this.salestLotService = salesLotServicee;
         }
         [HttpDelete,Route("delete")]
         public void DeleteSales(int userId, int lotId)
         {
-            boughtLotService.DeleteSales(userId, lotId);
+            salestLotService.DeleteSales(userId, lotId);
         }
         [HttpGet, Route("get")]
         public IHttpActionResult GetSales(int userId)
         {
-            var lots=mapper.Map<IEnumerable<LotViewModel>>(boughtLotService.GetSales(userId));
+            var lots=mapper.Map<IEnumerable<LotViewModel>>(salestLotService.GetSales(userId));
             return Ok(lots);
         }
     }

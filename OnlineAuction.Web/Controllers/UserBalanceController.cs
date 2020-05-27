@@ -15,17 +15,17 @@ namespace OnlineAuction.Web.Controllers
     public class UserBalanceController : ApiController
     {
         private IMapper mapper;
-        private IUserService userInfoService;
+        private IUserService userService;
 
-        public UserBalanceController(IUserService userInfoService, IMapper mapper)
+        public UserBalanceController(IUserService userService, IMapper mapper)
         {
-            this.userInfoService = userInfoService;
+            this.userService = userService;
             this.mapper = mapper;
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
         public async void AddToBalance(int userId, int count)
         {
-            await Task.Run(() => userInfoService.AddBalance(userId, count));
+            await Task.Run(() => userService.AddBalance(userId, count));
         }
     }
 }

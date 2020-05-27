@@ -18,30 +18,30 @@ namespace OnlineAuction.Web.Controllers
     public class LotModerationController : ApiController
     {
         private IMapper mapper;
-        private IModerationService managerService;
+        private IModerationService moderationService;
 
-        public LotModerationController(IModerationService managerService,IMapper mapper)
+        public LotModerationController(IModerationService moderationService,IMapper mapper)
         {
             this.mapper = mapper;
-            this.managerService = managerService;
+            this.moderationService = moderationService;
             mapper = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapping>()).CreateMapper();
         }
         [HttpGet,Route("get")]
         public async Task <IHttpActionResult> GetUncheckedLots()
         {
-            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(managerService.GetUncheckedLots()));
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(moderationService.GetUncheckedLots()));
             return Ok(lots);
         }
         [HttpPost, LotNotFoundExaption,Route("allow")]
         public async Task<IHttpActionResult> AllowLot(int lotId)
         {
-            await Task.Run(() => managerService.AllowLot(lotId));
+            await Task.Run(() => moderationService.AllowLot(lotId));
             return Ok();
         }
         [HttpPost,LotNotFoundExaption, ValidationException, Route("prevent")]
         public async Task<IHttpActionResult> PreventLot(int lotId,string cause) 
         {
-            await Task.Run(() => managerService.PreventLot(lotId,cause));
+            await Task.Run(() => moderationService.PreventLot(lotId,cause));
             return Ok();
         }
     }

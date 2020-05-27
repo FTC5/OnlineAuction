@@ -15,23 +15,23 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.Tests
 {
-    class ManagerServiceTests
+    class ModerationServiceTests
     {
         private readonly IFixture _fixture = new Fixture();
-        private IManagerService _managerService;
+        private IModerationService _moderationService;
         private IUnitOfWork _unitOfWork;
 
         [SetUp]
         public void SetUp()
         {
             _unitOfWork = Substitute.For<IUnitOfWork>();
-            _managerService = new ManagerService(_unitOfWork);
+            _moderationService = new ModerationService(_unitOfWork);
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
         }
         [Test]
         public void PreventLot_return_throw_LotNotFoundExaption_when_lot_not_found()
         {
-            var ex = Assert.Throws <LotNotFoundExaption> (() => _managerService.PreventLot(default,default));
+            var ex = Assert.Throws <LotNotFoundExaption> (() => _moderationService.PreventLot(default,default));
 
             StringAssert.Contains("Lot with id=", ex.Message);
         }
@@ -40,7 +40,7 @@ namespace OnlineAuction.BLL.Tests
         {
             var lot = _fixture.Create<Lot>();
             _unitOfWork.Lot.Get(default).ReturnsForAnyArgs(lot);
-            var ex = Assert.Throws<ValidationException>(() => _managerService.PreventLot(default, ""));
+            var ex = Assert.Throws<ValidationDTOException>(() => _moderationService.PreventLot(default, ""));
 
             Assert.That(ex.Message, Is.EqualTo("Write a comment, namely for what reason the lot was not accepted"));
         }
@@ -50,7 +50,7 @@ namespace OnlineAuction.BLL.Tests
             var lot = _fixture.Create<Lot>();
             _unitOfWork.Lot.Get(default).ReturnsForAnyArgs(lot);
 
-            _managerService.PreventLot(default, comment);
+            _moderationService.PreventLot(default, comment);
 
             _unitOfWork.Received().Save();
         }

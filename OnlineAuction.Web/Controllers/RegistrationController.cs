@@ -18,7 +18,7 @@ namespace OnlineAuction.Web.Controllers
     {
         private IMapper mapper;
         private IRegistrationService registrationService;
-        IAuthenticationService authentication;
+        private IAuthenticationService authentication;
 
         public RegistrationController(IRegistrationService registrationService,IAuthenticationService authentication,IMapper mapper)
         {

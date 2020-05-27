@@ -29,7 +29,9 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void GetLot_should_return_null_when_lod_not_found()
         {
-            var result = _catalogService.GetLot(default);
+            int id = 0;
+
+            var result = _catalogService.GetLot(id);
 
             Assert.IsNull(result);
         }

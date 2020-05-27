@@ -31,7 +31,12 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void AddLotToSubscription_throw_LotNotFoundExaption_when_lot_not_found()
         {
-            Assert.Throws<LotNotFoundExaption>(() => _userService.AddLotToSubscription(default, default));
+            int userId = 0;
+            int lotId = 0;
+
+            var ex=Assert.Throws<LotNotFoundExaption>(() => _userService.AddLotToSubscription(userId, lotId));
+
+            Assert.That(ex.Message, Is.EqualTo("Lot not found"));
         }
         [Test]
         public void AddLotToSubscription_throw_UserNotFoundExaption_when_user_not_found()
@@ -39,7 +44,9 @@ namespace OnlineAuction.BLL.Tests
             var lot = _fixture.Create<Lot>();
             _unitOfWork.Lot.Get(default).ReturnsForAnyArgs(lot);
 
-            Assert.Throws<UserNotFoundExaption>(() => _userService.AddLotToSubscription(default, default));
+            var ex = Assert.Throws<UserNotFoundExaption>(() => _userService.AddLotToSubscription(default, default));
+
+            Assert.That(ex.Message, Is.EqualTo("User not found"));
         }
         [Test]
         public void AddLotToSubscription_stop_when_user_subscribe_to_lot()
@@ -76,8 +83,7 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void GetSubscription_return_empty_list_when_user_dont_have_Subscriptions()
         {
-            var user = _fixture.Build<User>().Without(u => u.Subscriptions).Create() ;
-            var lot = _fixture.Create<Lot>();
+            var user = _fixture.Build<User>().Without(u => u.Subscriptions).Create();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
             var result = _userService.GetSubscription(default);
 
@@ -86,7 +92,6 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void GetSubscription_return_Subscriptions()
         {
-            var lot = _fixture.Create<Lot>();
             var user = _fixture.Create<User>();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
 
@@ -97,105 +102,20 @@ namespace OnlineAuction.BLL.Tests
         [Test]
         public void DeleteSubscription_stop_when_user_not_found()
         {
-            _userService.DeleteSubscription(default, default);
+            int userId = 0;
+            int lotId = 0;
+
+            _userService.DeleteSubscription(userId, lotId);
 
             _unitOfWork.DidNotReceive().Save();
         }
         [Test]
-        public void GetSubscription_complete()
+        public void DeleteSubscription_complete()
         {
             var user = _fixture.Create<User>();
             _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
 
             _userService.DeleteSubscription(default, default);
-
-            _unitOfWork.Received().Save();
-        }
-        [Test]
-        public void GetUserLot_return_null_when_user_not_found()
-        {
-            var result=_userService.GetUserLot(default);
-
-            Assert.IsNull(result);
-        }
-        [Test]
-        public void GetUserLot_return_empty_list_when_user_without_his_lots()
-        {
-            var user = _fixture.Build<User>().Without(u=>u.UserLots).Create();
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            var result = _userService.GetUserLot(default);
-
-            Assert.AreEqual(0,result.Count());
-        }
-        [Test]
-        public void GetsUserLot_return__list_when_user_have_lots()
-        {
-            var lot = _fixture.Create<Lot>();
-            var user = _fixture.Create<User>();
-            user.UserLots.Add(lot);
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            var result = _userService.GetUserLot(default);
-
-            Assert.AreEqual(user.UserLots.Count, result.Count());
-        }
-
-        [Test]
-        public void UpdateLot_stop_when_change_lot_is_null()
-        {
-            int userId = 0;
-
-            _userService.UpdateLot(userId, default);
-
-            _unitOfWork.User.DidNotReceive().Get(userId);
-        }
-        [Test]
-        public void UpdateLot_throw_UserNotFoundExaption_when_user_not_found()
-        {
-            int userId = 0;
-            var lotDTO = _fixture.Create<LotDTO>();
-
-            var ex = Assert.Throws<UserNotFoundExaption>(() => _userService.UpdateLot(userId, lotDTO)); ;
-
-            Assert.That(ex.Message, Is.EqualTo("User not found"));
-        }
-        [Test]
-        public void UpdateLot_stop_and_start_create_lot_when_user_lot_with_change_lot_id_not_found()
-        {
-            var lotDTO = _fixture.Create<LotDTO>();
-            var user = _fixture.Build<User>().Without(u => u.UserLots).Create();
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            _userService.UpdateLot(default, lotDTO);
-
-            _unitOfWork.Lot.DidNotReceiveWithAnyArgs().Update(default);
-        }
-        [Test]
-        public void UpdateLot_stop_when_lot_moderation_result_true()
-        {
-            var user = _fixture.Create<User>();
-            var lot = _fixture.Build<Lot>().With(l => l.ModerationResult, true).Create();
-            var lotDTO = _fixture.Build<LotDTO>().With(ldto => ldto.Id, lot.Id).Create();
-            lotDTO.UserId = user.Id;
-            user.UserLots.Add(lot);
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            _userService.UpdateLot(default, lotDTO);
-
-            _unitOfWork.Lot.DidNotReceiveWithAnyArgs().Update(default);
-        }
-        [Test]
-        public void UpdateLot_complete()
-        {
-            var user = _fixture.Create<User>();
-            var lot = _fixture.Build<Lot>().With(l => l.ModerationResult, false).Create();
-            var lotDTO = _fixture.Build<LotDTO>().With(ldto => ldto.Id, lot.Id).Create();
-            lotDTO.UserId = user.Id;
-            user.UserLots.Add(lot);
-            _unitOfWork.User.Get(default).ReturnsForAnyArgs(user);
-
-            _userService.UpdateLot(default, lotDTO);
 
             _unitOfWork.Received().Save();
         }

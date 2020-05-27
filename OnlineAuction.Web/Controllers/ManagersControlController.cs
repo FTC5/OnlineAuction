@@ -20,12 +20,10 @@ namespace OnlineAuction.Web.Controllers
     {
         private IMapper mapper;
         private IAdminService adminService;
-        private IUserService userService;
 
-        public ManagersControlController(IAdminService adminService, IUserService userService,IMapper mapper)
+        public ManagersControlController(IAdminService adminService,IMapper mapper)
         {
             this.adminService = adminService;
-            this.userService = userService;
             this.mapper = mapper;
         }
         [HttpPost, OperationFaildException, ValidationException]

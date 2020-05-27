@@ -22,7 +22,7 @@ namespace OnlineAuction.Web.ExceptionFilters
         {
             Exception exception;
             if (actionExecutedContext.Exception != null &&
-                    actionExecutedContext.Exception is BLL.Infrastructure.ValidationException)
+                    actionExecutedContext.Exception is BLL.Infrastructure.ValidationDTOException)
             {
                 exception = actionExecutedContext.Exception;//="<br/>"
                 string str= exception.Message + exception.ToString();
