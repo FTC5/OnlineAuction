@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessModels\ValidationCheckService.cs" />
     <Compile Include="Infrastructure\AutoMapping.cs" />
     <Compile Include="Infrastructure\UoWModule.cs" />
     <Compile Include="Interfaces\IBoughLotService.cs" />
@@ -67,12 +68,13 @@
     <Compile Include="Interfaces\IUserInfoService.cs" />
     <Compile Include="Interfaces\IUserLotService.cs" />
     <Compile Include="Interfaces\ISalesLotService.cs" />
+    <Compile Include="Interfaces\IValidationCheckService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BoughLotService.cs" />
     <Compile Include="Services\CatalogService.cs" />
     <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\CleanService.cs" />
+    <Compile Include="BusinessModels\CleanService.cs" />
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
     <Compile Include="Services\Service.cs" />
@@ -115,8 +117,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

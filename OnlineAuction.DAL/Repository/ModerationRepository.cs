@@ -13,9 +13,9 @@ namespace OnlineAuction.DAL.Repository
     {
         private OnlineAuctionContext db;
 
-        public ModerationRepository(OnlineAuctionContext db)
+        public ModerationRepository(string connectionString)
         {
-            this.db = db;
+            this.db = new OnlineAuctionContext(connectionString);
         }
 
         public void Create(Moderation item)

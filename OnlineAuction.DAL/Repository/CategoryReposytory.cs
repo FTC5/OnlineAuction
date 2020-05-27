@@ -13,9 +13,9 @@ namespace OnlineAuction.DAL.Repository
     {
         private OnlineAuctionContext db;
 
-        public CategoryReposytory(OnlineAuctionContext db)
+        public CategoryReposytory(string connectionString)
         {
-            this.db = db;
+            this.db = new OnlineAuctionContext(connectionString);
         }
 
         public void Create(Category item)

@@ -13,9 +13,9 @@ namespace OnlineAuction.DAL.Repository
     {
         private OnlineAuctionContext db;
 
-        public LotReposytory(OnlineAuctionContext db)
+        public LotReposytory(string connectionString)
         {
-            this.db = db;
+            this.db = new OnlineAuctionContext(connectionString);
         }
 
         public void Create(Lot item)

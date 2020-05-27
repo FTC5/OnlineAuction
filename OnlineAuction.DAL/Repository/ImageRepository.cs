@@ -13,9 +13,9 @@ namespace OnlineAuction.DAL.Repository
     {
         private OnlineAuctionContext db;
 
-        public ImageRepository(OnlineAuctionContext db)
+        public ImageRepository(string connectionString)
         {
-            this.db = db;
+            this.db = new OnlineAuctionContext(connectionString);
         }
 
         public void Create(Image item)

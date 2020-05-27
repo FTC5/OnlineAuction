@@ -15,8 +15,10 @@ namespace OnlineAuction.BLL.Services
 {
     public class AdminService:Service,IManagerManagementService, ICategoryManagementService
     {
-        public AdminService(IUnitOfWork db) : base(db)
+        IValidationCheckService validation;
+        public AdminService(IUnitOfWork db,IValidationCheckService validation) : base(db)
         {
+            this.validation = validation;
         }
         public void DeleteCategory(int categoryId)
         {
@@ -84,14 +86,14 @@ namespace OnlineAuction.BLL.Services
         {
             if (category == null)
                 return;
-            var results = new List<ValidationResult>();
-            var context = new System.ComponentModel.DataAnnotations.ValidationContext(category);
-            if (!Validator.TryValidateObject(category, context, results, true))
+            var results = validation.Check<CategoryDTO>(category);
+            if (results.Count>0)
                 throw new Infrastructure.ValidationException("Unable to add category", results);
+
             var parent= db.Category.Get(category.ParentCategoryId);
             if (parent == null)
             {
-                parent = db.Category.Get(1);
+                parent = db.Category.Get(1);//magic
             }  
             var categories = db.Category.Find(c =>
             {
@@ -126,18 +128,11 @@ namespace OnlineAuction.BLL.Services
         }
         public void AddManager(PersonDTO person,AuthenticationDTO authent)//validation
         {
-            bool first = false;
-            var results1 = new List<ValidationResult>();
-            var results2 = new List<ValidationResult>();
-            var context1 = new System.ComponentModel.DataAnnotations.ValidationContext(person);
-            var context2 = new System.ComponentModel.DataAnnotations.ValidationContext(authent);
-            first = !Validator.TryValidateObject(person, context1, results1, true);
-            if (!Validator.TryValidateObject(authent, context2, results2, true) || first == true)
-            {
-                results1.AddRange(results2);
-                throw new Infrastructure.ValidationException("Can not add new manager", results1);
-            }
-                
+            var results = validation.Check<PersonDTO>(person);
+            results.AddRange(validation.Check<AuthenticationDTO>(authent));
+            if (results.Count>0)
+                throw new Infrastructure.ValidationException("Can not add new manager", results);
+              
             AdvancedUserDTO advUser = mapper.Map<AdvancedUserDTO>(person);
             advUser.Admin = false;
             string login = authent.Login;

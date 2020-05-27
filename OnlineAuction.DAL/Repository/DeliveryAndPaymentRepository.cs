@@ -13,9 +13,9 @@ namespace OnlineAuction.DAL.Repository
     {
         private OnlineAuctionContext db;
 
-        public DeliveryAndPaymentRepository(OnlineAuctionContext db)
+        public DeliveryAndPaymentRepository(string connectionString)
         {
-            this.db = db;
+            this.db = new OnlineAuctionContext(connectionString);
         }
 
         public void Create(DeliveryAndPayment item)

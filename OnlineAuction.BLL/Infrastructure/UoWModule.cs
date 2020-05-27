@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using OnlineAuction.DAL.UnitOfWork;
 using OnlineAuction.DAL.Interfaces;
 using AutoMapper;
+using OnlineAuction.BLL.Interfaces;
+using OnlineAuction.BLL.Services;
+using OnlineAuction.BLL.BusinessModels;
 
 namespace OnlineAuction.BLL.Infrastructure
 {
@@ -20,6 +23,8 @@ namespace OnlineAuction.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<ICleanService>().To<CleanService>();
+            Bind<IValidationCheckService>().To<ValidationCheckService>();
         }
     }
 }
