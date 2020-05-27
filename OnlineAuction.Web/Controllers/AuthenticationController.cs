@@ -28,38 +28,6 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
             this.authentication = authentication;
         }
-        [Route("default")]
-        public IHttpActionResult GetDefaultAuthentication(string login,string password)
-        {
-            var aut = new AuthenticationModel();
-            aut.Login = login;
-            aut.Password = password;
-            aut.Id = authentication.GetAuthenticationId(mapper.Map<AuthenticationDTO>(aut));
-            if (aut.Id >0 && aut.Id!=null)
-            {
-                return Ok(SetRole(aut));
-            }
-            return Unauthorized();
-        }
-        private string SetRole(AuthenticationModel model)
-        {
-            string[] roles = new string[] { "User", "Manager", "Admin" };
-            int index = authentication.IsAdvancedUserDTO((int)model.Id) + 1;
-            var identity = new GenericIdentity(model.Login);
-            var principal = new GenericPrincipal(identity, new string[] { roles[index] });
-            SetPrincipal(principal);
-            return roles[index];
-        }
-        private void SetPrincipal(IPrincipal principal)
-        {
-            Thread.CurrentPrincipal = principal;
-            bool a= Thread.CurrentPrincipal.Identity.IsAuthenticated;
-            if (HttpContext.Current != null)
-            {
-                HttpContext.Current.User = principal;
-            }
-            bool b = Thread.CurrentPrincipal.Identity.IsAuthenticated;
-        }
         [Route("start")]
         public HttpResponseMessage GetCookieAuthentication(string login, string password)
         {

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.BLL.Interfaces
 {
-    public interface IBoughLotService
+    public interface ICategoryManagementService
     {
-        IEnumerable<LotViewDTO> GetBought(int userId);
-        void DeleteBought(int userId, int lotId);      
+        void DeleteCategory(int categoryId);
+        void AddCategory(CategoryDTO category);
+        void UpdateCategory(int CategoryId, string name);
     }
 }

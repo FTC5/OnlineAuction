@@ -188,6 +188,7 @@
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\SalesLotController.cs" />
     <Compile Include="Controllers\SubscribeControlController.cs" />
+    <Compile Include="Controllers\UserBalanceController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserLotsController.cs" />
     <Compile Include="Filters\CookieAuthorizationFilter.cs" />
@@ -195,9 +196,7 @@
     <Compile Include="Filters\ExceptionFilters\OperationFaildExceptionAttribute .cs" />
     <Compile Include="Filters\ExceptionFilters\UserNotFoundExaptionAttribute.cs" />
     <Compile Include="Filters\ExceptionFilters\ValidationExceptionAttribute.cs" />
-    <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
-    <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
-    <Compile Include="Filters\ICookieAuthorizationFilter .cs" />
+    <Compile Include="Filters\Interfaces\ICookieAuthorizationFilter .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

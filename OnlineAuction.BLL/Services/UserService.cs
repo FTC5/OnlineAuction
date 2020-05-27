@@ -13,10 +13,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineAuction.BLL.Services
 {
-    public class UserService : Service, IUserService
+    public class UserService : Service, IUserService, ISubscriptionService, IUserLotService, IUserInfoService
     {
         IMapper updateMap;
-        public UserService(IUnitOfWork db) : base(db)//SubscribeController
+        public UserService(IUnitOfWork db) : base(db)
         {
             updateMap = new MapperConfiguration(cfg =>
             {
@@ -61,14 +61,14 @@ namespace OnlineAuction.BLL.Services
             db.User.Update(user);
             db.Save();
         }
-        public IEnumerable<LotViewDTO> GetSubscription(int userId)//SubscribeController
+        public IEnumerable<LotViewDTO> GetSubscription(int userId)
         {
             var user = db.User.Get(userId);
             if (user == null)
                 return null;
             return mapper.Map<IEnumerable<LotViewDTO>>(user.Subscriptions);
         }
-        public void DeleteSubscription(int userId,int lotId)//SubscribeController
+        public void DeleteSubscription(int userId,int lotId)
         {
             var user = db.User.Get(userId);
             if (user == null)

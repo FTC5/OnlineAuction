@@ -14,8 +14,8 @@ namespace OnlineAuction.Web.Controllers
     public class SalesLotController : ApiController
     {
         private IMapper mapper;
-        private IBoughLotService boughtLotService;
-        public SalesLotController(IBoughLotService boughtLotServicee, IMapper mapper)
+        private ISalesLotService boughtLotService;
+        public SalesLotController(ISalesLotService boughtLotServicee, IMapper mapper)
         {
             this.mapper = mapper;
             this.boughtLotService = boughtLotServicee;

@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineAuction.BLL.Services
 {
-    public class ManagerService :Service, IManagerService
+    public class ManagerService :Service, IManagerService, IModerationService
     {
         public ManagerService(IUnitOfWork db) : base(db)
         {

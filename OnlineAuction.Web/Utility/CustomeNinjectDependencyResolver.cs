@@ -38,15 +38,21 @@ namespace OnlineAuction.Web.Utility
         }
         private void AddBindings()
         {
-            kernel.Bind<IAdminService>().To<AdminService>();
+            kernel.Bind<IManagerManagementService>().To<AdminService>();
+            kernel.Bind<ICategoryManagementService>().To<AdminService>();
             kernel.Bind<ICatalogService>().To<CatalogService>();
             kernel.Bind<ICleanService>().To<CleanService>();
             kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
             kernel.Bind<IManagerService>().To<ManagerService>();
+            kernel.Bind<IModerationService>().To<ManagerService>();
             kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IUserLotService>().To<UserService>();
+            kernel.Bind<IUserInfoService>().To<UserService>();
+            kernel.Bind<ISubscriptionService>().To<UserService>();
             kernel.Bind<ICategoryService>().To<CategoryService>();
             kernel.Bind<IRegistrationService>().To<RegistrationService>();
             kernel.Bind<IBoughLotService>().To<BoughLotService>();
+            kernel.Bind<ISalesLotService>().To<BoughLotService>();
         }
     }
 }

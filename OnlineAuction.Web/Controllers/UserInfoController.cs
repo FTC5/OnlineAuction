@@ -17,34 +17,29 @@ namespace OnlineAuction.Web.Controllers
     public class UserInfoController : ApiController
     {
         private IMapper mapper;
-        private IUserService userService;
+        private IUserInfoService userInfoService;
 
-        public UserInfoController(IUserService userService,IMapper mapper)
+        public UserInfoController(IUserInfoService userInfoService,IMapper mapper)
         {
-            this.userService = userService;
+            this.userInfoService = userInfoService;
             this.mapper = mapper;
         }
         [HttpPut,Route("put/password/"), UserNotFoundExaption]
         public async Task<IHttpActionResult> PutPassword(int userId,string password)
         {
-            await Task.Run(() => userService.ChangePassword(userId,password));
+            await Task.Run(() => userInfoService.ChangePassword(userId,password));
             return Ok();
         }
         [HttpPut, UserNotFoundExaption,Route("put/login/")]
         public async Task<IHttpActionResult> PutLogin(int userId, string login)
         {
-            await Task.Run(() => userService.ChangeLogin(userId,login));
+            await Task.Run(() => userInfoService.ChangeLogin(userId,login));
             return Ok();
-        }
-        [HttpPost, UserNotFoundExaption, Route("add/balance/")]
-        public async void AddToBalance(int userId, int count)
-        {
-            await Task.Run(() => userService.AddBalance(userId, count));
         }
         [HttpGet, Route("get")]
         public async Task<IHttpActionResult> GetUserInfo(int userId)
         {
-            var  user = await Task.Run(() => mapper.Map<UserModel>(userService.GetUserInfo(userId)));
+            var  user = await Task.Run(() => mapper.Map<UserModel>(userInfoService.GetUserInfo(userId)));
             return Ok(user);
         }
     }

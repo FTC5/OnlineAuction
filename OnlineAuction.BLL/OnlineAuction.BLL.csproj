@@ -60,6 +60,13 @@
     <Compile Include="Infrastructure\AutoMapping.cs" />
     <Compile Include="Infrastructure\UoWModule.cs" />
     <Compile Include="Interfaces\IBoughLotService.cs" />
+    <Compile Include="Interfaces\ICategoryManagementService.cs" />
+    <Compile Include="Interfaces\IManagerManagementService.cs" />
+    <Compile Include="Interfaces\IModerationService.cs" />
+    <Compile Include="Interfaces\ISubscriptionService.cs" />
+    <Compile Include="Interfaces\IUserInfoService.cs" />
+    <Compile Include="Interfaces\IUserLotService.cs" />
+    <Compile Include="Interfaces\ISalesLotService.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BoughLotService.cs" />

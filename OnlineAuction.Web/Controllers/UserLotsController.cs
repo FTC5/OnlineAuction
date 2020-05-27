@@ -18,34 +18,34 @@ namespace OnlineAuction.Web.Controllers
     public class UserLotsController : ApiController
     {
         private IMapper mapper;
-        private IUserService userService;
+        private IUserLotService userLotService;
 
-        public UserLotsController(IUserService userService, IMapper mapper)
+        public UserLotsController(IUserLotService userLotService, IMapper mapper)
         {
-            this.userService = userService;
+            this.userLotService = userLotService;
             this.mapper = mapper;
         }
         [HttpGet,Route("get")]
         public async Task <IHttpActionResult> GetLots(int userId)
         {
-            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(userService.GetUserLot(userId)));
+            var lots = await Task.Run(() => mapper.Map<IEnumerable<LotViewModel>>(userLotService.GetUserLot(userId)));
             return Ok(lots);
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
         public async void PostLot(int userId,[FromBody] LotModel lot)
         {
-            await Task.Run(() => userService.AddLot(userId, mapper.Map<LotDTO>(lot)));
+            await Task.Run(() => userLotService.AddLot(userId, mapper.Map<LotDTO>(lot)));
         }
         [HttpPut,LotNotFoundExaption, UserNotFoundExaption, Route("edit")]
         public async Task<IHttpActionResult> PutLot(int userId, LotModel lot)
         {
-            await Task.Run(() => userService.UpdateLot(userId, mapper.Map<LotDTO>(lot)));
+            await Task.Run(() => userLotService.UpdateLot(userId, mapper.Map<LotDTO>(lot)));
             return Ok();
         }
         [HttpDelete,OperationFaildException, Route("delete")]
         public async Task<IHttpActionResult> DeleteLot(int userId, int lotId)
         {
-            await Task.Run(() => userService.DeleteLot(userId, lotId));
+            await Task.Run(() => userLotService.DeleteLot(userId, lotId));
             return Ok();
         }
     }

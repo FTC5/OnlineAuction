@@ -10,20 +10,10 @@ using OnlineAuction.DAL.Interfaces;
 
 namespace OnlineAuction.BLL.Interfaces
 {
-    public interface IUserService
+    public interface IUserService :ISubscriptionService
     {
-        void AddLotToSubscription(int userD, int lotId);
-        IEnumerable<LotViewDTO> GetSubscription(int userd);
-        void DeleteSubscription(int userd, int lotId);
-        IEnumerable<LotViewDTO> GetUserLot(int userd);
-        void UpdateLot(int userd, LotDTO changed);
-        void AddLot(int userd, LotDTO lot);
-        void DeleteLot(int userId, int lotId);
         UserDTO GetLotAutorInfo(int lotId);
         void AddBalance(int userd, int count);
         void AddBet(int lotId, int userd);
-        UserDTO GetUserInfo(int userId);
-        void ChangeLogin(int userd, string newLogin);
-        void ChangePassword(int userd, string newPassword);
     }
 }

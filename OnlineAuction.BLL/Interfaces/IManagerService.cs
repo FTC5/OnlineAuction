@@ -12,9 +12,6 @@ namespace OnlineAuction.BLL.Interfaces
 {
     public interface IManagerService
     {      
-        IEnumerable<LotViewDTO> GetUncheckedLots();
-        void AllowLot(int lotId);
-        void PreventLot(int lotId, string comment);
         IEnumerable<LotViewDTO> GetOldLot();
         void StopLot(int lotId);
         void ContinueLot(int lotId);

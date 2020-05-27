@@ -18,9 +18,9 @@ namespace OnlineAuction.Web.Controllers
     public class LotModerationController : ApiController
     {
         private IMapper mapper;
-        private IManagerService managerService;
+        private IModerationService managerService;
 
-        public LotModerationController(IManagerService managerService,IMapper mapper)
+        public LotModerationController(IModerationService managerService,IMapper mapper)
         {
             this.mapper = mapper;
             this.managerService = managerService;
