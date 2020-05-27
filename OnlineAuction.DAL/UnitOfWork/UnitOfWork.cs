@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        IAuthenticationRepository authentication;
+        IAdvancedRepositor<Authentication>  authentication;
         IRepository<Bet> bet;
-        ICategoryRepository category;
+        IAdvancedRepositor<Category> category;
         IRepository<DeliveryAndPayment> deliveryAndPayment;
         IRepository<Image> image;
-        ILotRepository lot;
+        IAdvancedRepositor<Lot> lot;
         IAdvancedUserRepository advancedUser;
         IRepository<Moderation> moderation;
         IRepository<Product> product;
@@ -30,7 +30,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             this.connectionString = connectionString;
         }
 
-        public IAuthenticationRepository Authentication
+        public IAdvancedRepositor<Authentication> Authentication
         {
             get
             {
@@ -42,7 +42,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public ICategoryRepository Category
+        public IAdvancedRepositor<Category> Category
         {
             get
             {
@@ -78,7 +78,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             }
         }
 
-        public ILotRepository Lot 
+        public IAdvancedRepositor<Lot> Lot 
         {
             get
             {

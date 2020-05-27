@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class AuthenticationRepository : IRepository<Authentication>,IAuthenticationRepository
+    class AuthenticationRepository : IRepository<Authentication>, IAdvancedRepositor<Authentication>, IDisposable
     {
         private OnlineAuctionContext db;
 
@@ -48,6 +48,25 @@ namespace OnlineAuction.DAL.Repository
         public void Update(Authentication item)
         {
             db.Entry(item).State = EntityState.Modified;
+        }
+        private bool disposed = false;
+
+        internal virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

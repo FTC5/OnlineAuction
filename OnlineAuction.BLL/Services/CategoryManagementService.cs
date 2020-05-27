@@ -13,6 +13,7 @@ namespace OnlineAuction.BLL.Services
 {
     public class CategoryManagementService : Service, ICategoryManagementService
     {
+        protected static readonly int mainCategoryId = 1;
         IValidationCheckService validation;
         public CategoryManagementService(IUnitOfWork db,IValidationCheckService validation) : base(db)
         {

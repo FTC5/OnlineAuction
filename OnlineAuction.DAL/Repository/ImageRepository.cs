@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Repository
 {
-    class ImageRepository : IRepository<Image>
+    class ImageRepository : IRepository<Image>,IDisposable
     {
         private OnlineAuctionContext db;
 
@@ -43,6 +43,25 @@ namespace OnlineAuction.DAL.Repository
         public void Update(Image item)
         {
             db.Entry(item).State = EntityState.Modified;
+        }
+        private bool disposed = false;
+
+        internal virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

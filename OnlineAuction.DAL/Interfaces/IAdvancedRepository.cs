@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OnlineAuction.DAL.Interfaces
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface IAdvancedRepositor<T> : IRepository<T> where T : class
     {
-        IEnumerable<Category> Find(Func<Category, Boolean> perdicate);
+        IEnumerable<T> Find(Func<T, bool> perdicate);
     }
 }

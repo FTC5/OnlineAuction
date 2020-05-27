@@ -52,10 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DropCreateDBOnModelChanged.cs" />
+    <Compile Include="Interfaces\IAdvancedRepository.cs" />
     <Compile Include="Interfaces\IAdvancedUserRepository.cs" />
-    <Compile Include="Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\ILotRepository.cs" />
-    <Compile Include="Interfaces\IAuthenticationRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Authentication.cs" />
     <Compile Include="Bet.cs" />
