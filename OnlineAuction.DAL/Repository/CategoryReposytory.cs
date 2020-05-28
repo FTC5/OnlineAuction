@@ -17,7 +17,10 @@ namespace OnlineAuction.DAL.Repository
         {
             this.db = new OnlineAuctionContext(connectionString);
         }
-
+        public CategoryReposytory(OnlineAuctionContext db)
+        {
+            this.db = db;
+        }
         public void Create(Category item)
         {
             this.db.Category.Add(item);

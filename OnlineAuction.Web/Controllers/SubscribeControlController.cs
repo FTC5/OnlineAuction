@@ -28,9 +28,10 @@ namespace OnlineAuction.Web.Controllers
             return Ok(lots);
         }
         [HttpDelete, Route("delete")]
-        public async void DeleteSubscription(int userId,int lotId)
+        public async Task<IHttpActionResult> DeleteSubscription(int userId,int lotId)
         {
             await Task.Run(() => userService.DeleteSubscription(userId,lotId));
+            return Ok();
         }
     }
 }

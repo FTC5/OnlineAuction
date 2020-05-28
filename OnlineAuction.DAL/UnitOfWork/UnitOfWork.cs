@@ -36,7 +36,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (authentication == null)
                 {
-                    authentication = new AuthenticationRepository(connectionString);
+                    authentication = new AuthenticationRepository(db);
                 }
                 return authentication;
             }
@@ -48,7 +48,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (category == null)
                 {
-                    category = new CategoryReposytory(connectionString);
+                    category = new CategoryReposytory(db);
                 }
                 return category;
             }
@@ -60,7 +60,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (deliveryAndPayment == null)
                 {
-                    deliveryAndPayment = new DeliveryAndPaymentRepository(connectionString);
+                    deliveryAndPayment = new DeliveryAndPaymentRepository(db);
                 }
                 return deliveryAndPayment;
             }
@@ -72,7 +72,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (image == null)
                 {
-                    image = new ImageRepository(connectionString);
+                    image = new ImageRepository(db);
     			}
                 return image;
             }
@@ -84,7 +84,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (lot == null)
                 {
-                    lot = new LotReposytory (connectionString);
+                    lot = new LotReposytory (db);
     			}
                 return lot;
             }
@@ -96,7 +96,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (advancedUser == null)
                 {
-                    advancedUser = new AdvancedUserRepository(connectionString);
+                    advancedUser = new AdvancedUserRepository(db);
     			}
                 return advancedUser;
             }
@@ -108,7 +108,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (moderation == null)
                 {
-                    moderation = new ModerationRepository (connectionString);
+                    moderation = new ModerationRepository (db);
     			}
                 return moderation;
             }
@@ -120,7 +120,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (product == null)
                 {
-                    product = new ProductReposytory (connectionString);
+                    product = new ProductReposytory (db);
     			}
                 return product;
             }
@@ -132,7 +132,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (user == null)
                 {
-                    user = new UserRepository (connectionString);
+                    user = new UserRepository (db);
     			}
                 return user;
             }
@@ -144,7 +144,7 @@ namespace OnlineAuction.DAL.UnitOfWork
             {
                 if (bet == null)
                 {
-                    bet = new BetRepository (connectionString);
+                    bet = new BetRepository (db);
     			}
                 return bet;
             }

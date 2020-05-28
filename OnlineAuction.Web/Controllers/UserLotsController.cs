@@ -32,9 +32,10 @@ namespace OnlineAuction.Web.Controllers
             return Ok(lots);
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
-        public async void PostLot(int userId,[FromBody] LotModel lot)
+        public async Task<IHttpActionResult> PostLot(int userId,[FromBody] LotModel lot)
         {
             await Task.Run(() => userLotService.AddLot(userId, mapper.Map<LotDTO>(lot)));
+            return Ok();
         }
         [HttpPut,LotNotFoundExaption, UserNotFoundExaption, Route("edit")]
         public async Task<IHttpActionResult> PutLot(int userId, LotModel lot)

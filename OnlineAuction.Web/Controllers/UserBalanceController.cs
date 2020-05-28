@@ -23,9 +23,10 @@ namespace OnlineAuction.Web.Controllers
             this.mapper = mapper;
         }
         [HttpPost, UserNotFoundExaption, Route("add")]
-        public async void AddToBalance(int userId, int count)
+        public async Task<IHttpActionResult> AddToBalance(int userId, int count)
         {
             await Task.Run(() => userService.AddBalance(userId, count));
+            return Ok();
         }
     }
 }

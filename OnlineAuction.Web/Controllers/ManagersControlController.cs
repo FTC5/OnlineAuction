@@ -19,9 +19,9 @@ namespace OnlineAuction.Web.Controllers
     public class ManagersControlController : ApiController
     {
         private IMapper mapper;
-        private IAdminService adminService;
+        private IManagerManagementService adminService;
 
-        public ManagersControlController(IAdminService adminService,IMapper mapper)
+        public ManagersControlController(IManagerManagementService adminService,IMapper mapper)
         {
             this.adminService = adminService;
             this.mapper = mapper;

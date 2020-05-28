@@ -78,14 +78,25 @@ namespace OnlineAuction.BLL.Services
                 return;
             }
             lot.Change = true;
-            //var lot1 = db.Lot.Get(changed.Id);
             var product = lot.Product;
-            lot.StartDate = DateTime.Now;//
-            UpdateImage(changed.Product.Images.ToList(), product.Images.ToList());
+            lot.StartDate = DateTime.Now;
+            var images = changed.Product.Images.ToList();
+            UpdateImage(images, product.Images.ToList());
             var dap = product.DeliveryAndPayment;
             db.Lot.Update(updateMap.Map(changed, lot));
             db.Product.Update(updateMap.Map(changed.Product, product));
             db.DeliveryAndPayment.Update(mapper.Map(changed.Product.DeliveryAndPayment, dap));
+            db.Save();
+            lot = db.Lot.Get(changed.Id);
+            for (int i = 0; i < images.Count; i++)
+            {
+                if (images[i].Id > 0)
+                {
+                    continue;
+                }
+                lot.Product.Images.Add(mapper.Map<Image>(images[i]));
+            }
+            db.Lot.Update(lot);
             db.Save();
         }
         private void UpdateImage(List<ImageDTO> imagesDTO, List<Image> images)
@@ -114,7 +125,6 @@ namespace OnlineAuction.BLL.Services
                 {
                     if (images.Count <= i)
                     {
-                        db.Image.Create(mapper.Map<Image>(imagesDTO[i]));
                     }
                     else
                     {

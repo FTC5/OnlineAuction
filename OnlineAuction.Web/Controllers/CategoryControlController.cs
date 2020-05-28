@@ -19,8 +19,8 @@ namespace OnlineAuction.Web.Controllers
     {
         private IMapper mapper;
         private ICategoryService categoryService;
-        private IAdminService adminService;
-        public CategoryControlController(IMapper mapper,ICategoryService categoryService, IAdminService adminService)
+        private ICategoryManagementService adminService;
+        public CategoryControlController(IMapper mapper,ICategoryService categoryService, ICategoryManagementService adminService)
         {
             this.mapper = mapper;
             this.categoryService = categoryService;

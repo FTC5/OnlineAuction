@@ -23,9 +23,10 @@ namespace OnlineAuction.Web.Controllers
             this.boughtLotService = boughtLotServicee;
         }
         [HttpDelete]
-        public async void DeleteBought(int userId,int lotId)
+        public async Task<IHttpActionResult> DeleteBought(int userId,int lotId)
         {
             await Task.Run(()=>boughtLotService.DeleteBought(userId, lotId));
+            return Ok();
         }
         [HttpGet]
         public async Task<IHttpActionResult> GetBought(int userId)
